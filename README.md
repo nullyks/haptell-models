@@ -13,10 +13,11 @@ Parametric STL model for a hollow, two-piece egg-shaped box.
 
 - Maximum diameter: 90 mm
 - Assembled length: 90 mm
-- Shell wall thickness: 0.8 mm
-- Registration lip thickness: 1.2 mm
+- Nominal shell wall thickness: 2.8 mm
+- Minimum shell wall target: at least 2.6 mm
+- Registration lip thickness: 2.8 mm
 - Fit clearance: 0.2 mm
-- Lip height: 5.2 mm
+- Lip height: 6.4 mm
 - Material target: STL for 0.4 mm nozzle printing
 
 ## Regenerate

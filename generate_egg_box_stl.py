@@ -12,18 +12,22 @@ import numpy as np
 # Units are millimetres.
 DIAMETER = 90.0
 TOTAL_HEIGHT = 90.0
-BOTTOM_HEIGHT = 40.0
+BOTTOM_HEIGHT = 42.0
 TOP_HEIGHT = TOTAL_HEIGHT - BOTTOM_HEIGHT
 
-WALL_THICKNESS = 0.8
+WALL_THICKNESS = 2.8
 CLEARANCE = 0.2
-LIP_THICKNESS = 1.2
-LIP_HEIGHT = 5.2
-SOCKET_DEPTH = 6.2
+LIP_THICKNESS = 2.8
+LIP_HEIGHT = 6.4
+SOCKET_DEPTH = 7.4
 
 RING_SEGMENTS = 224
-CURVE_STEPS = 28
+CURVE_STEPS = 40
+POLE_SCALE = 0.04
 OUTPUT_DIR = "output"
+EQUATOR_RADIUS = DIAMETER / 2.0
+TOP_POWER = 0.50
+BOTTOM_POWER = 0.46
 
 
 @dataclass
@@ -83,6 +87,10 @@ def offset_polygon(points: np.ndarray, distance: float) -> np.ndarray:
 
 def scaled(points: np.ndarray, scale: float) -> np.ndarray:
     return points * scale
+
+
+def ring_at_radius(outer: np.ndarray, radius: float) -> np.ndarray:
+    return scaled(outer, radius / EQUATOR_RADIUS)
 
 
 def add_ring_strip(mesh: Mesh, ring_a: list[int], ring_b: list[int], *, inward: bool = False) -> None:
@@ -174,31 +182,58 @@ def add_cap(mesh: Mesh, ring: list[int], *, normal_up: bool) -> None:
             mesh.faces.append((a, c, b))
 
 
-def dome_profile(height: float, taper: float, roundness: float) -> list[tuple[float, float]]:
+def dome_profile(height: float, power: float) -> list[tuple[float, float]]:
     profile: list[tuple[float, float]] = [(0.0, 1.0)]
     for step in range(1, CURVE_STEPS + 1):
         u = step / CURVE_STEPS
         z = height * u
-        scale = max((1.0 - u**taper) ** roundness, 0.012)
+        scale = max((1.0 - u * u) ** power, POLE_SCALE)
         profile.append((z, scale))
     return profile
 
 
+def radius_at_height(height: float, power: float, z: float) -> float:
+    u = max(0.0, min(1.0, z / height))
+    return EQUATOR_RADIUS * max((1.0 - u * u) ** power, POLE_SCALE)
+
+
+def lid_socket_radius() -> float:
+    return radius_at_height(TOP_HEIGHT, TOP_POWER, SOCKET_DEPTH) - WALL_THICKNESS
+
+
+def offset_dome_profile(height: float, power: float, distance: float, *, top: bool) -> list[tuple[float, float]]:
+    points = np.asarray([(radius_at_height(height, power, z), z if top else -z) for z, _scale in dome_profile(height, power)])
+    out: list[tuple[float, float]] = []
+    for index, point in enumerate(points):
+        previous_point = points[max(0, index - 1)]
+        next_point = points[min(len(points) - 1, index + 1)]
+        tangent = next_point - previous_point
+        tangent_length = np.linalg.norm(tangent)
+        if tangent_length == 0:
+            continue
+        tangent /= tangent_length
+        inward = np.array([-tangent[1], tangent[0]]) if top else np.array([tangent[1], -tangent[0]])
+        offset_point = point + distance * inward
+        out.append((float(max(offset_point[0], 0.0)), float(offset_point[1])))
+    return out
+
+
 def build_top(outer: np.ndarray) -> Mesh:
     mesh = Mesh([], [])
-    inner = offset_polygon(outer, WALL_THICKNESS)
 
     outer_rings = []
-    for z, scale in dome_profile(TOP_HEIGHT, taper=1.55, roundness=0.72):
+    for z, scale in dome_profile(TOP_HEIGHT, power=TOP_POWER):
         outer_rings.append(mesh.add_ring(scaled(outer, scale), z))
     for a, b in zip(outer_rings, outer_rings[1:]):
         add_ring_strip(mesh, a, b)
     add_cap(mesh, outer_rings[-1], normal_up=True)
 
-    inner_height = TOP_HEIGHT - WALL_THICKNESS
-    inner_rings = [mesh.add_ring(inner, 0.0), mesh.add_ring(inner, SOCKET_DEPTH)]
-    for z, scale in dome_profile(inner_height - SOCKET_DEPTH, taper=1.55, roundness=0.72)[1:]:
-        inner_rings.append(mesh.add_ring(scaled(inner, scale), SOCKET_DEPTH + z))
+    socket_radius = lid_socket_radius()
+    inner_socket = ring_at_radius(outer, socket_radius)
+    inner_rings = [mesh.add_ring(inner_socket, 0.0), mesh.add_ring(inner_socket, SOCKET_DEPTH)]
+    for radius, z in offset_dome_profile(TOP_HEIGHT, TOP_POWER, WALL_THICKNESS, top=True):
+        if z > SOCKET_DEPTH:
+            inner_rings.append(mesh.add_ring(ring_at_radius(outer, radius), z))
     for a, b in zip(inner_rings, inner_rings[1:]):
         add_ring_strip(mesh, a, b, inward=True)
     add_cap(mesh, inner_rings[-1], normal_up=False)
@@ -209,22 +244,24 @@ def build_top(outer: np.ndarray) -> Mesh:
 
 def build_bottom(outer: np.ndarray) -> Mesh:
     mesh = Mesh([], [])
-    lip_outer = offset_polygon(outer, WALL_THICKNESS + CLEARANCE)
-    lip_outer_chamfer = offset_polygon(outer, WALL_THICKNESS + CLEARANCE + 0.35)
-    lip_inner = offset_polygon(outer, WALL_THICKNESS + CLEARANCE + LIP_THICKNESS)
-    lip_inner_chamfer = offset_polygon(outer, WALL_THICKNESS + CLEARANCE + LIP_THICKNESS + 0.35)
+    lip_outer_radius = lid_socket_radius() - CLEARANCE
+    lip_inner_radius = lip_outer_radius - LIP_THICKNESS
+    lip_outer = ring_at_radius(outer, lip_outer_radius)
+    lip_outer_chamfer = ring_at_radius(outer, lip_outer_radius - 0.35)
+    lip_inner = ring_at_radius(outer, lip_inner_radius)
+    lip_inner_chamfer = ring_at_radius(outer, lip_inner_radius - 0.35)
 
     outer_rings = []
-    for z, scale in dome_profile(BOTTOM_HEIGHT, taper=2.35, roundness=0.56):
+    for z, scale in dome_profile(BOTTOM_HEIGHT, power=BOTTOM_POWER):
         outer_rings.append(mesh.add_ring(scaled(outer, scale), -z))
     for a, b in zip(outer_rings, outer_rings[1:]):
         add_ring_strip(mesh, a, b, inward=True)
     add_cap(mesh, outer_rings[-1], normal_up=False)
 
-    inner_height = BOTTOM_HEIGHT - WALL_THICKNESS
     inner_rings = [mesh.add_ring(lip_inner, 0.0), mesh.add_ring(lip_inner, -SOCKET_DEPTH)]
-    for z, scale in dome_profile(inner_height - SOCKET_DEPTH, taper=2.35, roundness=0.56)[1:]:
-        inner_rings.append(mesh.add_ring(scaled(lip_inner, scale), -(SOCKET_DEPTH + z)))
+    for radius, z in offset_dome_profile(BOTTOM_HEIGHT, BOTTOM_POWER, WALL_THICKNESS, top=False):
+        if z < -SOCKET_DEPTH:
+            inner_rings.append(mesh.add_ring(ring_at_radius(outer, radius), z))
     for a, b in zip(inner_rings, inner_rings[1:]):
         add_ring_strip(mesh, a, b)
     add_cap(mesh, inner_rings[-1], normal_up=True)
