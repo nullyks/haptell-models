@@ -10,9 +10,9 @@ import numpy as np
 
 
 # Units are millimetres.
-LENGTH = 150.0
-WIDTH = 104.0
-TOTAL_HEIGHT = 60.0
+LENGTH = 130.0
+WIDTH = 90.0
+TOTAL_HEIGHT = 52.0
 
 WALL_THICKNESS = 2.4
 CLEARANCE = 0.2
@@ -52,55 +52,18 @@ def smooth_closed(points: np.ndarray, iterations: int = 7, alpha: float = 0.22) 
     return out
 
 
-def catmull_rom_open(points: np.ndarray, samples_per_segment: int) -> np.ndarray:
-    out = []
-    for i in range(len(points) - 1):
-        p1 = points[i]
-        p2 = points[i + 1]
-        p0 = points[i - 1] if i > 0 else p1 + (p1 - p2)
-        p3 = points[i + 2] if i + 2 < len(points) else p2 + (p2 - p1)
-        for j in range(samples_per_segment):
-            t = j / samples_per_segment
-            t2 = t * t
-            t3 = t2 * t
-            out.append(
-                0.5
-                * (
-                    (2.0 * p1)
-                    + (-p0 + p2) * t
-                    + (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t2
-                    + (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t3
-                )
-            )
-    out.append(points[-1])
-    return np.asarray(out)
-
-
 def make_outline() -> np.ndarray:
-    """Rounded, slightly heart-like pebble contour with no deep cleft."""
-    half_samples = RING_SEGMENTS // 2
-    control = np.array(
-        [
-            [-75.0, 0.0],
-            [-68.0, 12.0],
-            [-55.0, 29.0],
-            [-32.0, 43.0],
-            [0.0, 51.0],
-            [34.0, 49.0],
-            [61.0, 34.0],
-            [75.5, 20.0],
-            [78.0, 8.5],
-            [70.5, 0.0],
-        ],
-        dtype=np.float64,
+    """Clean egg contour: broad at one end, narrower at the other."""
+    t = np.linspace(0.0, 2.0 * math.pi, RING_SEGMENTS, endpoint=False)
+    bias = 0.24
+    points = np.column_stack(
+        (
+            np.cos(t),
+            np.sin(t) * (1.0 + bias * np.cos(t)),
+        )
     )
-    samples_per_segment = max(4, half_samples // (len(control) - 1))
-    upper = catmull_rom_open(control, samples_per_segment)
-    upper = upper[np.linspace(0, len(upper) - 1, half_samples + 1).round().astype(int)]
-    lower = upper[-2:0:-1] * np.array([1.0, -1.0])
-    points = np.vstack((upper, lower))
 
-    points = smooth_closed(points, iterations=3, alpha=0.18)
+    points = smooth_closed(points, iterations=2, alpha=0.12)
     points[:, 0] *= LENGTH / (points[:, 0].max() - points[:, 0].min())
     points[:, 1] *= WIDTH / (points[:, 1].max() - points[:, 1].min())
     points[:, 0] -= 0.5 * (points[:, 0].min() + points[:, 0].max())
@@ -111,22 +74,11 @@ def make_outline() -> np.ndarray:
     return points
 
 
-def line_intersection(p: np.ndarray, d: np.ndarray, q: np.ndarray, e: np.ndarray) -> np.ndarray:
-    cross = d[0] * e[1] - d[1] * e[0]
-    if abs(cross) < 1e-9:
-        return 0.5 * (p + q)
-    qp = q - p
-    t = (qp[0] * e[1] - qp[1] * e[0]) / cross
-    return p + t * d
-
-
 def offset_polygon(points: np.ndarray, distance: float) -> np.ndarray:
     """Robust inward inset for a star-shaped, organic contour.
 
-    The first version used line intersections for a mathematically cleaner
-    normal offset, but tight heart points can make those offset lines cross.
     Radial inset keeps the lid socket and bottom lip paired without creating
-    slicer-visible cracks at the point.
+    slicer-visible cracks at the narrower end.
     """
     center = points.mean(axis=0)
     vectors = points - center
@@ -374,9 +326,9 @@ def main() -> None:
     assembly_preview = combine_meshes([bottom_print, translate_mesh(top_print, (0.0, 0.0, TOTAL_HEIGHT / 2.0))])
 
     files = [
-        (top_print, "heart_box_lid.stl", "heart_box_lid"),
-        (bottom_print, "heart_box_bottom.stl", "heart_box_bottom"),
-        (assembly_preview, "heart_box_assembly_preview.stl", "heart_box_assembly_preview"),
+        (top_print, "egg_box_lid.stl", "egg_box_lid"),
+        (bottom_print, "egg_box_bottom.stl", "egg_box_bottom"),
+        (assembly_preview, "egg_box_assembly_preview.stl", "egg_box_assembly_preview"),
     ]
     for mesh, filename, name in files:
         path = os.path.join(OUTPUT_DIR, filename)
