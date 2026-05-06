@@ -10,19 +10,19 @@ import numpy as np
 
 
 # Units are millimetres.
-LENGTH = 130.0
-WIDTH = 90.0
-TOTAL_HEIGHT = 52.0
+DIAMETER = 90.0
+TOTAL_HEIGHT = 90.0
+BOTTOM_HEIGHT = 40.0
+TOP_HEIGHT = TOTAL_HEIGHT - BOTTOM_HEIGHT
 
-WALL_THICKNESS = 2.4
+WALL_THICKNESS = 0.8
 CLEARANCE = 0.2
-LIP_THICKNESS = 1.6
-LIP_HEIGHT = 7.2
-SOCKET_DEPTH = 8.4
-STRAIGHT_BAND = 9.6
+LIP_THICKNESS = 1.2
+LIP_HEIGHT = 5.2
+SOCKET_DEPTH = 6.2
 
 RING_SEGMENTS = 224
-CURVE_STEPS = 18
+CURVE_STEPS = 28
 OUTPUT_DIR = "output"
 
 
@@ -53,19 +53,13 @@ def smooth_closed(points: np.ndarray, iterations: int = 7, alpha: float = 0.22) 
 
 
 def make_outline() -> np.ndarray:
-    """Clean egg contour: broad at one end, narrower at the other."""
+    """Circular equator for a true 3D egg of revolution."""
     t = np.linspace(0.0, 2.0 * math.pi, RING_SEGMENTS, endpoint=False)
-    bias = 0.24
-    points = np.column_stack(
-        (
-            np.cos(t),
-            np.sin(t) * (1.0 + bias * np.cos(t)),
-        )
-    )
+    points = np.column_stack((np.cos(t), np.sin(t)))
 
     points = smooth_closed(points, iterations=2, alpha=0.12)
-    points[:, 0] *= LENGTH / (points[:, 0].max() - points[:, 0].min())
-    points[:, 1] *= WIDTH / (points[:, 1].max() - points[:, 1].min())
+    points[:, 0] *= DIAMETER / (points[:, 0].max() - points[:, 0].min())
+    points[:, 1] *= DIAMETER / (points[:, 1].max() - points[:, 1].min())
     points[:, 0] -= 0.5 * (points[:, 0].min() + points[:, 0].max())
     points[:, 1] -= 0.5 * (points[:, 1].min() + points[:, 1].max())
 
@@ -180,35 +174,30 @@ def add_cap(mesh: Mesh, ring: list[int], *, normal_up: bool) -> None:
             mesh.faces.append((a, c, b))
 
 
-def dome_profile(height: float, straight_band: float) -> list[tuple[float, float]]:
+def dome_profile(height: float, taper: float, roundness: float) -> list[tuple[float, float]]:
     profile: list[tuple[float, float]] = [(0.0, 1.0)]
-    if straight_band > 0:
-        profile.append((straight_band, 1.0))
-    curved_height = height - straight_band
     for step in range(1, CURVE_STEPS + 1):
         u = step / CURVE_STEPS
-        phi = u * math.pi * 0.5
-        z = straight_band + curved_height * math.sin(phi)
-        scale = max(math.cos(phi) ** 0.68, 0.015)
+        z = height * u
+        scale = max((1.0 - u**taper) ** roundness, 0.012)
         profile.append((z, scale))
     return profile
 
 
 def build_top(outer: np.ndarray) -> Mesh:
     mesh = Mesh([], [])
-    half_height = TOTAL_HEIGHT / 2.0
     inner = offset_polygon(outer, WALL_THICKNESS)
 
     outer_rings = []
-    for z, scale in dome_profile(half_height, STRAIGHT_BAND):
+    for z, scale in dome_profile(TOP_HEIGHT, taper=1.55, roundness=0.72):
         outer_rings.append(mesh.add_ring(scaled(outer, scale), z))
     for a, b in zip(outer_rings, outer_rings[1:]):
         add_ring_strip(mesh, a, b)
     add_cap(mesh, outer_rings[-1], normal_up=True)
 
-    inner_height = half_height - WALL_THICKNESS
+    inner_height = TOP_HEIGHT - WALL_THICKNESS
     inner_rings = [mesh.add_ring(inner, 0.0), mesh.add_ring(inner, SOCKET_DEPTH)]
-    for z, scale in dome_profile(inner_height - SOCKET_DEPTH, 0.0)[1:]:
+    for z, scale in dome_profile(inner_height - SOCKET_DEPTH, taper=1.55, roundness=0.72)[1:]:
         inner_rings.append(mesh.add_ring(scaled(inner, scale), SOCKET_DEPTH + z))
     for a, b in zip(inner_rings, inner_rings[1:]):
         add_ring_strip(mesh, a, b, inward=True)
@@ -220,22 +209,21 @@ def build_top(outer: np.ndarray) -> Mesh:
 
 def build_bottom(outer: np.ndarray) -> Mesh:
     mesh = Mesh([], [])
-    half_height = TOTAL_HEIGHT / 2.0
     lip_outer = offset_polygon(outer, WALL_THICKNESS + CLEARANCE)
     lip_outer_chamfer = offset_polygon(outer, WALL_THICKNESS + CLEARANCE + 0.35)
     lip_inner = offset_polygon(outer, WALL_THICKNESS + CLEARANCE + LIP_THICKNESS)
     lip_inner_chamfer = offset_polygon(outer, WALL_THICKNESS + CLEARANCE + LIP_THICKNESS + 0.35)
 
     outer_rings = []
-    for z, scale in dome_profile(half_height, STRAIGHT_BAND):
+    for z, scale in dome_profile(BOTTOM_HEIGHT, taper=2.35, roundness=0.56):
         outer_rings.append(mesh.add_ring(scaled(outer, scale), -z))
     for a, b in zip(outer_rings, outer_rings[1:]):
         add_ring_strip(mesh, a, b, inward=True)
     add_cap(mesh, outer_rings[-1], normal_up=False)
 
-    inner_height = half_height - WALL_THICKNESS
+    inner_height = BOTTOM_HEIGHT - WALL_THICKNESS
     inner_rings = [mesh.add_ring(lip_inner, 0.0), mesh.add_ring(lip_inner, -SOCKET_DEPTH)]
-    for z, scale in dome_profile(inner_height - SOCKET_DEPTH, 0.0)[1:]:
+    for z, scale in dome_profile(inner_height - SOCKET_DEPTH, taper=2.35, roundness=0.56)[1:]:
         inner_rings.append(mesh.add_ring(scaled(lip_inner, scale), -(SOCKET_DEPTH + z)))
     for a, b in zip(inner_rings, inner_rings[1:]):
         add_ring_strip(mesh, a, b)
@@ -322,8 +310,8 @@ def main() -> None:
     outer = make_outline()
     top_print = build_top(outer)
     bottom_assembled = build_bottom(outer)
-    bottom_print = translate_mesh(bottom_assembled, (0.0, 0.0, TOTAL_HEIGHT / 2.0))
-    assembly_preview = combine_meshes([bottom_print, translate_mesh(top_print, (0.0, 0.0, TOTAL_HEIGHT / 2.0))])
+    bottom_print = translate_mesh(bottom_assembled, (0.0, 0.0, BOTTOM_HEIGHT))
+    assembly_preview = combine_meshes([bottom_print, translate_mesh(top_print, (0.0, 0.0, BOTTOM_HEIGHT))])
 
     files = [
         (top_print, "egg_box_lid.stl", "egg_box_lid"),
@@ -339,7 +327,8 @@ def main() -> None:
         print(f"  bounds min={mins.round(3).tolist()} max={maxs.round(3).tolist()} size={size.round(3).tolist()}")
 
     print("parameters:")
-    print(f"  longest dimension={LENGTH:.1f} mm")
+    print(f"  max diameter={DIAMETER:.1f} mm")
+    print(f"  assembled length={TOTAL_HEIGHT:.1f} mm")
     print(f"  wall thickness={WALL_THICKNESS:.1f} mm")
     print(f"  fit clearance={CLEARANCE:.1f} mm")
     print(f"  lip height={LIP_HEIGHT:.1f} mm")

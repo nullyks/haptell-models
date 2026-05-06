@@ -11,12 +11,12 @@ Parametric STL model for a hollow, two-piece egg-shaped box.
 
 ## Current Parameters
 
-- Longest dimension: 130 mm
-- Maximum width: 90 mm
-- Assembled height: 52 mm
-- Wall thickness: 2.4 mm
+- Maximum diameter: 90 mm
+- Assembled length: 90 mm
+- Shell wall thickness: 0.8 mm
+- Registration lip thickness: 1.2 mm
 - Fit clearance: 0.2 mm
-- Lip height: 7.2 mm
+- Lip height: 5.2 mm
 - Material target: STL for 0.4 mm nozzle printing
 
 ## Regenerate
