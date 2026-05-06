@@ -22,11 +22,11 @@ LIP_HEIGHT = 6.4
 SOCKET_DEPTH = 7.4
 
 RING_SEGMENTS = 224
-CURVE_STEPS = 40
-POLE_SCALE = 0.04
+CURVE_STEPS = 80
+POLE_SCALE = 0.0
 OUTPUT_DIR = "output"
 EQUATOR_RADIUS = DIAMETER / 2.0
-TOP_POWER = 0.82
+TOP_POWER = 0.66
 BOTTOM_POWER = 0.46
 
 
@@ -182,6 +182,17 @@ def add_cap(mesh: Mesh, ring: list[int], *, normal_up: bool) -> None:
             mesh.faces.append((a, c, b))
 
 
+def add_pole_cap(mesh: Mesh, ring: list[int], point: tuple[float, float, float], *, normal_up: bool) -> None:
+    center = mesh.add_vertex(point)
+    n = len(ring)
+    for i in range(n):
+        j = (i + 1) % n
+        if normal_up:
+            mesh.faces.append((center, ring[i], ring[j]))
+        else:
+            mesh.faces.append((center, ring[j], ring[i]))
+
+
 def dome_profile(height: float, power: float) -> list[tuple[float, float]]:
     profile: list[tuple[float, float]] = [(0.0, 1.0)]
     for step in range(1, CURVE_STEPS + 1):
@@ -222,11 +233,18 @@ def build_top(outer: np.ndarray) -> Mesh:
     mesh = Mesh([], [])
 
     outer_rings = []
+    outer_pole = None
     for z, scale in dome_profile(TOP_HEIGHT, power=TOP_POWER):
-        outer_rings.append(mesh.add_ring(scaled(outer, scale), z))
+        if scale <= 0.0001:
+            outer_pole = (0.0, 0.0, z)
+        else:
+            outer_rings.append(mesh.add_ring(scaled(outer, scale), z))
     for a, b in zip(outer_rings, outer_rings[1:]):
         add_ring_strip(mesh, a, b)
-    add_cap(mesh, outer_rings[-1], normal_up=True)
+    if outer_pole is not None:
+        add_pole_cap(mesh, outer_rings[-1], outer_pole, normal_up=True)
+    else:
+        add_cap(mesh, outer_rings[-1], normal_up=True)
 
     socket_radius = lid_socket_radius()
     inner_socket = ring_at_radius(outer, socket_radius)
@@ -252,11 +270,18 @@ def build_bottom(outer: np.ndarray) -> Mesh:
     lip_inner_chamfer = ring_at_radius(outer, lip_inner_radius - 0.35)
 
     outer_rings = []
+    outer_pole = None
     for z, scale in dome_profile(BOTTOM_HEIGHT, power=BOTTOM_POWER):
-        outer_rings.append(mesh.add_ring(scaled(outer, scale), -z))
+        if scale <= 0.0001:
+            outer_pole = (0.0, 0.0, -z)
+        else:
+            outer_rings.append(mesh.add_ring(scaled(outer, scale), -z))
     for a, b in zip(outer_rings, outer_rings[1:]):
         add_ring_strip(mesh, a, b, inward=True)
-    add_cap(mesh, outer_rings[-1], normal_up=False)
+    if outer_pole is not None:
+        add_pole_cap(mesh, outer_rings[-1], outer_pole, normal_up=False)
+    else:
+        add_cap(mesh, outer_rings[-1], normal_up=False)
 
     inner_rings = [mesh.add_ring(lip_inner, 0.0), mesh.add_ring(lip_inner, -SOCKET_DEPTH)]
     for radius, z in offset_dome_profile(BOTTOM_HEIGHT, BOTTOM_POWER, WALL_THICKNESS, top=False):
