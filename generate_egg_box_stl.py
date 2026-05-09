@@ -20,6 +20,11 @@ CLEARANCE = 0.1
 LIP_THICKNESS = 2.8
 LIP_HEIGHT = 6.4
 SOCKET_DEPTH = 7.4
+DETENT_CENTER_Z = 3.6
+DETENT_WIDTH = 1.1
+DETENT_RAMP = 0.6
+DETENT_PROTRUSION = 0.32
+DETENT_GROOVE_DEPTH = 0.27
 
 RING_SEGMENTS = 224
 CURVE_STEPS = 80
@@ -91,6 +96,20 @@ def scaled(points: np.ndarray, scale: float) -> np.ndarray:
 
 def ring_at_radius(outer: np.ndarray, radius: float) -> np.ndarray:
     return scaled(outer, radius / EQUATOR_RADIUS)
+
+
+def detent_profile(base_radius: float, protrusion: float) -> list[tuple[float, float]]:
+    shoulder_start = DETENT_CENTER_Z - DETENT_WIDTH / 2.0 - DETENT_RAMP
+    peak_start = DETENT_CENTER_Z - DETENT_WIDTH / 2.0
+    peak_end = DETENT_CENTER_Z + DETENT_WIDTH / 2.0
+    shoulder_end = DETENT_CENTER_Z + DETENT_WIDTH / 2.0 + DETENT_RAMP
+    return [
+        (0.0, base_radius),
+        (shoulder_start, base_radius),
+        (peak_start, base_radius + protrusion),
+        (peak_end, base_radius + protrusion),
+        (shoulder_end, base_radius),
+    ]
 
 
 def add_ring_strip(mesh: Mesh, ring_a: list[int], ring_b: list[int], *, inward: bool = False) -> None:
@@ -248,7 +267,10 @@ def build_top(outer: np.ndarray) -> Mesh:
 
     socket_radius = lid_socket_radius()
     inner_socket = ring_at_radius(outer, socket_radius)
-    inner_rings = [mesh.add_ring(inner_socket, 0.0), mesh.add_ring(inner_socket, SOCKET_DEPTH)]
+    inner_rings = []
+    for z, radius in detent_profile(socket_radius, DETENT_GROOVE_DEPTH):
+        inner_rings.append(mesh.add_ring(ring_at_radius(outer, radius), z))
+    inner_rings.append(mesh.add_ring(inner_socket, SOCKET_DEPTH))
     for radius, z in offset_dome_profile(TOP_HEIGHT, TOP_POWER, WALL_THICKNESS, top=True):
         if z > SOCKET_DEPTH:
             inner_rings.append(mesh.add_ring(ring_at_radius(outer, radius), z))
@@ -292,7 +314,10 @@ def build_bottom(outer: np.ndarray) -> Mesh:
     add_cap(mesh, inner_rings[-1], normal_up=True)
 
     # Flat seam surfaces and the male registration lip.
-    lip_base_outer = mesh.add_ring(lip_outer, 0.0)
+    lip_outer_rings = []
+    for z, radius in detent_profile(lip_outer_radius, DETENT_PROTRUSION):
+        lip_outer_rings.append(mesh.add_ring(ring_at_radius(outer, radius), z))
+    lip_base_outer = lip_outer_rings[0]
     lip_base_inner = inner_rings[0]
     add_annulus(mesh, outer_rings[0], lip_base_outer, normal_up=True)
 
@@ -301,7 +326,9 @@ def build_bottom(outer: np.ndarray) -> Mesh:
     lip_top_outer = mesh.add_ring(lip_outer_chamfer, LIP_HEIGHT)
     lip_top_inner = mesh.add_ring(lip_inner_chamfer, LIP_HEIGHT)
 
-    add_ring_strip(mesh, lip_base_outer, lip_upper_outer)
+    lip_outer_rings.append(lip_upper_outer)
+    for a, b in zip(lip_outer_rings, lip_outer_rings[1:]):
+        add_ring_strip(mesh, a, b)
     add_ring_strip(mesh, lip_base_inner, lip_upper_inner, inward=True)
     add_ring_strip(mesh, lip_upper_outer, lip_top_outer)
     add_ring_strip(mesh, lip_upper_inner, lip_top_inner, inward=True)
