@@ -30,3 +30,18 @@ Run the script with Python and it will overwrite the STL files in `output/`.
 ```powershell
 python generate_egg_box_stl.py
 ```
+
+## Continue With Codex On Another Computer
+
+Clone the repository, install the Python dependency, then regenerate the STL files.
+
+```powershell
+git clone https://github.com/nullyks/haptell-models.git
+cd haptell-models
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python generate_egg_box_stl.py
+```
+
+For Codex or another coding agent, see `AGENTS.md`. It records the current print feedback, model constraints, validation checks, and the safest parameters to adjust for future fit or shape changes.
