@@ -20,7 +20,7 @@ Parametric STL model for a hollow, two-piece egg-shaped box.
 - Registration lip thickness: 2.8 mm
 - Fit clearance: 0.1 mm
 - Lip height: 6.4 mm
-- Retention feature: 0.32 mm annular detent bead with matching 0.27 mm socket groove
+- Retention feature: 0.24 mm annular detent bead with matching 0.22 mm socket groove and gentler 0.9 mm ramps
 - Material target: STL for 0.4 mm nozzle printing
 
 ## Regenerate
