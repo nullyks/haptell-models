@@ -8,6 +8,7 @@ Parametric STL model for a hollow, two-piece egg-shaped device enclosure prototy
 - `output/egg_box_lid.stl` - printable lid
 - `output/egg_box_assembly_preview.stl` - assembled preview, useful for checking fit in a slicer
 - `generate_egg_box_stl.py` - generator script for adjusting dimensions and rebuilding the STL files
+- `docs/v02_current_state.md` - current v02 handoff and print-test notes
 
 ## Current Parameters
 
@@ -34,6 +35,8 @@ The lid includes three internal actuator pockets. Each pocket uses a raised flat
 - Generic 8 x 3 mm coin motor: 8.0 mm diameter x 3.0 mm thickness, 3 clips
 
 The v02 mounts are generated parametrically in `generate_egg_box_stl.py`; do not hand-edit the STL files.
+
+For the current v02 handoff, validation output, and print-test risks, see `docs/v02_current_state.md`.
 
 ## Regenerate
 

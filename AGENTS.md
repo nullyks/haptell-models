@@ -8,6 +8,7 @@ This repository contains a parametric STL generator for a two-piece, 3D-printabl
 - Main generator: `generate_egg_box_stl.py`
 - Version `v01`: first suitable prototype for a device enclosure; keep as backup/reference.
 - Version `v02`: current development iteration, based on `v01`, with internal snap-in haptic actuator mounts in the lid.
+- Current v02 handoff: `docs/v02_current_state.md`
 - Generated STL files:
   - `output/egg_box_lid.stl`
   - `output/egg_box_bottom.stl`
