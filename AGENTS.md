@@ -1,11 +1,13 @@
 # Codex Handoff Notes
 
-This repository contains a parametric STL generator for a two-piece, 3D-printable egg-shaped box.
+This repository contains a parametric STL generator for a two-piece, 3D-printable egg-shaped device enclosure prototype.
 
 ## Current Product State
 
 - Public repository: `https://github.com/nullyks/haptell-models`
 - Main generator: `generate_egg_box_stl.py`
+- Version `v01`: first suitable prototype for a device enclosure; keep as backup/reference.
+- Version `v02`: next development iteration, based on `v01`.
 - Generated STL files:
   - `output/egg_box_lid.stl`
   - `output/egg_box_bottom.stl`
@@ -92,5 +94,7 @@ Avoid large redesigns such as hinges, threads, separate clips, or non-parametric
 ## Git Notes
 
 The repository may contain local documentation drafts under `docs/`. Treat them as optional project documentation; do not include them in geometry commits unless the user asks.
+
+Keep the `v01` git tag as the frozen reference for the first suitable enclosure prototype. Do new geometry work on a `v02` development branch.
 
 When changing the model, commit the generator and regenerated STL outputs together.

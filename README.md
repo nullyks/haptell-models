@@ -1,6 +1,6 @@
 # Egg Box STL
 
-Parametric STL model for a hollow, two-piece egg-shaped box.
+Parametric STL model for a hollow, two-piece egg-shaped device enclosure prototype.
 
 ## Files
 
@@ -11,6 +11,8 @@ Parametric STL model for a hollow, two-piece egg-shaped box.
 
 ## Current Parameters
 
+- Product status: `v01` is the first suitable prototype for a device enclosure and should be kept as the backup/reference model.
+- Next development target: `v02`, based on `v01`.
 - Maximum diameter: 90 mm
 - Assembled length: 130 mm
 - Sharp-tip half print height: 68 mm
