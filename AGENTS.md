@@ -7,7 +7,7 @@ This repository contains a parametric STL generator for a two-piece, 3D-printabl
 - Public repository: `https://github.com/nullyks/haptell-models`
 - Main generator: `generate_egg_box_stl.py`
 - Version `v01`: first suitable prototype for a device enclosure; keep as backup/reference.
-- Version `v02`: next development iteration, based on `v01`.
+- Version `v02`: current development iteration, based on `v01`, with internal snap-in haptic actuator mounts in the lid.
 - Generated STL files:
   - `output/egg_box_lid.stl`
   - `output/egg_box_bottom.stl`
@@ -28,6 +28,10 @@ All dimensions are millimetres.
 - Lip height: `6.4`
 - Registration lip thickness: `2.8`
 - Retention feature: `0.24` annular detent bead, `0.22` matching socket groove, `0.9` ramps
+- v02 haptic mounts:
+  - `VG2230001H`: `22.0` diameter x `30.0` thickness, 4 snap clips
+  - `VG1040003D`: `10.0` diameter x `4.05` thickness, 3 snap clips
+  - generic `8x3_coin_motor`: `8.0` diameter x `3.0` thickness, 3 snap clips
 
 Recent print feedback:
 
@@ -36,6 +40,7 @@ Recent print feedback:
 - Tip and rounded end were acceptable after the last print.
 - Wall strength is sufficient.
 - No printer artifacts were reported.
+- v02 haptic mount geometry has not yet been print-validated.
 
 ## Setup On A New Machine
 
@@ -88,6 +93,8 @@ Preferred minimal changes:
 - Tip too sharp: reduce `TOP_POWER` slightly.
 - Tip too round: increase `TOP_POWER` slightly.
 - Wall too thin: increase `WALL_THICKNESS` and re-check lip/socket radii.
+- Haptic actuator too tight: slightly increase `MOUNT_RADIAL_CLEARANCE` or reduce `MOUNT_PRELOAD`.
+- Haptic actuator too loose: increase `MOUNT_PRELOAD` first, then consider `MOUNT_LIP_OVERLAP`.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.
 
