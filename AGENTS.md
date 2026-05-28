@@ -5,6 +5,7 @@ This repository contains a parametric STL generator for a two-piece, 3D-printabl
 ## Current Product State
 
 - Public repository: `https://github.com/nullyks/haptell-models`
+- Related device project: `https://github.com/nullyks/haptell-devices`
 - Main generator: `generate_egg_box_stl.py`
 - Version `v01`: first suitable prototype for a device enclosure; keep as backup/reference.
 - Version `v02`: current development iteration, based on `v01`, with internal snap-in haptic actuator mounts in the lid.

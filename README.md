@@ -2,6 +2,8 @@
 
 Parametric STL model for a hollow, two-piece egg-shaped device enclosure prototype.
 
+Related device project: `https://github.com/nullyks/haptell-devices`
+
 ## Files
 
 - `output/egg_box_bottom.stl` - printable bottom half with male registration lip

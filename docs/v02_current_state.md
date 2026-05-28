@@ -5,6 +5,7 @@ Date: 2026-05-28
 Branch: `codex/v02-development`
 Tag: `v02`
 Commit: `d17b19c Add v02 haptic actuator mounts`
+Related device project: `https://github.com/nullyks/haptell-devices`
 
 ## Summary
 
@@ -130,4 +131,3 @@ seated_bead_clearance_in_groove=0.0800
 - Do any clips interfere with wires or FPC routing?
 - Does the slicer and printed part visibly fuse the mount pads to the lid?
 - Does the added internal geometry make support removal or assembly difficult?
-
