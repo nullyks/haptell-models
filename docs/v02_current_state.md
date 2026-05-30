@@ -4,14 +4,14 @@ Date: 2026-05-30
 
 Branch: `codex/v02-development`
 Tag: `v02`
-Commit: `d17b19c Add v02 haptic actuator mounts`
+Reference tag: `v02` (`d17b19c Add v02 haptic actuator mounts`)
 Related device project: `https://github.com/nullyks/haptell-devices`
 
 ## Summary
 
 `v02` is based on the frozen `v01` enclosure prototype and adds three internal snap-in haptic actuator mounts to the lid. The external egg shape, mating lip, detent, and overall dimensions are kept from `v01`.
 
-Latest print feedback has been applied: the largest motor holder kept correct actuator dimensions but was too weak, so its outer support geometry was strengthened; the smallest holder was made 0.5 mm deeper.
+Latest print feedback has been applied: the largest motor holder kept correct actuator dimensions but was too weak, so its outer support geometry was strengthened; that reinforcement was then adjusted to stay below the outer egg surface. The smallest holder was made 0.5 mm deeper.
 
 The `v01` tag remains the backup/reference model. Continue new geometry work from `v02` unless the print feedback says to return to the `v01` baseline.
 
@@ -19,7 +19,7 @@ The `v01` tag remains the backup/reference model. Continue new geometry work fro
 
 - `v01`: first suitable egg-shaped prototype for the device enclosure; preserved as backup.
 - `v02`: current print-test version with internal haptic actuator mounts.
-- Current physical status: first `v02` print feedback was received. Overall geometry was acceptable. The largest holder needed strength reinforcement, and the smallest holder needed 0.5 mm more pocket depth.
+- Current physical status: first `v02` print feedback was received. Overall geometry was acceptable. The largest holder needed strength reinforcement, the first reinforced holder pad surfaced on the outside of the egg, and the smallest holder needed 0.5 mm more pocket depth.
 
 ## Generated Files
 
@@ -96,7 +96,7 @@ Current shared mount parameters:
 
 Per-mount overrides:
 
-- `VG2230001H`: `clip_wall = 2.4`, `clip_arc_degrees = 48.0`, `seat_margin = 1.6`, `seat_embed = 1.2`, `clip_head = 1.0`
+- `VG2230001H`: `clip_wall = 2.4`, `clip_arc_degrees = 48.0`, `seat_margin = 1.6`, `seat_embed = 0.6`, `clip_head = 1.0`
 - `8x3_coin_motor`: `depth_extra = 0.5`
 
 ## Validation Output
@@ -125,6 +125,7 @@ seated_bead_clearance_in_groove=0.0800
 ## Known Risks For Print Feedback
 
 - The largest holder was reinforced after print feedback, but the reinforced version still needs print validation.
+- The largest holder `seat_embed` was reduced after slicer preview showed the first reinforcement surfacing through the exterior. Recheck that the exterior remains visually clean.
 - The smallest holder was deepened by 0.5 mm after print feedback and should be checked for motor seating and retention.
 - The haptic mounts are modelled as watertight positive internal solids that overlap into the lid shell. This is common enough for FDM slicers, but the slicer preview should confirm the pads fuse into the lid instead of being treated as separate shells.
 - The `VG2230001H` mount is large and tall. It was moved upward to avoid the socket/lip region, but it should still be checked for hand assembly clearance.

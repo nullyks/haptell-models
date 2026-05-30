@@ -95,7 +95,7 @@ HAPTIC_MOUNTS = [
         clip_wall=2.4,
         clip_arc_degrees=48.0,
         seat_margin=1.6,
-        seat_embed=1.2,
+        seat_embed=0.6,
         clip_head=1.0,
     ),
     HapticMount("VG1040003D", diameter=10.0, thickness=4.05, z=38.0, angle_degrees=225.0, clip_count=3),

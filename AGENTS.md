@@ -45,8 +45,9 @@ Recent print feedback:
 - v02 haptic mount print feedback from 2026-05-30:
   - largest `VG2230001H` holder dimensions were correct but the holder was too weak and broke/bent easily;
   - smallest `8x3_coin_motor` holder needed to be `0.5 mm` deeper;
+  - first reinforced `VG2230001H` revision pushed part of the holder pad through the outer egg surface;
   - all other geometry was acceptable.
-  - Latest generator revision applies this feedback.
+  - Latest generator revision applies this feedback and reduces the largest holder `seat_embed` so the reinforcement stays internal.
 
 ## Setup On A New Machine
 
@@ -101,7 +102,7 @@ Preferred minimal changes:
 - Wall too thin: increase `WALL_THICKNESS` and re-check lip/socket radii.
 - Haptic actuator too tight: slightly increase `MOUNT_RADIAL_CLEARANCE` or reduce `MOUNT_PRELOAD`.
 - Haptic actuator too loose: increase `MOUNT_PRELOAD` first, then consider `MOUNT_LIP_OVERLAP`.
-- Largest actuator holder weak: keep motor-facing dimensions unchanged and reinforce outward by increasing its per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, `seat_embed`, or `clip_head`.
+- Largest actuator holder weak: keep motor-facing dimensions unchanged and reinforce outward by increasing its per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, or `clip_head`. Be careful with `seat_embed`; too much embed can push the holder pad through the outer egg surface.
 - Smallest actuator holder depth: use the per-mount `depth_extra` field rather than changing the nominal motor `thickness`.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.
