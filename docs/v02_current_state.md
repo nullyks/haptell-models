@@ -1,6 +1,6 @@
 # v02 Current State
 
-Date: 2026-05-28
+Date: 2026-05-30
 
 Branch: `codex/v02-development`
 Tag: `v02`
@@ -11,13 +11,15 @@ Related device project: `https://github.com/nullyks/haptell-devices`
 
 `v02` is based on the frozen `v01` enclosure prototype and adds three internal snap-in haptic actuator mounts to the lid. The external egg shape, mating lip, detent, and overall dimensions are kept from `v01`.
 
+Latest print feedback has been applied: the largest motor holder kept correct actuator dimensions but was too weak, so its outer support geometry was strengthened; the smallest holder was made 0.5 mm deeper.
+
 The `v01` tag remains the backup/reference model. Continue new geometry work from `v02` unless the print feedback says to return to the `v01` baseline.
 
 ## Product Status
 
 - `v01`: first suitable egg-shaped prototype for the device enclosure; preserved as backup.
 - `v02`: current print-test version with internal haptic actuator mounts.
-- Current physical status: `v02` has been sent to print; haptic mount fit and vibration transfer are awaiting print feedback.
+- Current physical status: first `v02` print feedback was received. Overall geometry was acceptable. The largest holder needed strength reinforcement, and the smallest holder needed 0.5 mm more pocket depth.
 
 ## Generated Files
 
@@ -73,11 +75,11 @@ This follows the mechanical intent from the Vybronics guidance: the actuator sho
 
 Current actuator placement:
 
-| Mount | Diameter | Thickness | Lid z | Angle | Clips |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| `VG2230001H` | `22.0` | `30.0` | `36.0` | `90.0` | `4` |
-| `VG1040003D` | `10.0` | `4.05` | `38.0` | `225.0` | `3` |
-| `8x3_coin_motor` | `8.0` | `3.0` | `42.0` | `315.0` | `3` |
+| Mount | Diameter | Thickness | Pocket depth | Lid z | Angle | Clips | Notes |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| `VG2230001H` | `22.0` | `30.0` | `30.0` | `36.0` | `90.0` | `4` | reinforced holder |
+| `VG1040003D` | `10.0` | `4.05` | `4.05` | `38.0` | `225.0` | `3` | unchanged |
+| `8x3_coin_motor` | `8.0` | `3.0` | `3.5` | `42.0` | `315.0` | `3` | 0.5 mm deeper holder |
 
 Current shared mount parameters:
 
@@ -92,9 +94,14 @@ Current shared mount parameters:
 - `MOUNT_WIRE_SLOT_DEGREES = 70.0`
 - `MOUNT_CLIP_ARC_DEGREES = 34.0`
 
+Per-mount overrides:
+
+- `VG2230001H`: `clip_wall = 2.4`, `clip_arc_degrees = 48.0`, `seat_margin = 1.6`, `seat_embed = 1.2`, `clip_head = 1.0`
+- `8x3_coin_motor`: `depth_extra = 0.5`
+
 ## Validation Output
 
-The generator was run after the v02 changes. Expected checks passed:
+The generator was run after the latest v02 haptic mount revision. Expected checks passed:
 
 ```text
 egg_box_lid.stl:
@@ -117,7 +124,8 @@ seated_bead_clearance_in_groove=0.0800
 
 ## Known Risks For Print Feedback
 
-- Snap-in clips are not yet print-validated.
+- The largest holder was reinforced after print feedback, but the reinforced version still needs print validation.
+- The smallest holder was deepened by 0.5 mm after print feedback and should be checked for motor seating and retention.
 - The haptic mounts are modelled as watertight positive internal solids that overlap into the lid shell. This is common enough for FDM slicers, but the slicer preview should confirm the pads fuse into the lid instead of being treated as separate shells.
 - The `VG2230001H` mount is large and tall. It was moved upward to avoid the socket/lip region, but it should still be checked for hand assembly clearance.
 - The current preload is intentionally mild. If the actuator fit is loose, increase `MOUNT_PRELOAD` first. If it is too tight, reduce `MOUNT_PRELOAD` or increase `MOUNT_RADIAL_CLEARANCE`.
@@ -125,6 +133,8 @@ seated_bead_clearance_in_groove=0.0800
 
 ## Next Print Feedback To Capture
 
+- Does the reinforced largest holder resist bending and breaking under insertion/removal?
+- Does the smallest motor now sit deep enough without becoming loose?
 - Do all three actuators snap in by hand without damaging the clips?
 - Does each actuator stay seated after tapping/shaking the lid?
 - Is the contact strong enough to transfer vibration into the egg shell?

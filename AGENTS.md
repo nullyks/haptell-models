@@ -31,9 +31,9 @@ All dimensions are millimetres.
 - Registration lip thickness: `2.8`
 - Retention feature: `0.24` annular detent bead, `0.22` matching socket groove, `0.9` ramps
 - v02 haptic mounts:
-  - `VG2230001H`: `22.0` diameter x `30.0` thickness, 4 snap clips
+  - `VG2230001H`: `22.0` diameter x `30.0` thickness, 4 reinforced snap clips
   - `VG1040003D`: `10.0` diameter x `4.05` thickness, 3 snap clips
-  - generic `8x3_coin_motor`: `8.0` diameter x `3.0` thickness, 3 snap clips
+  - generic `8x3_coin_motor`: `8.0` diameter x `3.0` thickness, 3 snap clips, `3.5` holder pocket depth
 
 Recent print feedback:
 
@@ -42,7 +42,11 @@ Recent print feedback:
 - Tip and rounded end were acceptable after the last print.
 - Wall strength is sufficient.
 - No printer artifacts were reported.
-- v02 haptic mount geometry has not yet been print-validated.
+- v02 haptic mount print feedback from 2026-05-30:
+  - largest `VG2230001H` holder dimensions were correct but the holder was too weak and broke/bent easily;
+  - smallest `8x3_coin_motor` holder needed to be `0.5 mm` deeper;
+  - all other geometry was acceptable.
+  - Latest generator revision applies this feedback.
 
 ## Setup On A New Machine
 
@@ -97,6 +101,8 @@ Preferred minimal changes:
 - Wall too thin: increase `WALL_THICKNESS` and re-check lip/socket radii.
 - Haptic actuator too tight: slightly increase `MOUNT_RADIAL_CLEARANCE` or reduce `MOUNT_PRELOAD`.
 - Haptic actuator too loose: increase `MOUNT_PRELOAD` first, then consider `MOUNT_LIP_OVERLAP`.
+- Largest actuator holder weak: keep motor-facing dimensions unchanged and reinforce outward by increasing its per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, `seat_embed`, or `clip_head`.
+- Smallest actuator holder depth: use the per-mount `depth_extra` field rather than changing the nominal motor `thickness`.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.
 

@@ -72,12 +72,42 @@ class HapticMount:
     angle_degrees: float
     clip_count: int
     wire_slot_degrees: float = 0.0
+    depth_extra: float = 0.0
+    clip_wall: float = MOUNT_CLIP_WALL
+    clip_arc_degrees: float = MOUNT_CLIP_ARC_DEGREES
+    seat_margin: float = MOUNT_SEAT_MARGIN
+    seat_embed: float = MOUNT_SEAT_EMBED
+    clip_head: float = MOUNT_CLIP_HEAD
+
+    @property
+    def pocket_depth(self) -> float:
+        return self.thickness + self.depth_extra
 
 
 HAPTIC_MOUNTS = [
-    HapticMount("VG2230001H", diameter=22.0, thickness=30.0, z=36.0, angle_degrees=90.0, clip_count=4),
+    HapticMount(
+        "VG2230001H",
+        diameter=22.0,
+        thickness=30.0,
+        z=36.0,
+        angle_degrees=90.0,
+        clip_count=4,
+        clip_wall=2.4,
+        clip_arc_degrees=48.0,
+        seat_margin=1.6,
+        seat_embed=1.2,
+        clip_head=1.0,
+    ),
     HapticMount("VG1040003D", diameter=10.0, thickness=4.05, z=38.0, angle_degrees=225.0, clip_count=3),
-    HapticMount("8x3_coin_motor", diameter=8.0, thickness=3.0, z=42.0, angle_degrees=315.0, clip_count=3),
+    HapticMount(
+        "8x3_coin_motor",
+        diameter=8.0,
+        thickness=3.0,
+        z=42.0,
+        angle_degrees=315.0,
+        clip_count=3,
+        depth_extra=0.5,
+    ),
 ]
 
 
@@ -425,12 +455,12 @@ def mount_clip_centers(mount: HapticMount) -> list[float]:
 def add_haptic_mount(mesh: Mesh, mount: HapticMount) -> None:
     center, u_axis, v_axis, normal = mount_frame(mount)
     motor_radius = mount.diameter / 2.0
-    seat_radius = motor_radius + MOUNT_SEAT_MARGIN
+    seat_radius = motor_radius + mount.seat_margin
     seat_top_w = max(MOUNT_MIN_SEAT_STANDOFF, MOUNT_SEAT_STANDOFF_FACTOR * seat_radius * seat_radius)
     wall_inner_radius = motor_radius + MOUNT_RADIAL_CLEARANCE
-    wall_outer_radius = wall_inner_radius + MOUNT_CLIP_WALL
-    wall_top_w = seat_top_w + mount.thickness + MOUNT_CLIP_HEAD
-    lip_bottom_w = seat_top_w + mount.thickness - MOUNT_PRELOAD
+    wall_outer_radius = wall_inner_radius + mount.clip_wall
+    wall_top_w = seat_top_w + mount.pocket_depth + mount.clip_head
+    lip_bottom_w = seat_top_w + mount.pocket_depth - MOUNT_PRELOAD
     lip_inner_radius = max(0.0, motor_radius - MOUNT_LIP_OVERLAP)
 
     add_oriented_cylinder(
@@ -440,14 +470,14 @@ def add_haptic_mount(mesh: Mesh, mount: HapticMount) -> None:
         v_axis,
         normal,
         radius=seat_radius,
-        w0=-MOUNT_SEAT_EMBED,
+        w0=-mount.seat_embed,
         w1=seat_top_w,
         segments=MOUNT_SEAT_SEGMENTS,
     )
 
     for clip_center in mount_clip_centers(mount):
-        start = clip_center - MOUNT_CLIP_ARC_DEGREES / 2.0
-        end = clip_center + MOUNT_CLIP_ARC_DEGREES / 2.0
+        start = clip_center - mount.clip_arc_degrees / 2.0
+        end = clip_center + mount.clip_arc_degrees / 2.0
         add_annular_arc_solid(
             mesh,
             center,
@@ -658,8 +688,9 @@ def main() -> None:
     for mount in HAPTIC_MOUNTS:
         print(
             f"  {mount.name}: diameter={mount.diameter:.2f} mm "
-            f"thickness={mount.thickness:.2f} mm z={mount.z:.1f} mm "
-            f"angle={mount.angle_degrees:.1f} deg clips={mount.clip_count}"
+            f"thickness={mount.thickness:.2f} mm pocket_depth={mount.pocket_depth:.2f} mm "
+            f"z={mount.z:.1f} mm angle={mount.angle_degrees:.1f} deg clips={mount.clip_count} "
+            f"clip_wall={mount.clip_wall:.2f} mm clip_arc={mount.clip_arc_degrees:.1f} deg"
         )
 
 

@@ -15,7 +15,7 @@ Related device project: `https://github.com/nullyks/haptell-devices`
 ## Current Parameters
 
 - Product status: `v01` is the first suitable prototype for a device enclosure and should be kept as the backup/reference model.
-- Current development version: `v02`, based on `v01`, adds internal snap-in mounts for three haptic feedback actuators.
+- Current development version: `v02`, based on `v01`, adds internal snap-in mounts for three haptic feedback actuators. Latest print feedback has been applied to strengthen the largest holder and deepen the smallest holder.
 - Maximum diameter: 90 mm
 - Assembled length: 130 mm
 - Sharp-tip half print height: 68 mm
@@ -32,9 +32,9 @@ Related device project: `https://github.com/nullyks/haptell-devices`
 
 The lid includes three internal actuator pockets. Each pocket uses a raised flat contact pad tied into the egg shell, side guide clips, a wire/FPC exit gap, and a small over-lip preload to hold the actuator against the shell for better vibration transfer.
 
-- Vybronics `VG2230001H`: 22.0 mm diameter x 30.0 mm thickness, 4 clips
+- Vybronics `VG2230001H`: 22.0 mm diameter x 30.0 mm thickness, 4 reinforced clips
 - Vybronics `VG1040003D`: 10.0 mm diameter x 4.05 mm thickness, 3 clips
-- Generic 8 x 3 mm coin motor: 8.0 mm diameter x 3.0 mm thickness, 3 clips
+- Generic 8 x 3 mm coin motor: 8.0 mm diameter x 3.0 mm thickness, 3 clips, 3.5 mm holder pocket depth
 
 The v02 mounts are generated parametrically in `generate_egg_box_stl.py`; do not hand-edit the STL files.
 
