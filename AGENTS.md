@@ -32,8 +32,8 @@ All dimensions are millimetres.
 - Retention feature: `0.24` annular detent bead, `0.22` matching socket groove, `0.9` ramps
 - v02 haptic mounts:
   - `VG2230001H`: `22.0` diameter x `30.0` thickness, 4 reinforced snap clips
-  - `VG1040003D`: `10.0` diameter x `4.05` thickness, 3 snap clips
-  - generic `8x3_coin_motor`: `8.0` diameter x `3.0` thickness, 3 snap clips, `3.5` holder pocket depth
+  - `VG1040003D`: `10.0` diameter x `4.05` thickness, 3 reinforced snap clips
+  - `small_position_10x4_holder`: `10.0` diameter x `4.05` pocket depth, 3 reinforced snap clips; same internal dimensions as `VG1040003D`
 
 Recent print feedback:
 
@@ -48,6 +48,10 @@ Recent print feedback:
   - first reinforced `VG2230001H` revision pushed part of the holder pad through the outer egg surface;
   - all other geometry was acceptable.
   - Latest generator revision applies this feedback and reduces the largest holder `seat_embed` so the reinforcement stays internal.
+- v02 haptic mount print feedback from 2026-05-31:
+  - largest `VG2230001H` holder is now acceptable;
+  - smallest-position holder should have exactly the same internal dimensions as the medium `VG1040003D` holder;
+  - medium and smallest-position holder constructions broke too easily and have been reinforced.
 
 ## Setup On A New Machine
 
@@ -103,7 +107,8 @@ Preferred minimal changes:
 - Haptic actuator too tight: slightly increase `MOUNT_RADIAL_CLEARANCE` or reduce `MOUNT_PRELOAD`.
 - Haptic actuator too loose: increase `MOUNT_PRELOAD` first, then consider `MOUNT_LIP_OVERLAP`.
 - Largest actuator holder weak: keep motor-facing dimensions unchanged and reinforce outward by increasing its per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, or `clip_head`. Be careful with `seat_embed`; too much embed can push the holder pad through the outer egg surface.
-- Smallest actuator holder depth: use the per-mount `depth_extra` field rather than changing the nominal motor `thickness`.
+- Medium or smallest-position holder weak: keep their shared `10.0 x 4.05` internal dimensions unchanged and reinforce outward through per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, or `clip_head`.
+- Smallest-position holder size: keep it matched to the medium `VG1040003D` holder (`10.0 x 4.05`) unless the user explicitly changes that requirement.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.
 

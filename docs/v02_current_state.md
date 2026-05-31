@@ -11,7 +11,7 @@ Related device project: `https://github.com/nullyks/haptell-devices`
 
 `v02` is based on the frozen `v01` enclosure prototype and adds three internal snap-in haptic actuator mounts to the lid. The external egg shape, mating lip, detent, and overall dimensions are kept from `v01`.
 
-Latest print feedback has been applied: the largest motor holder kept correct actuator dimensions but was too weak, so its outer support geometry was strengthened; that reinforcement was then adjusted to stay below the outer egg surface. The smallest holder was made 0.5 mm deeper.
+Latest print feedback has been applied: the largest motor holder is now acceptable; the smallest-position holder now uses the same internal dimensions as the medium holder; and the medium plus smallest-position holder constructions were reinforced because they broke too easily.
 
 The `v01` tag remains the backup/reference model. Continue new geometry work from `v02` unless the print feedback says to return to the `v01` baseline.
 
@@ -19,7 +19,7 @@ The `v01` tag remains the backup/reference model. Continue new geometry work fro
 
 - `v01`: first suitable egg-shaped prototype for the device enclosure; preserved as backup.
 - `v02`: current print-test version with internal haptic actuator mounts.
-- Current physical status: first `v02` print feedback was received. Overall geometry was acceptable. The largest holder needed strength reinforcement, the first reinforced holder pad surfaced on the outside of the egg, and the smallest holder needed 0.5 mm more pocket depth.
+- Current physical status: second `v02` print feedback was received. The largest holder is acceptable. The two smaller holder constructions were too fragile, and the smallest-position holder needed the same internal dimensions as the medium holder.
 
 ## Generated Files
 
@@ -49,7 +49,7 @@ All dimensions are millimetres.
 
 - Vybronics `VG2230001H`: official product page lists `22.0 mm` diameter and `30.0 mm` thickness.
 - Vybronics `VG1040003D`: official product page lists `10.0 mm` diameter and `4.0 mm` thickness; the current generator uses `4.05 mm` to leave a small allowance.
-- Generic sourcing map / Amazon coin motor: currently modelled from the user-provided product dimension `8 mm x 3 mm`.
+- Generic sourcing map / Amazon coin motor: originally modelled from the user-provided product dimension `8 mm x 3 mm`; current print feedback intentionally changes the smallest-position holder to the same `10.0 x 4.05 mm` internal dimensions as `VG1040003D`.
 
 Relevant source links:
 
@@ -78,8 +78,8 @@ Current actuator placement:
 | Mount | Diameter | Thickness | Pocket depth | Lid z | Angle | Clips | Notes |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | `VG2230001H` | `22.0` | `30.0` | `30.0` | `36.0` | `90.0` | `4` | reinforced holder |
-| `VG1040003D` | `10.0` | `4.05` | `4.05` | `38.0` | `225.0` | `3` | unchanged |
-| `8x3_coin_motor` | `8.0` | `3.0` | `3.5` | `42.0` | `315.0` | `3` | 0.5 mm deeper holder |
+| `VG1040003D` | `10.0` | `4.05` | `4.05` | `38.0` | `225.0` | `3` | reinforced holder |
+| `small_position_10x4_holder` | `10.0` | `4.05` | `4.05` | `42.0` | `315.0` | `3` | same internal dimensions as `VG1040003D`; reinforced holder |
 
 Current shared mount parameters:
 
@@ -97,7 +97,8 @@ Current shared mount parameters:
 Per-mount overrides:
 
 - `VG2230001H`: `clip_wall = 2.4`, `clip_arc_degrees = 48.0`, `seat_margin = 1.6`, `seat_embed = 0.6`, `clip_head = 1.0`
-- `8x3_coin_motor`: `depth_extra = 0.5`
+- `VG1040003D`: `clip_wall = 1.8`, `clip_arc_degrees = 46.0`, `seat_margin = 1.4`, `clip_head = 0.9`
+- `small_position_10x4_holder`: `clip_wall = 1.8`, `clip_arc_degrees = 46.0`, `seat_margin = 1.4`, `clip_head = 0.9`
 
 ## Validation Output
 
@@ -124,9 +125,9 @@ seated_bead_clearance_in_groove=0.0800
 
 ## Known Risks For Print Feedback
 
-- The largest holder was reinforced after print feedback, but the reinforced version still needs print validation.
-- The largest holder `seat_embed` was reduced after slicer preview showed the first reinforcement surfacing through the exterior. Recheck that the exterior remains visually clean.
-- The smallest holder was deepened by 0.5 mm after print feedback and should be checked for motor seating and retention.
+- The largest holder is acceptable from the second test print and should be kept unchanged unless new feedback contradicts it.
+- The medium and smallest-position holders were reinforced after the second test print and still need print validation.
+- The smallest-position holder now intentionally has the same internal dimensions as `VG1040003D`; check motor seating and retention.
 - The haptic mounts are modelled as watertight positive internal solids that overlap into the lid shell. This is common enough for FDM slicers, but the slicer preview should confirm the pads fuse into the lid instead of being treated as separate shells.
 - The `VG2230001H` mount is large and tall. It was moved upward to avoid the socket/lip region, but it should still be checked for hand assembly clearance.
 - The current preload is intentionally mild. If the actuator fit is loose, increase `MOUNT_PRELOAD` first. If it is too tight, reduce `MOUNT_PRELOAD` or increase `MOUNT_RADIAL_CLEARANCE`.
@@ -134,8 +135,8 @@ seated_bead_clearance_in_groove=0.0800
 
 ## Next Print Feedback To Capture
 
-- Does the reinforced largest holder resist bending and breaking under insertion/removal?
-- Does the smallest motor now sit deep enough without becoming loose?
+- Do the reinforced medium and smallest-position holders resist bending and breaking under insertion/removal?
+- Does the smallest-position actuator sit correctly in the new `10.0 x 4.05 mm` holder?
 - Do all three actuators snap in by hand without damaging the clips?
 - Does each actuator stay seated after tapping/shaking the lid?
 - Is the contact strong enough to transfer vibration into the egg shell?
