@@ -10,7 +10,7 @@ import numpy as np
 
 
 # Units are millimetres.
-MODEL_VERSION = "v02"
+MODEL_VERSION = "v03"
 DIAMETER = 90.0
 TOTAL_HEIGHT = 130.0
 BOTTOM_HEIGHT = 62.0
@@ -48,6 +48,13 @@ MOUNT_WIRE_SLOT_DEGREES = 70.0
 MOUNT_CLIP_ARC_DEGREES = 34.0
 MOUNT_ARC_STEPS = 6
 MOUNT_SEAT_SEGMENTS = 64
+SMALL_MOUNT_DIAMETER = 10.0
+SMALL_MOUNT_THICKNESS = 4.05
+SMALL_MOUNT_CLIP_WALL = 1.8
+SMALL_MOUNT_CLIP_ARC_DEGREES = 46.0
+SMALL_MOUNT_SEAT_MARGIN = 1.4
+SMALL_MOUNT_CLIP_HEAD = 0.9
+TOP_RING_MOUNT_Z = 42.0
 
 
 @dataclass
@@ -71,6 +78,8 @@ class HapticMount:
     z: float
     angle_degrees: float
     clip_count: int
+    part: str = "top"
+    placement: str = "side"
     wire_slot_degrees: float = 0.0
     depth_extra: float = 0.0
     clip_wall: float = MOUNT_CLIP_WALL
@@ -84,44 +93,36 @@ class HapticMount:
         return self.thickness + self.depth_extra
 
 
+def small_haptic_mount(
+    name: str,
+    *,
+    part: str,
+    placement: str,
+    z: float = TOP_RING_MOUNT_Z,
+    angle_degrees: float = 0.0,
+) -> HapticMount:
+    return HapticMount(
+        name,
+        diameter=SMALL_MOUNT_DIAMETER,
+        thickness=SMALL_MOUNT_THICKNESS,
+        z=z,
+        angle_degrees=angle_degrees,
+        clip_count=3,
+        part=part,
+        placement=placement,
+        clip_wall=SMALL_MOUNT_CLIP_WALL,
+        clip_arc_degrees=SMALL_MOUNT_CLIP_ARC_DEGREES,
+        seat_margin=SMALL_MOUNT_SEAT_MARGIN,
+        clip_head=SMALL_MOUNT_CLIP_HEAD,
+    )
+
+
 HAPTIC_MOUNTS = [
-    HapticMount(
-        "VG2230001H",
-        diameter=22.0,
-        thickness=30.0,
-        z=36.0,
-        angle_degrees=90.0,
-        clip_count=4,
-        clip_wall=2.4,
-        clip_arc_degrees=48.0,
-        seat_margin=1.6,
-        seat_embed=0.6,
-        clip_head=1.0,
-    ),
-    HapticMount(
-        "VG1040003D",
-        diameter=10.0,
-        thickness=4.05,
-        z=38.0,
-        angle_degrees=225.0,
-        clip_count=3,
-        clip_wall=1.8,
-        clip_arc_degrees=46.0,
-        seat_margin=1.4,
-        clip_head=0.9,
-    ),
-    HapticMount(
-        "small_position_10x4_holder",
-        diameter=10.0,
-        thickness=4.05,
-        z=42.0,
-        angle_degrees=315.0,
-        clip_count=3,
-        clip_wall=1.8,
-        clip_arc_degrees=46.0,
-        seat_margin=1.4,
-        clip_head=0.9,
-    ),
+    small_haptic_mount("top_ring_10x4_holder_90", part="top", placement="side", angle_degrees=90.0),
+    small_haptic_mount("top_ring_10x4_holder_210", part="top", placement="side", angle_degrees=210.0),
+    small_haptic_mount("top_ring_10x4_holder_330", part="top", placement="side", angle_degrees=330.0),
+    small_haptic_mount("top_center_10x4_holder", part="top", placement="center"),
+    small_haptic_mount("bottom_center_10x4_holder", part="bottom", placement="center"),
 ]
 
 
@@ -355,6 +356,14 @@ def top_inner_slope_at_z(z: float) -> float:
     return (top_inner_radius_at_z(z1) - top_inner_radius_at_z(z0)) / (z1 - z0)
 
 
+def top_inner_pole_z() -> float:
+    return top_inner_profile()[-1][0]
+
+
+def bottom_inner_pole_z() -> float:
+    return offset_dome_profile(BOTTOM_HEIGHT, BOTTOM_POWER, WALL_THICKNESS, top=False)[-1][1]
+
+
 def local_point(
     center: np.ndarray,
     u_axis: np.ndarray,
@@ -368,7 +377,7 @@ def local_point(
     return (float(point[0]), float(point[1]), float(point[2]))
 
 
-def mount_frame(mount: HapticMount) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def top_side_mount_frame(mount: HapticMount) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     theta = math.radians(mount.angle_degrees)
     radial = np.array([math.cos(theta), math.sin(theta), 0.0], dtype=np.float64)
     tangent = np.array([-math.sin(theta), math.cos(theta), 0.0], dtype=np.float64)
@@ -382,6 +391,32 @@ def mount_frame(mount: HapticMount) -> tuple[np.ndarray, np.ndarray, np.ndarray,
     meridian_tangent = np.cross(cavity_normal, tangent)
     meridian_tangent /= np.linalg.norm(meridian_tangent)
     return center, tangent, meridian_tangent, cavity_normal
+
+
+def top_center_mount_frame() -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    center = np.array([0.0, 0.0, top_inner_pole_z()], dtype=np.float64)
+    u_axis = np.array([1.0, 0.0, 0.0], dtype=np.float64)
+    v_axis = np.array([0.0, 1.0, 0.0], dtype=np.float64)
+    cavity_normal = np.array([0.0, 0.0, -1.0], dtype=np.float64)
+    return center, u_axis, v_axis, cavity_normal
+
+
+def bottom_center_mount_frame() -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    center = np.array([0.0, 0.0, bottom_inner_pole_z()], dtype=np.float64)
+    u_axis = np.array([1.0, 0.0, 0.0], dtype=np.float64)
+    v_axis = np.array([0.0, 1.0, 0.0], dtype=np.float64)
+    cavity_normal = np.array([0.0, 0.0, 1.0], dtype=np.float64)
+    return center, u_axis, v_axis, cavity_normal
+
+
+def mount_frame(mount: HapticMount) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    if mount.part == "top" and mount.placement == "side":
+        return top_side_mount_frame(mount)
+    if mount.part == "top" and mount.placement == "center":
+        return top_center_mount_frame()
+    if mount.part == "bottom" and mount.placement == "center":
+        return bottom_center_mount_frame()
+    raise ValueError(f"Unsupported mount placement: part={mount.part!r} placement={mount.placement!r}")
 
 
 def add_oriented_cylinder(
@@ -554,6 +589,8 @@ def build_top(outer: np.ndarray) -> Mesh:
 
     add_annulus(mesh, outer_rings[0], inner_rings[0], normal_up=False)
     for mount in HAPTIC_MOUNTS:
+        if mount.part != "top":
+            continue
         add_haptic_mount(mesh, mount)
     return mesh
 
@@ -610,6 +647,10 @@ def build_bottom(outer: np.ndarray) -> Mesh:
     add_ring_strip(mesh, lip_upper_inner, lip_top_inner, inward=True)
     add_annulus(mesh, lip_top_outer, lip_top_inner, normal_up=True)
 
+    for mount in HAPTIC_MOUNTS:
+        if mount.part != "bottom":
+            continue
+        add_haptic_mount(mesh, mount)
     return mesh
 
 
@@ -700,10 +741,13 @@ def main() -> None:
     print(f"  lip height={LIP_HEIGHT:.1f} mm")
     print("haptic mounts:")
     for mount in HAPTIC_MOUNTS:
+        center, _u_axis, _v_axis, _normal = mount_frame(mount)
+        center_text = ", ".join(f"{value:.2f}" for value in center)
         print(
-            f"  {mount.name}: diameter={mount.diameter:.2f} mm "
+            f"  {mount.name}: part={mount.part} placement={mount.placement} "
+            f"diameter={mount.diameter:.2f} mm "
             f"thickness={mount.thickness:.2f} mm pocket_depth={mount.pocket_depth:.2f} mm "
-            f"z={mount.z:.1f} mm angle={mount.angle_degrees:.1f} deg clips={mount.clip_count} "
+            f"center=[{center_text}] mm angle={mount.angle_degrees:.1f} deg clips={mount.clip_count} "
             f"clip_wall={mount.clip_wall:.2f} mm clip_arc={mount.clip_arc_degrees:.1f} deg"
         )
 

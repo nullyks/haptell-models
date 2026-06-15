@@ -8,8 +8,9 @@ This repository contains a parametric STL generator for a two-piece, 3D-printabl
 - Related device project: `https://github.com/nullyks/haptell-devices`
 - Main generator: `generate_egg_box_stl.py`
 - Version `v01`: first suitable prototype for a device enclosure; keep as backup/reference.
-- Version `v02`: current development iteration, based on `v01`, with internal snap-in haptic actuator mounts in the lid.
-- Current v02 handoff: `docs/v02_current_state.md`
+- Version `v02`: previous development iteration with three haptic actuator mounts, including the large holder.
+- Version `v03`: current development iteration, based on latest `v02-development`, with five identical small haptic actuator holders for client testing.
+- Current v03 handoff: `docs/v03_current_state.md`
 - Generated STL files:
   - `output/egg_box_lid.stl`
   - `output/egg_box_bottom.stl`
@@ -30,10 +31,11 @@ All dimensions are millimetres.
 - Lip height: `6.4`
 - Registration lip thickness: `2.8`
 - Retention feature: `0.24` annular detent bead, `0.22` matching socket groove, `0.9` ramps
-- v02 haptic mounts:
-  - `VG2230001H`: `22.0` diameter x `30.0` thickness, 4 reinforced snap clips
-  - `VG1040003D`: `10.0` diameter x `4.05` thickness, 3 reinforced snap clips
-  - `small_position_10x4_holder`: `10.0` diameter x `4.05` pocket depth, 3 reinforced snap clips; same internal dimensions as `VG1040003D`
+- v03 haptic mounts:
+  - all holders use `10.0` diameter x `4.05` pocket depth with 3 reinforced snap clips;
+  - three `top_ring_10x4_holder_*` mounts are equally distributed around the top half circumference at `z=42.0`, angles `90`, `210`, and `330` degrees;
+  - `top_center_10x4_holder` is centered at the top inner pole;
+  - `bottom_center_10x4_holder` is centered at the bottom inner pole.
 
 Recent print feedback:
 
@@ -52,6 +54,12 @@ Recent print feedback:
   - largest `VG2230001H` holder is now acceptable;
   - smallest-position holder should have exactly the same internal dimensions as the medium `VG1040003D` holder;
   - medium and smallest-position holder constructions broke too easily and have been reinforced.
+- v03 client request from 2026-06-15:
+  - create a test egg with only small motor holders;
+  - 5 holders total;
+  - 3 holders distributed equally along the circumference in the middle or slightly closer to the top of the egg;
+  - 1 holder in the very top center;
+  - 1 holder in the very bottom center.
 
 ## Setup On A New Machine
 
@@ -108,7 +116,8 @@ Preferred minimal changes:
 - Haptic actuator too loose: increase `MOUNT_PRELOAD` first, then consider `MOUNT_LIP_OVERLAP`.
 - Largest actuator holder weak: keep motor-facing dimensions unchanged and reinforce outward by increasing its per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, or `clip_head`. Be careful with `seat_embed`; too much embed can push the holder pad through the outer egg surface.
 - Medium or smallest-position holder weak: keep their shared `10.0 x 4.05` internal dimensions unchanged and reinforce outward through per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, or `clip_head`.
-- Smallest-position holder size: keep it matched to the medium `VG1040003D` holder (`10.0 x 4.05`) unless the user explicitly changes that requirement.
+- v03 holder size: keep all five holders at `10.0 x 4.05` unless the user explicitly changes that requirement.
+- v03 holder count/placement: keep three top ring holders, one top center holder, and one bottom center holder unless the user explicitly changes the layout.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.
 
@@ -116,6 +125,6 @@ Avoid large redesigns such as hinges, threads, separate clips, or non-parametric
 
 The repository may contain local documentation drafts under `docs/`. Treat them as optional project documentation; do not include them in geometry commits unless the user asks.
 
-Keep the `v01` git tag as the frozen reference for the first suitable enclosure prototype. Do new geometry work on a `v02` development branch.
+Keep the `v01` git tag as the frozen reference for the first suitable enclosure prototype. Keep `codex/v02-development` as the previous three-holder reference. Do new v03 geometry work on `codex/v03-development`.
 
 When changing the model, commit the generator and regenerated STL outputs together.
