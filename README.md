@@ -10,6 +10,9 @@ Related device project: `https://github.com/nullyks/haptell-devices`
 - `output/egg_box_lid.stl` - printable lid
 - `output/egg_box_assembly_preview.stl` - assembled preview, useful for checking fit in a slicer
 - `generate_egg_box_stl.py` - generator script for adjusting dimensions and rebuilding the STL files
+- `generate_balance_shift_stl.py` - separate generator for the balance-shift haptic enclosure variant
+- `output/balance_shift/` - generated STL files for the balance-shift variant; this path is separate so the current egg-box outputs are not overwritten
+- `docs/balance_shift_current_state.md` - current balance-shift handoff and design notes
 - `docs/v03_current_state.md` - current v03 handoff and print-test notes
 
 ## Current Parameters
@@ -41,12 +44,40 @@ The v03 mounts are generated parametrically in `generate_egg_box_stl.py`; do not
 
 For the current v03 handoff, validation output, and print-test risks, see `docs/v03_current_state.md`.
 
+## Balance-Shift Haptic Variant
+
+`generate_balance_shift_stl.py` creates a separate two-piece shell variant for a handheld balance-shift haptic prototype. It keeps the current outer 90 mm x 130 mm egg silhouette and closure geometry, but replaces the small motor holders with a lower-half servo cradle and a moving-mass clearance envelope.
+
+Generated files:
+
+- `output/balance_shift/balance_shift_lid.stl`
+- `output/balance_shift/balance_shift_bottom.stl`
+- `output/balance_shift/balance_shift_assembly_preview.stl`
+- `output/balance_shift/balance_shift_mechanism_preview.stl` - preview-only STL that includes the assumed servo body, arm, end-weight, and sweep envelope
+
+Current first-pass balance-shift assumptions:
+
+- Servo body envelope: `40.0 x 20.0 x 40.5 mm`
+- Shaft center: `10.0 mm` below the shell seam, on the main shell centerline
+- Moving weight envelope: `12.0 mm` diameter x `4.0 mm` height
+- Achieved safe arm radius to weight center: `31.8 mm`
+- Moving weight to shell clearance: about `3.59 mm`
+- The seam lip is left intact for closure strength; no sweep relief is needed at the current radius.
+
+For placement logic, clearance math, and tradeoffs, see `docs/balance_shift_current_state.md`.
+
 ## Regenerate
 
 Run the script with Python and it will overwrite the STL files in `output/`.
 
 ```powershell
 python generate_egg_box_stl.py
+```
+
+To regenerate only the balance-shift variant:
+
+```powershell
+python generate_balance_shift_stl.py
 ```
 
 ## Continue With Codex On Another Computer

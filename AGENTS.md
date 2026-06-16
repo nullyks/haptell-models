@@ -7,14 +7,17 @@ This repository contains a parametric STL generator for a two-piece, 3D-printabl
 - Public repository: `https://github.com/nullyks/haptell-models`
 - Related device project: `https://github.com/nullyks/haptell-devices`
 - Main generator: `generate_egg_box_stl.py`
+- Balance-shift variant generator: `generate_balance_shift_stl.py`
 - Version `v01`: first suitable prototype for a device enclosure; keep as backup/reference.
 - Version `v02`: previous development iteration with three haptic actuator mounts, including the large holder.
 - Version `v03`: current development iteration, based on latest `v02-development`, with five identical small haptic actuator holders for client testing.
 - Current v03 handoff: `docs/v03_current_state.md`
+- Current balance-shift handoff: `docs/balance_shift_current_state.md`
 - Generated STL files:
   - `output/egg_box_lid.stl`
   - `output/egg_box_bottom.stl`
   - `output/egg_box_assembly_preview.stl`
+- Balance-shift STL files are generated separately under `output/balance_shift/` and must not overwrite the current `output/egg_box_*.stl` files.
 - Target printer/material assumption: FDM printing with a 0.4 mm nozzle.
 
 ## Current Model Parameters
@@ -79,6 +82,14 @@ python generate_egg_box_stl.py
 
 The script overwrites the STL files in `output/`.
 
+For the balance-shift variant, run:
+
+```powershell
+python generate_balance_shift_stl.py
+```
+
+This writes only to `output/balance_shift/`.
+
 ## Validation Workflow
 
 After changing geometry, always regenerate STL files and check the script output. Expected output includes:
@@ -87,6 +98,17 @@ After changing geometry, always regenerate STL files and check the script output
 - assembly preview bounds: `90.0 x 90.0 x 130.0`
 - lid bounds height: `68.0`
 - bottom bounds height: `68.4`
+
+For the balance-shift variant, expected output includes:
+
+- `boundary_edges=0` for all files under `output/balance_shift/`
+- printable lid bounds: `90.0 x 90.0 x 68.0`
+- printable bottom bounds: `90.0 x 90.0 x 68.4`
+- assembly preview bounds: `90.0 x 90.0 x 130.0`
+- shaft center relative to seam: current target `-10.0`
+- achieved weight-center arm radius: current target `31.8`
+- moving weight shell clearance: current target about `3.59`
+- bottom exterior overrun: `0.0000`
 
 For fit-related changes, verify these derived relationships in the script or with a small Python check:
 
@@ -118,6 +140,10 @@ Preferred minimal changes:
 - Medium or smallest-position holder weak: keep their shared `10.0 x 4.05` internal dimensions unchanged and reinforce outward through per-mount `clip_wall`, `clip_arc_degrees`, `seat_margin`, or `clip_head`.
 - v03 holder size: keep all five holders at `10.0 x 4.05` unless the user explicitly changes that requirement.
 - v03 holder count/placement: keep three top ring holders, one top center holder, and one bottom center holder unless the user explicitly changes the layout.
+- Balance-shift variant: keep it in `generate_balance_shift_stl.py` and `output/balance_shift/` so the egg-box STL outputs are not overwritten.
+- Balance-shift shell: preserve the current outer egg silhouette and closure unless a measured servo/weight conflict requires a local relief.
+- Balance-shift moving mass: the requested nominal `35 mm` arm radius does not fit with a `12 mm` end weight and 3-4 mm shell clearance inside the current 90 mm shell; current safe radius is `31.8 mm`.
+- Balance-shift servo: current first pass assumes a centered `40.0 x 20.0 x 40.5 mm` body envelope under the output shaft. If the actual MS24 shaft offset must be modelled, re-check lower-half fit before printing.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.
 
