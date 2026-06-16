@@ -79,6 +79,7 @@ The lower half includes:
 - four lower saddle pads under the servo body, leaving the shaft centerline open,
 - two side guide rails kept below the horizontal arm sweep volume,
 - vertical webs tying the lower saddle pads into the side rails,
+- side bridges tying both screw-boss end frames into the long side rails with overlap, so the motor mounting bosses do not float as separate islands,
 - broad buttresses tying the rails into the shell wall,
 - six radial anchor ribs extending from the cradle into the inner shell wall, so the holder is not a floating slicer island,
 - four vertical clamp bosses with pilot holes for a future printed clamp strap, also lowered below the arm sweep volume,
@@ -107,7 +108,7 @@ balance_shift_lid.stl:
   vertices=35170 faces=70336 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.0] size=[90.0, 90.0, 68.0]
 balance_shift_bottom.stl:
-  vertices=37094 faces=74080 boundary_edges=0
+  vertices=37126 faces=74128 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.4] size=[90.0, 90.0, 68.4]
 ```
 

@@ -323,6 +323,20 @@ def add_servo_cradle(mesh: egg.Mesh) -> None:
     add_box(mesh, (-12.8, CRADLE_BODY_Y1 - 4.5, -24.0), (12.8, CRADLE_BODY_Y1, -12.0))
     add_box(mesh, (-12.8, CRADLE_BODY_Y0, -24.0), (12.8, CRADLE_BODY_Y0 + 4.5, -12.0))
 
+    # Side bridges make each screw-boss end frame continuous with the long side
+    # rails. Keep them outside the servo body pocket.
+    for x0, x1 in [(-CRADLE_SIDE_RAIL_X1, -8.6), (8.6, CRADLE_SIDE_RAIL_X1)]:
+        add_box(
+            mesh,
+            (x0, CRADLE_BODY_Y1 - 0.6, CLAMP_BOSS_BOTTOM_Z),
+            (x1, SERVO_BODY_CENTER_Y + SERVO_EAR_Y - 1.4, CLAMP_BOSS_TOP_Z),
+        )
+        add_box(
+            mesh,
+            (x0, SERVO_BODY_CENTER_Y - SERVO_EAR_Y + 1.4, CLAMP_BOSS_BOTTOM_Z),
+            (x1, CRADLE_BODY_Y0 + 0.6, CLAMP_BOSS_TOP_Z),
+        )
+
     # Mounting ear bosses are placed at the servo's two short ends, matching
     # the real servo top view more closely than the earlier left-right layout.
     for y in (SERVO_BODY_CENTER_Y - SERVO_EAR_Y, SERVO_BODY_CENTER_Y + SERVO_EAR_Y):
