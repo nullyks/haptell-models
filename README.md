@@ -52,17 +52,16 @@ Generated files:
 
 - `output/balance_shift/balance_shift_lid.stl`
 - `output/balance_shift/balance_shift_bottom.stl`
-- `output/balance_shift/balance_shift_assembly_preview.stl`
-- `output/balance_shift/balance_shift_mechanism_preview.stl` - preview-only STL that includes the assumed servo body, arm, end-weight, and sweep envelope
 
 Current first-pass balance-shift assumptions:
 
-- Servo body envelope in the installed narrow-long MS24 footprint: `20.0 x 40.5 x 40.0 mm`
-- Shaft center: `10.0 mm` below the shell seam, on the main shell centerline
+- Servo body envelope measured from `MS24-UF.stl`: `20.0 x 40.0 x 40.0 mm`
+- Servo body center offset from shaft: `0.0 x 10.2 mm`
+- Shaft center: on the shell seam plane, on the main shell centerline
 - Shaft axis: vertical / parallel to the egg long axis, so the arm sweeps in a horizontal `xy` plane
 - Moving weight envelope: `12.0 mm` diameter x `4.0 mm` height
-- Achieved safe arm radius to weight center: `31.8 mm`
-- Moving weight to shell clearance: about `3.59 mm`
+- Achieved safe arm radius to weight center: `29.4 mm`
+- Moving weight to shell clearance: about `3.58 mm`
 - Bottom cradle: four lower saddle pads, lowered side rails, and lowered clamp bosses keep the shaft/arm sweep area open in the printable bottom half
 - The seam lip is left intact for closure strength; no sweep relief is needed at the current radius.
 

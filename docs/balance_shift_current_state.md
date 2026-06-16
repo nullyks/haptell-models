@@ -21,32 +21,32 @@ The current `output/egg_box_*.stl` files are not overwritten by this variant.
 
 - `output/balance_shift/balance_shift_lid.stl`
 - `output/balance_shift/balance_shift_bottom.stl`
-- `output/balance_shift/balance_shift_assembly_preview.stl`
-- `output/balance_shift/balance_shift_mechanism_preview.stl`
-
-`balance_shift_mechanism_preview.stl` is preview-only. It includes the shell plus the assumed servo body, arm, end-weight, and sweep envelope.
 
 ## Placement Logic
 
-The servo body is placed in the rounded lower half. The output shaft is on the main shell centerline and is placed `10.0 mm` below the shell seam/equator:
+The servo body is placed in the rounded lower half. The output shaft is on the main shell centerline and is placed on the shell seam/equator plane:
 
 ```text
-SERVO_SHAFT_Z = -10.0
+SERVO_SHAFT_Z = 0.0
 ```
 
-The servo cradle keeps the narrow-long MS24 footprint visible from above. The output shaft axis is aligned with the egg's longitudinal `z` axis, so the arm rotates in a horizontal `xy` plane around the shell centerline. The top half remains clear. The lower half contains the servo cradle and the moving-mass sweep envelope.
+The servo cradle keeps the narrow-long MS24 footprint visible from above. The output shaft axis is aligned with the egg's longitudinal `z` axis, so the arm rotates in a horizontal `xy` plane around the shell centerline.
+
+`MS24-UF.stl` measurement showed that the shaft is not centered in the servo body. The measured body-center offset from the shaft is about `10.2 mm` along the servo's long axis. The generator therefore keeps the shaft at `x=0, y=0` and shifts the servo body/cradle:
 
 Current simplified servo envelope:
 
 ```text
 SERVO_BODY_X = 20.0
-SERVO_BODY_Y = 40.5
+SERVO_BODY_Y = 40.0
 SERVO_BODY_Z = 40.0
-SERVO_BODY_TOP_Z = -10.0
-SERVO_BODY_BOTTOM_Z = -50.0
+SERVO_BODY_CENTER_X = 0.0
+SERVO_BODY_CENTER_Y = 10.2
+SERVO_BODY_TOP_Z = 0.0
+SERVO_BODY_BOTTOM_Z = -40.0
 ```
 
-Important assumption: this first pass still treats the installed servo body envelope as centered under the output shaft for fit budgeting. It matches the requested shaft-axis logic, but it is still not a fully detailed OEM servo CAD model. If the actual MS24/DS3218 shaft offset must be represented, the lower-half fit should be rechecked before printing.
+The previous centered-body assumption was wrong for this servo class. With the measured offset, keeping the old `-10 mm` shaft height would push the servo body into the narrowing lower shell. Moving the shaft plane to the seam/equator gives enough fit while keeping the shaft on the egg centerline.
 
 ## Moving-Mass Clearance Logic
 
@@ -55,8 +55,8 @@ The requested first-pass nominal arm length was roughly `35 mm` to the weight ce
 Current moving-mass envelope:
 
 ```text
-ARM_PLANE_Z = -10.0
-ARM_WEIGHT_CENTER_RADIUS = 31.8
+ARM_PLANE_Z = 0.0
+ARM_WEIGHT_CENTER_RADIUS = 29.4
 END_WEIGHT_DIAMETER = 12.0
 END_WEIGHT_HEIGHT = 4.0
 MOVING_MASS_CLEARANCE = 3.5
@@ -65,9 +65,9 @@ MOVING_MASS_CLEARANCE = 3.5
 The generator checks the end weight's vertical thickness band around the horizontal sweep plane and computes:
 
 ```text
-computed safe arm radius=31.89 mm
-achieved weight-center arm radius=31.80 mm
-moving weight shell clearance=3.59 mm
+computed safe arm radius=29.48 mm
+achieved weight-center arm radius=29.40 mm
+moving weight shell clearance=3.58 mm
 ```
 
 The design therefore uses the largest conservative radius that keeps the moving weight at least about `3.5 mm` from the shell.
@@ -86,12 +86,12 @@ The cable guide intentionally does not cut an exterior hole through the shell in
 
 ## Closure And Sweep Tradeoff
 
-No local seam/lip relief was needed for the moving-weight sweep at the current `31.8 mm` arm radius. The registration lip and detent closure are preserved everywhere.
+No local seam/lip relief was needed for the moving-weight sweep at the current `29.4 mm` arm radius. The registration lip and detent closure are preserved everywhere.
 
 Tradeoff:
 
 - Keeping the closure intact preserves the proven two-piece fit.
-- The moving weight radius is reduced from the requested nominal `35 mm` to `31.8 mm`.
+- The moving weight radius is reduced from the requested nominal `35 mm` to `29.4 mm`.
 - A larger balance-shift effect would require at least one of: smaller end weight diameter, lower clearance target, local shell enlargement, local seam/lip relief, or a larger outer shell.
 
 ## Validation Output
@@ -105,31 +105,25 @@ balance_shift_lid.stl:
 balance_shift_bottom.stl:
   vertices=37014 faces=73960 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.4] size=[90.0, 90.0, 68.4]
-balance_shift_assembly_preview.stl:
-  vertices=72184 faces=144296 boundary_edges=0
-  bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 130.0] size=[90.0, 90.0, 130.0]
-balance_shift_mechanism_preview.stl:
-  vertices=73046 faces=145976 boundary_edges=0
-  bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 130.0] size=[90.0, 90.0, 130.0]
 ```
 
 Parameter checks:
 
 ```text
-shaft center relative to seam=-10.0 mm
-servo body envelope=20.0 x 40.5 x 40.0 mm
+shaft center relative to seam=0.0 mm
+servo body center offset from shaft=0.0 x 10.2 mm
+servo body envelope=20.0 x 40.0 x 40.0 mm
 moving weight envelope diameter=12.0 mm height=4.0 mm
-achieved weight-center arm radius=31.80 mm
-computed safe arm radius=31.89 mm
-moving weight shell clearance=3.59 mm
-servo body corner clearance=1.18 mm
+achieved weight-center arm radius=29.40 mm
+computed safe arm radius=29.48 mm
+moving weight shell clearance=3.58 mm
+servo body corner clearance=0.06 mm
 bottom exterior overrun=0.0000 mm
 ```
 
 ## Next Print Feedback To Capture
 
 - Does the MS24-class servo body fit into the lower half with enough practical installation clearance?
-- Is the centered but still simplified shaft/body assumption acceptable, or does the actual servo shaft offset need to be modelled?
 - Does the clamp boss position leave enough room for a printed clamp strap?
-- Is the `31.8 mm` moving weight radius sufficient for the perceived balance shift?
+- Is the `29.4 mm` moving weight radius sufficient for the perceived balance shift?
 - Is the internal cable guide enough, or is an exterior cable exit notch required?
