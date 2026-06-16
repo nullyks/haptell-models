@@ -57,11 +57,12 @@ Generated files:
 
 Current first-pass balance-shift assumptions:
 
-- Servo body envelope: `40.0 x 20.0 x 40.5 mm`
+- Servo body envelope in the installed side-mounted orientation: `20.0 x 40.5 x 40.0 mm`
 - Shaft center: `10.0 mm` below the shell seam, on the main shell centerline
+- Shaft axis: horizontal, so the arm sweeps in an `xz` plane relative to the egg long axis
 - Moving weight envelope: `12.0 mm` diameter x `4.0 mm` height
-- Achieved safe arm radius to weight center: `31.8 mm`
-- Moving weight to shell clearance: about `3.59 mm`
+- Achieved safe arm radius to weight center: `29.5 mm`
+- Moving weight to shell clearance: about `3.62 mm`
 - The seam lip is left intact for closure strength; no sweep relief is needed at the current radius.
 
 For placement logic, clearance math, and tradeoffs, see `docs/balance_shift_current_state.md`.
