@@ -84,7 +84,7 @@ The lower half includes:
 - four vertical clamp bosses with pilot holes for a future printed clamp strap, also lowered below the arm sweep volume,
 - an internal cable guide and strain-relief posts routing the servo wire below the moving-mass sweep plane toward the seam.
 
-The radial anchor ribs run from radius `18.0 mm` to `40.8 mm` at `z=-24.0...-18.0`. This intentionally overlaps the inner shell wall by about `0.45...1.95 mm` while staying inside the exterior surface.
+The radial anchor ribs run to radius `40.8 mm` at `z=-24.0...-18.0`. Four ribs start at `18.0 mm`; the two upper diagonal ribs start at `25.6 mm` so they do not intrude into the MS24 body pocket. The ribs intentionally overlap the inner shell wall while staying inside the exterior surface.
 
 The cable guide intentionally does not cut an exterior hole through the shell in this first pass. That preserves the closure and shell strength; if an external cable pass-through is required for the test, add a local seam notch after confirming cable routing.
 

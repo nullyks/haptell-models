@@ -342,11 +342,19 @@ def add_servo_cradle(mesh: egg.Mesh) -> None:
     # centerline volume open for the arm swing.
     add_box(mesh, (13.0, CRADLE_BODY_Y0 - 2.0, -30.0), (21.0, CRADLE_BODY_Y1 + 2.0, -15.0))
     add_box(mesh, (-21.0, CRADLE_BODY_Y0 - 2.0, -30.0), (-13.0, CRADLE_BODY_Y1 + 2.0, -15.0))
-    for angle in (-28.0, 35.0, 55.0, 125.0, 145.0, 208.0):
+    anchor_ribs = [
+        (-28.0, 18.0),
+        (35.0, 18.0),
+        (55.0, 25.6),
+        (125.0, 25.6),
+        (145.0, 18.0),
+        (208.0, 18.0),
+    ]
+    for angle, inner_radius in anchor_ribs:
         add_radial_box(
             mesh,
             angle_degrees=angle,
-            r0=18.0,
+            r0=inner_radius,
             r1=40.8,
             width=4.2,
             z0=-24.0,
