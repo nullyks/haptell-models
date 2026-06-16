@@ -106,8 +106,8 @@ For the balance-shift variant, expected output includes:
 - printable bottom bounds: `90.0 x 90.0 x 68.4`
 - assembly preview bounds: `90.0 x 90.0 x 130.0`
 - shaft center relative to seam: current target `-10.0`
-- achieved weight-center arm radius: current target `29.5`
-- moving weight shell clearance: current target about `3.62`
+- achieved weight-center arm radius: current target `31.8`
+- moving weight shell clearance: current target about `3.59`
 - bottom exterior overrun: `0.0000`
 
 For fit-related changes, verify these derived relationships in the script or with a small Python check:
@@ -142,8 +142,8 @@ Preferred minimal changes:
 - v03 holder count/placement: keep three top ring holders, one top center holder, and one bottom center holder unless the user explicitly changes the layout.
 - Balance-shift variant: keep it in `generate_balance_shift_stl.py` and `output/balance_shift/` so the egg-box STL outputs are not overwritten.
 - Balance-shift shell: preserve the current outer egg silhouette and closure unless a measured servo/weight conflict requires a local relief.
-- Balance-shift moving mass: the requested nominal `35 mm` arm radius does not fit with a `12 mm` end weight and 3-4 mm shell clearance inside the current 90 mm shell; current safe radius is about `29.6 mm`, and the current design uses `29.5 mm`.
-- Balance-shift servo: current first pass mounts the servo on its side with a centered installed envelope of `20.0 x 40.5 x 40.0 mm` and a horizontal shaft axis. If the actual MS24 shaft offset must be modelled, re-check lower-half fit before printing.
+- Balance-shift moving mass: the requested nominal `35 mm` arm radius does not fit with a `12 mm` end weight and 3-4 mm shell clearance inside the current 90 mm shell; current safe radius is about `31.9 mm`, and the current design uses `31.8 mm`.
+- Balance-shift servo: current first pass uses a centered installed envelope of `20.0 x 40.5 x 40.0 mm`, with the output shaft axis vertical / parallel to the egg long axis and the arm sweeping in a horizontal `xy` plane. If the actual MS24 shaft offset must be modelled, re-check lower-half fit before printing.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.
 

@@ -13,10 +13,9 @@ import generate_egg_box_stl as egg
 MODEL_VERSION = "balance-shift-v01"
 OUTPUT_DIR = os.path.join("output", "balance_shift")
 
-# Servo working envelope: MiuZei MS24 / DS3218 class, installed on its side so
-# the output shaft is horizontal. The original nominal servo body is about
-# 40 x 20 x 40.5 mm; the mounted envelope below is that same hardware reoriented
-# for an xz-plane weight sweep around the egg's longitudinal axis.
+# Servo working envelope: MiuZei MS24 / DS3218 class. The cradle keeps the
+# narrow-long top-view footprint visible in the actual MS24 photos, while the
+# output shaft axis is aligned with the egg's longitudinal Z axis.
 SERVO_BODY_X = 20.0
 SERVO_BODY_Y = 40.5
 SERVO_BODY_Z = 40.0
@@ -32,7 +31,7 @@ SERVO_EAR_RADIUS = 3.2
 # with this shell, a 12 mm end weight, and 3-4 mm shell clearance, so this is
 # the largest conservative value that clears the current bottom-half interior.
 ARM_PLANE_Z = SERVO_SHAFT_Z
-ARM_WEIGHT_CENTER_RADIUS = 29.5
+ARM_WEIGHT_CENTER_RADIUS = 31.8
 ARM_WIDTH = 6.0
 ARM_THICKNESS = 3.0
 END_WEIGHT_DIAMETER = 12.0
@@ -119,35 +118,6 @@ def add_z_cylinder(
         mesh.faces.append((bottom_center, bottom[j], bottom[i]))
 
 
-def add_y_cylinder(
-    mesh: egg.Mesh,
-    *,
-    center: tuple[float, float],
-    radius: float,
-    y0: float,
-    y1: float,
-    segments: int = 64,
-) -> None:
-    cx, cz = center
-    start = []
-    end = []
-    for i in range(segments):
-        angle = 2.0 * math.pi * i / segments
-        x = cx + radius * math.cos(angle)
-        z = cz + radius * math.sin(angle)
-        start.append(mesh.add_vertex((x, y0, z)))
-        end.append(mesh.add_vertex((x, y1, z)))
-
-    start_center = mesh.add_vertex((cx, y0, cz))
-    end_center = mesh.add_vertex((cx, y1, cz))
-    for i in range(segments):
-        j = (i + 1) % segments
-        mesh.faces.append((start[i], start[j], end[j]))
-        mesh.faces.append((start[i], end[j], end[i]))
-        mesh.faces.append((end_center, end[i], end[j]))
-        mesh.faces.append((start_center, start[j], start[i]))
-
-
 def add_z_tube(
     mesh: egg.Mesh,
     *,
@@ -182,42 +152,6 @@ def add_z_tube(
         mesh.faces.append((outer_top[i], inner_top[j], outer_top[j]))
         mesh.faces.append((outer_bottom[i], inner_bottom[j], inner_bottom[i]))
         mesh.faces.append((outer_bottom[i], outer_bottom[j], inner_bottom[j]))
-
-
-def add_y_tube(
-    mesh: egg.Mesh,
-    *,
-    center: tuple[float, float],
-    outer_radius: float,
-    inner_radius: float,
-    y0: float,
-    y1: float,
-    segments: int = 64,
-) -> None:
-    cx, cz = center
-    outer_start = []
-    outer_end = []
-    inner_start = []
-    inner_end = []
-    for i in range(segments):
-        angle = 2.0 * math.pi * i / segments
-        cos_a = math.cos(angle)
-        sin_a = math.sin(angle)
-        outer_start.append(mesh.add_vertex((cx + outer_radius * cos_a, y0, cz + outer_radius * sin_a)))
-        outer_end.append(mesh.add_vertex((cx + outer_radius * cos_a, y1, cz + outer_radius * sin_a)))
-        inner_start.append(mesh.add_vertex((cx + inner_radius * cos_a, y0, cz + inner_radius * sin_a)))
-        inner_end.append(mesh.add_vertex((cx + inner_radius * cos_a, y1, cz + inner_radius * sin_a)))
-
-    for i in range(segments):
-        j = (i + 1) % segments
-        mesh.faces.append((outer_start[i], outer_start[j], outer_end[j]))
-        mesh.faces.append((outer_start[i], outer_end[j], outer_end[i]))
-        mesh.faces.append((inner_start[i], inner_end[j], inner_start[j]))
-        mesh.faces.append((inner_start[i], inner_end[i], inner_end[j]))
-        mesh.faces.append((outer_end[i], inner_end[i], inner_end[j]))
-        mesh.faces.append((outer_end[i], inner_end[j], outer_end[j]))
-        mesh.faces.append((outer_start[i], inner_start[j], inner_start[i]))
-        mesh.faces.append((outer_start[i], outer_start[j], inner_start[j]))
 
 
 def build_plain_top(outer: np.ndarray) -> egg.Mesh:
@@ -373,9 +307,9 @@ def build_servo_envelope() -> egg.Mesh:
         for x in (-SERVO_EAR_X, SERVO_EAR_X):
             add_z_cylinder(mesh, center=(x, y), radius=SERVO_EAR_RADIUS, z0=SERVO_BODY_TOP_Z - 1.2, z1=SERVO_BODY_TOP_Z + 1.2, segments=24)
 
-    # The output shaft is horizontal along Y in this variant.
-    add_y_cylinder(mesh, center=(0.0, ARM_PLANE_Z), radius=3.0, y0=-6.0, y1=6.0, segments=32)
-    add_y_cylinder(mesh, center=(0.0, ARM_PLANE_Z), radius=5.5, y0=-0.8, y1=0.8, segments=40)
+    # The output shaft axis follows the egg's longitudinal Z axis.
+    add_z_cylinder(mesh, center=(0.0, 0.0), radius=3.0, z0=SERVO_BODY_TOP_Z, z1=SERVO_BODY_TOP_Z + 5.0, segments=32)
+    add_z_cylinder(mesh, center=(0.0, 0.0), radius=5.5, z0=ARM_PLANE_Z - 0.8, z1=ARM_PLANE_Z + 0.8, segments=40)
     return mesh
 
 
@@ -383,29 +317,27 @@ def build_moving_mass_envelope() -> egg.Mesh:
     mesh = egg.Mesh([], [])
     add_box(
         mesh,
-        (0.0, -ARM_THICKNESS / 2.0, ARM_PLANE_Z - ARM_WIDTH / 2.0),
-        (ARM_WEIGHT_CENTER_RADIUS, ARM_THICKNESS / 2.0, ARM_PLANE_Z + ARM_WIDTH / 2.0),
+        (0.0, -ARM_WIDTH / 2.0, ARM_PLANE_Z - ARM_THICKNESS / 2.0),
+        (ARM_WEIGHT_CENTER_RADIUS, ARM_WIDTH / 2.0, ARM_PLANE_Z + ARM_THICKNESS / 2.0),
     )
-    add_y_cylinder(
+    add_z_cylinder(
         mesh,
-        center=(ARM_WEIGHT_CENTER_RADIUS, ARM_PLANE_Z),
+        center=(ARM_WEIGHT_CENTER_RADIUS, 0.0),
         radius=END_WEIGHT_DIAMETER / 2.0,
-        y0=-END_WEIGHT_HEIGHT / 2.0,
-        y1=END_WEIGHT_HEIGHT / 2.0,
+        z0=ARM_PLANE_Z - END_WEIGHT_HEIGHT / 2.0,
+        z1=ARM_PLANE_Z + END_WEIGHT_HEIGHT / 2.0,
         segments=48,
     )
-    # Preview-only sweep envelope: a sampled ring of weight positions around the
-    # horizontal shaft axis.
-    for angle_deg in range(0, 360, 15):
-        angle = math.radians(angle_deg)
-        add_y_cylinder(
-            mesh,
-            center=(ARM_WEIGHT_CENTER_RADIUS * math.cos(angle), ARM_PLANE_Z + ARM_WEIGHT_CENTER_RADIUS * math.sin(angle)),
-            radius=END_WEIGHT_DIAMETER / 2.0,
-            y0=-END_WEIGHT_HEIGHT / 2.0,
-            y1=END_WEIGHT_HEIGHT / 2.0,
-            segments=24,
-        )
+    # Preview-only sweep envelope for the end weight around the vertical shaft.
+    add_z_tube(
+        mesh,
+        center=(0.0, 0.0),
+        outer_radius=ARM_WEIGHT_CENTER_RADIUS + END_WEIGHT_DIAMETER / 2.0,
+        inner_radius=ARM_WEIGHT_CENTER_RADIUS - END_WEIGHT_DIAMETER / 2.0,
+        z0=ARM_PLANE_Z - END_WEIGHT_HEIGHT / 2.0,
+        z1=ARM_PLANE_Z + END_WEIGHT_HEIGHT / 2.0,
+        segments=96,
+    )
     return mesh
 
 
@@ -427,26 +359,10 @@ def bottom_inner_radius_at_z(z: float) -> float:
 
 def moving_mass_clearance() -> tuple[float, float]:
     weight_radius = END_WEIGHT_DIAMETER / 2.0
-    angle_samples = np.linspace(0.0, 2.0 * math.pi, 721)
-
-    def min_clearance_for_radius(radius: float) -> float:
-        min_clearance = float("inf")
-        for angle in angle_samples:
-            x = radius * math.cos(float(angle))
-            z_center = ARM_PLANE_Z + radius * math.sin(float(angle))
-            min_clearance = min(min_clearance, bottom_inner_radius_at_z(z_center) - abs(x) - weight_radius)
-        return min_clearance
-
-    achieved_clearance = min_clearance_for_radius(ARM_WEIGHT_CENTER_RADIUS)
-    lo = 0.0
-    hi = 40.0
-    for _ in range(32):
-        mid = 0.5 * (lo + hi)
-        if min_clearance_for_radius(mid) >= MOVING_MASS_CLEARANCE:
-            lo = mid
-        else:
-            hi = mid
-    return lo, achieved_clearance
+    z_values = np.linspace(ARM_PLANE_Z - END_WEIGHT_HEIGHT / 2.0, ARM_PLANE_Z + END_WEIGHT_HEIGHT / 2.0, 25)
+    safe_radius = min(bottom_inner_radius_at_z(float(z)) - weight_radius - MOVING_MASS_CLEARANCE for z in z_values)
+    achieved_clearance = min(bottom_inner_radius_at_z(float(z)) - ARM_WEIGHT_CENTER_RADIUS - weight_radius for z in z_values)
+    return safe_radius, achieved_clearance
 
 
 def servo_corner_clearance() -> float:
