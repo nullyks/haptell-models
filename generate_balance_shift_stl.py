@@ -92,6 +92,40 @@ def add_box(mesh: egg.Mesh, min_corner: tuple[float, float, float], max_corner: 
     mesh.faces.extend((ids[a], ids[b], ids[c]) for a, b, c in faces)
 
 
+def add_radial_box(
+    mesh: egg.Mesh,
+    *,
+    angle_degrees: float,
+    r0: float,
+    r1: float,
+    width: float,
+    z0: float,
+    z1: float,
+) -> None:
+    angle = math.radians(angle_degrees)
+    ux = math.cos(angle)
+    uy = math.sin(angle)
+    tx = -uy
+    ty = ux
+    half_w = width / 2.0
+    vertices = []
+    for z in (z0, z1):
+        for r in (r0, r1):
+            for t in (-half_w, half_w):
+                vertices.append((r * ux + t * tx, r * uy + t * ty, z))
+
+    ids = [mesh.add_vertex(v) for v in vertices]
+    faces = [
+        (0, 2, 3), (0, 3, 1),
+        (4, 7, 6), (4, 5, 7),
+        (0, 1, 5), (0, 5, 4),
+        (2, 6, 7), (2, 7, 3),
+        (0, 4, 6), (0, 6, 2),
+        (1, 3, 7), (1, 7, 5),
+    ]
+    mesh.faces.extend((ids[a], ids[b], ids[c]) for a, b, c in faces)
+
+
 def add_z_cylinder(
     mesh: egg.Mesh,
     *,
@@ -264,6 +298,14 @@ def add_servo_cradle(mesh: egg.Mesh) -> None:
                 (x1, y1, CRADLE_SADDLE_TOP_Z),
             )
 
+    # Vertical webs tie the lower saddle pads into the side rails so the
+    # support surface is not a separate floating island.
+    for x0, x1 in [(-CRADLE_SIDE_RAIL_X1, -8.0), (8.0, CRADLE_SIDE_RAIL_X1)]:
+        for y0, y1 in saddle_y_bands:
+            if y1 <= y0:
+                continue
+            add_box(mesh, (x0, y0, CRADLE_SADDLE_BOTTOM_Z), (x1, y1, CRADLE_RAIL_BOTTOM_Z + 0.4))
+
     # Side rails match the narrow-long servo footprint visible from above.
     add_box(
         mesh,
@@ -300,6 +342,16 @@ def add_servo_cradle(mesh: egg.Mesh) -> None:
     # centerline volume open for the arm swing.
     add_box(mesh, (13.0, CRADLE_BODY_Y0 - 2.0, -30.0), (21.0, CRADLE_BODY_Y1 + 2.0, -15.0))
     add_box(mesh, (-21.0, CRADLE_BODY_Y0 - 2.0, -30.0), (-13.0, CRADLE_BODY_Y1 + 2.0, -15.0))
+    for angle in (-28.0, 35.0, 55.0, 125.0, 145.0, 208.0):
+        add_radial_box(
+            mesh,
+            angle_degrees=angle,
+            r0=18.0,
+            r1=40.8,
+            width=4.2,
+            z0=-24.0,
+            z1=-18.0,
+        )
 
     # Cable guide toward the upper seam end of the servo.
     add_box(mesh, (-4.4, SERVO_BODY_CENTER_Y + 12.0, CABLE_CHANNEL_BOTTOM_Z), (-2.6, 39.0, CABLE_CHANNEL_TOP_Z))

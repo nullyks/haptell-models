@@ -78,9 +78,13 @@ The lower half includes:
 
 - four lower saddle pads under the servo body, leaving the shaft centerline open,
 - two side guide rails kept below the horizontal arm sweep volume,
+- vertical webs tying the lower saddle pads into the side rails,
 - broad buttresses tying the rails into the shell wall,
+- six radial anchor ribs extending from the cradle into the inner shell wall, so the holder is not a floating slicer island,
 - four vertical clamp bosses with pilot holes for a future printed clamp strap, also lowered below the arm sweep volume,
 - an internal cable guide and strain-relief posts routing the servo wire below the moving-mass sweep plane toward the seam.
+
+The radial anchor ribs run from radius `18.0 mm` to `40.8 mm` at `z=-24.0...-18.0`. This intentionally overlaps the inner shell wall by about `0.45...1.95 mm` while staying inside the exterior surface.
 
 The cable guide intentionally does not cut an exterior hole through the shell in this first pass. That preserves the closure and shell strength; if an external cable pass-through is required for the test, add a local seam notch after confirming cable routing.
 
@@ -103,7 +107,7 @@ balance_shift_lid.stl:
   vertices=35170 faces=70336 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.0] size=[90.0, 90.0, 68.0]
 balance_shift_bottom.stl:
-  vertices=37014 faces=73960 boundary_edges=0
+  vertices=37094 faces=74080 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.4] size=[90.0, 90.0, 68.4]
 ```
 
