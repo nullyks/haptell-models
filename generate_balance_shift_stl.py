@@ -40,7 +40,7 @@ MOVING_MASS_CLEARANCE = 3.5
 
 # Servo cradle / clamp geometry.
 CRADLE_RAIL_WALL = 2.6
-CRADLE_RAIL_TOP_Z = -12.8
+CRADLE_RAIL_TOP_Z = -15.2
 CRADLE_RAIL_BOTTOM_Z = -42.0
 CRADLE_SIDE_RAIL_X0 = SERVO_BODY_X / 2.0 + SERVO_BODY_CLEARANCE
 CRADLE_SIDE_RAIL_X1 = CRADLE_SIDE_RAIL_X0 + CRADLE_RAIL_WALL
@@ -49,7 +49,7 @@ CRADLE_SADDLE_TOP_Z = SERVO_BODY_BOTTOM_Z + 2.5
 CRADLE_SADDLE_BOTTOM_Z = SERVO_BODY_BOTTOM_Z
 CLAMP_BOSS_RADIUS = 3.0
 CLAMP_PILOT_RADIUS = 1.1
-CLAMP_BOSS_TOP_Z = -12.8
+CLAMP_BOSS_TOP_Z = -15.2
 CLAMP_BOSS_BOTTOM_Z = -26.0
 CABLE_CHANNEL_TOP_Z = -14.0
 CABLE_CHANNEL_BOTTOM_Z = -19.2
@@ -244,12 +244,16 @@ def build_plain_bottom(outer: np.ndarray) -> egg.Mesh:
 
 
 def add_servo_cradle(mesh: egg.Mesh) -> None:
-    # Central saddle supports the servo body from below.
-    add_box(
-        mesh,
-        (-8.2, -16.8, CRADLE_SADDLE_BOTTOM_Z),
-        (8.2, 16.8, CRADLE_SADDLE_TOP_Z),
-    )
+    # Four lower saddle pads support the upright, vertical-shaft servo body
+    # while leaving the shaft centerline and horn area visually and physically
+    # clear in the printable bottom half.
+    for x0, x1 in [(-8.2, -3.2), (3.2, 8.2)]:
+        for y0, y1 in [(-16.8, -6.4), (6.4, 16.8)]:
+            add_box(
+                mesh,
+                (x0, y0, CRADLE_SADDLE_BOTTOM_Z),
+                (x1, y1, CRADLE_SADDLE_TOP_Z),
+            )
 
     # Side rails match the narrow-long servo footprint visible from above.
     add_box(
@@ -263,8 +267,8 @@ def add_servo_cradle(mesh: egg.Mesh) -> None:
         (-CRADLE_SIDE_RAIL_X0, CRADLE_SIDE_RAIL_Y, CRADLE_RAIL_TOP_Z),
     )
 
-    # Short end bridges stiffen the rails near the mounting ears without
-    # blocking the arm sweep around the shaft plane.
+    # Short end bridges stiffen the rails near the mounting ears. They stay far
+    # below the shaft plane so the horizontal arm has a clear sweep volume.
     add_box(mesh, (-12.8, 19.5, -34.0), (12.8, 24.0, -21.0))
     add_box(mesh, (-12.8, -24.0, -34.0), (12.8, -19.5, -21.0))
 

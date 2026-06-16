@@ -76,10 +76,10 @@ The design therefore uses the largest conservative radius that keeps the moving 
 
 The lower half includes:
 
-- a lower saddle under the servo body,
-- two side guide rails,
+- four lower saddle pads under the servo body, leaving the shaft centerline open,
+- two side guide rails kept below the horizontal arm sweep volume,
 - broad buttresses tying the rails into the shell wall,
-- four vertical clamp bosses with pilot holes for a future printed clamp strap,
+- four vertical clamp bosses with pilot holes for a future printed clamp strap, also lowered below the arm sweep volume,
 - an internal cable guide and strain-relief posts routing the servo wire below the moving-mass sweep plane toward the seam.
 
 The cable guide intentionally does not cut an exterior hole through the shell in this first pass. That preserves the closure and shell strength; if an external cable pass-through is required for the test, add a local seam notch after confirming cable routing.
@@ -103,13 +103,13 @@ balance_shift_lid.stl:
   vertices=35170 faces=70336 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.0] size=[90.0, 90.0, 68.0]
 balance_shift_bottom.stl:
-  vertices=36990 faces=73924 boundary_edges=0
+  vertices=37014 faces=73960 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.4] size=[90.0, 90.0, 68.4]
 balance_shift_assembly_preview.stl:
-  vertices=72160 faces=144260 boundary_edges=0
+  vertices=72184 faces=144296 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 130.0] size=[90.0, 90.0, 130.0]
 balance_shift_mechanism_preview.stl:
-  vertices=73022 faces=145940 boundary_edges=0
+  vertices=73046 faces=145976 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 130.0] size=[90.0, 90.0, 130.0]
 ```
 

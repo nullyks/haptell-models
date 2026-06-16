@@ -63,6 +63,7 @@ Current first-pass balance-shift assumptions:
 - Moving weight envelope: `12.0 mm` diameter x `4.0 mm` height
 - Achieved safe arm radius to weight center: `31.8 mm`
 - Moving weight to shell clearance: about `3.59 mm`
+- Bottom cradle: four lower saddle pads, lowered side rails, and lowered clamp bosses keep the shaft/arm sweep area open in the printable bottom half
 - The seam lip is left intact for closure strength; no sweep relief is needed at the current radius.
 
 For placement logic, clearance math, and tradeoffs, see `docs/balance_shift_current_state.md`.
