@@ -10,7 +10,7 @@ import generate_egg_box_stl as egg
 
 
 # Units are millimetres.
-MODEL_VERSION = "balance-shift-v02-ms24-offset"
+MODEL_VERSION = "balance-shift-v03-simple-ms24-mount"
 OUTPUT_DIR = os.path.join("output", "balance_shift")
 
 # Servo working envelope measured from MS24-UF.stl. The output shaft axis stays
@@ -40,22 +40,19 @@ END_WEIGHT_DIAMETER = 12.0
 END_WEIGHT_HEIGHT = 4.0
 MOVING_MASS_CLEARANCE = 3.5
 
-# Servo cradle / clamp geometry.
-CRADLE_RAIL_WALL = 2.6
-CRADLE_RAIL_TOP_Z = -5.5
-CRADLE_RAIL_BOTTOM_Z = SERVO_BODY_BOTTOM_Z + 8.0
-CRADLE_SIDE_RAIL_X0 = SERVO_BODY_X / 2.0 + SERVO_BODY_CLEARANCE
-CRADLE_SIDE_RAIL_X1 = CRADLE_SIDE_RAIL_X0 + CRADLE_RAIL_WALL
-CRADLE_BODY_Y0 = SERVO_BODY_CENTER_Y - SERVO_BODY_Y / 2.0 - 0.8
-CRADLE_BODY_Y1 = SERVO_BODY_CENTER_Y + SERVO_BODY_Y / 2.0 + 0.8
-CRADLE_SADDLE_TOP_Z = SERVO_BODY_BOTTOM_Z + 2.5
-CRADLE_SADDLE_BOTTOM_Z = SERVO_BODY_BOTTOM_Z
+# Servo cradle / clamp geometry. The printable holder is intentionally simple:
+# two shell-attached crossbars with only the screw bosses/holes needed to clamp
+# the servo ears.
+MOUNT_BAR_Z0 = -18.0
+MOUNT_BAR_Z1 = -5.5
+MOUNT_BAR_WIDTH_Y = 6.4
+MOUNT_HOLE_KEEP_OUT = 2.0
+MOUNT_FRONT_BAR_X_HALF = 38.0
+MOUNT_REAR_BAR_X_HALF = 17.0
 CLAMP_BOSS_RADIUS = 3.0
 CLAMP_PILOT_RADIUS = 1.1
-CLAMP_BOSS_TOP_Z = -5.5
-CLAMP_BOSS_BOTTOM_Z = -18.0
-CABLE_CHANNEL_TOP_Z = -6.0
-CABLE_CHANNEL_BOTTOM_Z = -11.2
+CLAMP_BOSS_TOP_Z = MOUNT_BAR_Z1
+CLAMP_BOSS_BOTTOM_Z = MOUNT_BAR_Z0
 
 
 @dataclass(frozen=True)
@@ -88,40 +85,6 @@ def add_box(mesh: egg.Mesh, min_corner: tuple[float, float, float], max_corner: 
         (1, 5, 6), (1, 6, 2),
         (2, 6, 7), (2, 7, 3),
         (3, 7, 4), (3, 4, 0),
-    ]
-    mesh.faces.extend((ids[a], ids[b], ids[c]) for a, b, c in faces)
-
-
-def add_radial_box(
-    mesh: egg.Mesh,
-    *,
-    angle_degrees: float,
-    r0: float,
-    r1: float,
-    width: float,
-    z0: float,
-    z1: float,
-) -> None:
-    angle = math.radians(angle_degrees)
-    ux = math.cos(angle)
-    uy = math.sin(angle)
-    tx = -uy
-    ty = ux
-    half_w = width / 2.0
-    vertices = []
-    for z in (z0, z1):
-        for r in (r0, r1):
-            for t in (-half_w, half_w):
-                vertices.append((r * ux + t * tx, r * uy + t * ty, z))
-
-    ids = [mesh.add_vertex(v) for v in vertices]
-    faces = [
-        (0, 2, 3), (0, 3, 1),
-        (4, 7, 6), (4, 5, 7),
-        (0, 1, 5), (0, 5, 4),
-        (2, 6, 7), (2, 7, 3),
-        (0, 4, 6), (0, 6, 2),
-        (1, 3, 7), (1, 7, 5),
     ]
     mesh.faces.extend((ids[a], ids[b], ids[c]) for a, b, c in faces)
 
@@ -281,105 +244,39 @@ def build_plain_bottom(outer: np.ndarray) -> egg.Mesh:
 
 
 def add_servo_cradle(mesh: egg.Mesh) -> None:
-    # Four lower saddle pads support the upright, vertical-shaft servo body
-    # while leaving the shaft centerline and horn area visually and physically
-    # clear in the printable bottom half.
-    saddle_y_bands = [
-        (CRADLE_BODY_Y0 + 0.8, min(-5.8, SERVO_BODY_CENTER_Y - 2.0)),
-        (max(5.8, SERVO_BODY_CENTER_Y - 2.0), CRADLE_BODY_Y1 - 3.2),
-    ]
-    for x0, x1 in [(-8.2, -3.2), (3.2, 8.2)]:
-        for y0, y1 in saddle_y_bands:
-            if y1 <= y0:
-                continue
-            add_box(
-                mesh,
-                (x0, y0, CRADLE_SADDLE_BOTTOM_Z),
-                (x1, y1, CRADLE_SADDLE_TOP_Z),
-            )
+    add_mount_bar(mesh, SERVO_BODY_CENTER_Y - SERVO_EAR_Y, MOUNT_FRONT_BAR_X_HALF)
+    add_mount_bar(mesh, SERVO_BODY_CENTER_Y + SERVO_EAR_Y, MOUNT_REAR_BAR_X_HALF)
 
-    # Vertical webs tie the lower saddle pads into the side rails so the
-    # support surface is not a separate floating island.
-    for x0, x1 in [(-CRADLE_SIDE_RAIL_X1, -8.0), (8.0, CRADLE_SIDE_RAIL_X1)]:
-        for y0, y1 in saddle_y_bands:
-            if y1 <= y0:
-                continue
-            add_box(mesh, (x0, y0, CRADLE_SADDLE_BOTTOM_Z), (x1, y1, CRADLE_RAIL_BOTTOM_Z + 0.4))
 
-    # Side rails match the narrow-long servo footprint visible from above.
-    add_box(
-        mesh,
-        (CRADLE_SIDE_RAIL_X0, CRADLE_BODY_Y0, CRADLE_RAIL_BOTTOM_Z),
-        (CRADLE_SIDE_RAIL_X1, CRADLE_BODY_Y1, CRADLE_RAIL_TOP_Z),
-    )
-    add_box(
-        mesh,
-        (-CRADLE_SIDE_RAIL_X1, CRADLE_BODY_Y0, CRADLE_RAIL_BOTTOM_Z),
-        (-CRADLE_SIDE_RAIL_X0, CRADLE_BODY_Y1, CRADLE_RAIL_TOP_Z),
-    )
+def add_mount_bar(mesh: egg.Mesh, y: float, x_half: float) -> None:
+    half_y = MOUNT_BAR_WIDTH_Y / 2.0
+    x_min = -x_half
+    x_max = x_half
+    y_min = y - half_y
+    y_max = y + half_y
 
-    # Short end bridges stiffen the rails near the mounting ears. They stay far
-    # below the shaft plane so the horizontal arm has a clear sweep volume.
-    add_box(mesh, (-12.8, CRADLE_BODY_Y1 - 4.5, -24.0), (12.8, CRADLE_BODY_Y1, -12.0))
-    add_box(mesh, (-12.8, CRADLE_BODY_Y0, -24.0), (12.8, CRADLE_BODY_Y0 + 4.5, -12.0))
+    # Split the bar into simple blocks so the screw pilot keepouts stay open.
+    add_box(mesh, (x_min, y_min, MOUNT_BAR_Z0), (x_max, y - MOUNT_HOLE_KEEP_OUT, MOUNT_BAR_Z1))
+    add_box(mesh, (x_min, y + MOUNT_HOLE_KEEP_OUT, MOUNT_BAR_Z0), (x_max, y_max, MOUNT_BAR_Z1))
 
-    # Side bridges make each screw-boss end frame continuous with the long side
-    # rails. Keep them outside the servo body pocket.
-    for x0, x1 in [(-CRADLE_SIDE_RAIL_X1, -8.6), (8.6, CRADLE_SIDE_RAIL_X1)]:
-        add_box(
+    for x0, x1 in [
+        (x_min, -SERVO_EAR_X - MOUNT_HOLE_KEEP_OUT),
+        (-SERVO_EAR_X + MOUNT_HOLE_KEEP_OUT, SERVO_EAR_X - MOUNT_HOLE_KEEP_OUT),
+        (SERVO_EAR_X + MOUNT_HOLE_KEEP_OUT, x_max),
+    ]:
+        if x1 > x0:
+            add_box(mesh, (x0, y - MOUNT_HOLE_KEEP_OUT, MOUNT_BAR_Z0), (x1, y + MOUNT_HOLE_KEEP_OUT, MOUNT_BAR_Z1))
+
+    for x in (-SERVO_EAR_X, SERVO_EAR_X):
+        add_z_tube(
             mesh,
-            (x0, CRADLE_BODY_Y1 - 0.6, CLAMP_BOSS_BOTTOM_Z),
-            (x1, SERVO_BODY_CENTER_Y + SERVO_EAR_Y - 1.4, CLAMP_BOSS_TOP_Z),
+            center=(x, y),
+            outer_radius=CLAMP_BOSS_RADIUS,
+            inner_radius=CLAMP_PILOT_RADIUS,
+            z0=CLAMP_BOSS_BOTTOM_Z,
+            z1=CLAMP_BOSS_TOP_Z,
+            segments=32,
         )
-        add_box(
-            mesh,
-            (x0, SERVO_BODY_CENTER_Y - SERVO_EAR_Y + 1.4, CLAMP_BOSS_BOTTOM_Z),
-            (x1, CRADLE_BODY_Y0 + 0.6, CLAMP_BOSS_TOP_Z),
-        )
-
-    # Mounting ear bosses are placed at the servo's two short ends, matching
-    # the real servo top view more closely than the earlier left-right layout.
-    for y in (SERVO_BODY_CENTER_Y - SERVO_EAR_Y, SERVO_BODY_CENTER_Y + SERVO_EAR_Y):
-        add_box(mesh, (-9.0, y - 2.2, -24.0), (9.0, y + 2.2, -12.0))
-        for x in (-SERVO_EAR_X, SERVO_EAR_X):
-            add_z_tube(
-                mesh,
-                center=(x, y),
-                outer_radius=CLAMP_BOSS_RADIUS,
-                inner_radius=CLAMP_PILOT_RADIUS,
-                z0=CLAMP_BOSS_BOTTOM_Z,
-                z1=CLAMP_BOSS_TOP_Z,
-                segments=32,
-            )
-
-    # Outer buttresses tie the rails into the shell wall while keeping the
-    # centerline volume open for the arm swing.
-    add_box(mesh, (13.0, CRADLE_BODY_Y0 - 2.0, -30.0), (21.0, CRADLE_BODY_Y1 + 2.0, -15.0))
-    add_box(mesh, (-21.0, CRADLE_BODY_Y0 - 2.0, -30.0), (-13.0, CRADLE_BODY_Y1 + 2.0, -15.0))
-    anchor_ribs = [
-        (-28.0, 18.0),
-        (35.0, 18.0),
-        (55.0, 25.6),
-        (125.0, 25.6),
-        (145.0, 18.0),
-        (208.0, 18.0),
-    ]
-    for angle, inner_radius in anchor_ribs:
-        add_radial_box(
-            mesh,
-            angle_degrees=angle,
-            r0=inner_radius,
-            r1=40.8,
-            width=4.2,
-            z0=-24.0,
-            z1=-18.0,
-        )
-
-    # Cable guide toward the upper seam end of the servo.
-    add_box(mesh, (-4.4, SERVO_BODY_CENTER_Y + 12.0, CABLE_CHANNEL_BOTTOM_Z), (-2.6, 39.0, CABLE_CHANNEL_TOP_Z))
-    add_box(mesh, (2.6, SERVO_BODY_CENTER_Y + 12.0, CABLE_CHANNEL_BOTTOM_Z), (4.4, 39.0, CABLE_CHANNEL_TOP_Z))
-    for x in (-2.0, 2.0):
-        add_z_cylinder(mesh, center=(x, SERVO_BODY_CENTER_Y + 16.8), radius=1.3, z0=CABLE_CHANNEL_BOTTOM_Z, z1=CABLE_CHANNEL_TOP_Z, segments=24)
 
 
 def build_servo_envelope() -> egg.Mesh:

@@ -144,7 +144,7 @@ Preferred minimal changes:
 - Balance-shift shell: preserve the current outer egg silhouette and closure unless a measured servo/weight conflict requires a local relief.
 - Balance-shift moving mass: the requested nominal `35 mm` arm radius does not fit with a `12 mm` end weight and 3-4 mm shell clearance inside the current 90 mm shell; current safe radius is about `29.5 mm`, and the current design uses `29.4 mm`.
 - Balance-shift servo: current first pass uses the `MS24-UF.stl` measured shaft offset. The shaft axis is vertical / parallel to the egg long axis and stays on the shell centerline; the servo body center is offset `10.2 mm` along the long body axis.
-- Balance-shift bottom cradle: keep the four lower saddle pads, lowered side rails, lowered clamp bosses, vertical saddle-to-rail webs, screw-boss-to-rail side bridges, and radial shell anchor ribs so the shaft centerline and horizontal arm sweep volume stay open while the holder remains attached to the shell in the printable bottom STL.
+- Balance-shift bottom cradle: current print feedback rejected the complex holder. Keep the holder as two simple shell-attached screw bars only. Do not reintroduce body saddle pads, side rails, support posts, radial ribs, or an internal cable guide unless the user explicitly asks for them.
 - Balance-shift outputs: generate only `balance_shift_lid.stl` and `balance_shift_bottom.stl`; do not reintroduce balance-shift assembly/mechanism preview STL files unless the user asks for them.
 
 Avoid large redesigns such as hinges, threads, separate clips, or non-parametric mesh edits unless the user explicitly asks for that.

@@ -1,6 +1,6 @@
 # Balance-Shift Haptic Enclosure Current State
 
-Date: 2026-06-16
+Date: 2026-06-17
 
 Branch: `codex/balance-shift-development`
 Generator: `generate_balance_shift_stl.py`
@@ -13,7 +13,7 @@ This is a separate printable enclosure variant for a handheld balance-shift hapt
 - one standard-servo-class body envelope,
 - one rotating arm envelope around a vertical servo shaft aligned to the egg long axis,
 - one compact dense end-weight envelope,
-- one lower-half servo cradle with clamp bosses and an internal cable guide.
+- one lower-half servo mount with only simple screw bars at the servo ear locations.
 
 The current `output/egg_box_*.stl` files are not overwritten by this variant.
 
@@ -74,20 +74,22 @@ The design therefore uses the largest conservative radius that keeps the moving 
 
 ## Servo Cradle
 
-The lower half includes:
+The previous complex holder failed the print-fit test: the internal rails blocked the servo body, the cable guide blocked insertion from one end, and support removal was too difficult. The cradle was therefore rebuilt from scratch as a minimal screw mount.
 
-- four lower saddle pads under the servo body, leaving the shaft centerline open,
-- two side guide rails kept below the horizontal arm sweep volume,
-- vertical webs tying the lower saddle pads into the side rails,
-- side bridges tying both screw-boss end frames into the long side rails with overlap, so the motor mounting bosses do not float as separate islands,
-- broad buttresses tying the rails into the shell wall,
-- six radial anchor ribs extending from the cradle into the inner shell wall, so the holder is not a floating slicer island,
-- four vertical clamp bosses with pilot holes for a future printed clamp strap, also lowered below the arm sweep volume,
-- an internal cable guide and strain-relief posts routing the servo wire below the moving-mass sweep plane toward the seam.
+The lower half now includes only two shell-attached crossbars:
 
-The radial anchor ribs run to radius `40.8 mm` at `z=-24.0...-18.0`. Four ribs start at `18.0 mm`; the two upper diagonal ribs start at `25.6 mm` so they do not intrude into the MS24 body pocket. The ribs intentionally overlap the inner shell wall while staying inside the exterior surface.
+- one front/lower screw bar at `y=-15.8 mm`,
+- one rear/upper screw bar at `y=36.2 mm`,
+- four vertical pilot-hole bosses at the measured MS24 mounting-ear positions `x=+/-6.0 mm`,
+- no body saddle pads,
+- no side guide rails,
+- no radial ribs,
+- no support posts,
+- no internal cable guide.
 
-The cable guide intentionally does not cut an exterior hole through the shell in this first pass. That preserves the closure and shell strength; if an external cable pass-through is required for the test, add a local seam notch after confirming cable routing.
+The servo body envelope remains clear between the two bars. With the current assumptions, the body occupies `y=-9.8...30.2 mm`; the bars occupy `y=-19.0...-12.6 mm` and `y=33.0...39.4 mm`, leaving about `2.8 mm` nominal end clearance on both sides of the servo body. The bars intentionally overlap the shell envelope at their outer ends so slicers merge them into the bottom shell instead of treating the screw features as loose floating islands.
+
+This is deliberately less guided than the earlier holder. The design priority is now installation clearance and easy support cleanup; the servo should be positioned by its own mounting ears and screws rather than by side rails or a molded body pocket.
 
 ## Closure And Sweep Tradeoff
 
@@ -108,13 +110,14 @@ balance_shift_lid.stl:
   vertices=35170 faces=70336 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.0] size=[90.0, 90.0, 68.0]
 balance_shift_bottom.stl:
-  vertices=37126 faces=74128 boundary_edges=0
+  vertices=36882 faces=73720 boundary_edges=0
   bounds min=[-45.0, -45.0, 0.0] max=[45.0, 45.0, 68.4] size=[90.0, 90.0, 68.4]
 ```
 
 Parameter checks:
 
 ```text
+model version=balance-shift-v03-simple-ms24-mount
 shaft center relative to seam=0.0 mm
 servo body center offset from shaft=0.0 x 10.2 mm
 servo body envelope=20.0 x 40.0 x 40.0 mm
@@ -128,7 +131,8 @@ bottom exterior overrun=0.0000 mm
 
 ## Next Print Feedback To Capture
 
-- Does the MS24-class servo body fit into the lower half with enough practical installation clearance?
-- Does the clamp boss position leave enough room for a printed clamp strap?
+- Does the MS24-class servo body now pass cleanly between the two screw bars?
+- Do the four screw holes align well enough with the real servo mounting ears?
+- Are the two shell-attached bars strong enough without the removed ribs/posts?
 - Is the `29.4 mm` moving weight radius sufficient for the perceived balance shift?
-- Is the internal cable guide enough, or is an exterior cable exit notch required?
+- Does the removed cable guide leave enough practical room for servo wire routing, or is a later local seam notch needed?
