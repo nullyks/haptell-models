@@ -14,6 +14,9 @@ MODEL_VERSION = "v01"
 OUTER_SIZE = 91.0
 OUTER_RADIUS = 15.0
 SHELL_WALL = 2.8
+# Thin planar end faces improve heat transfer from a Peltier element.  At a
+# 0.4 mm extrusion width this remains three nominal lines thick.
+END_WALL = 1.2
 SEAM_Z = 0.0
 
 # The hidden circular screw joint is used because a rounded-square thread cannot
@@ -87,6 +90,18 @@ def spherocube_radius(z: float, *, wall_offset: float = 0.0) -> float:
     return math.sqrt(max(radius * radius - distance_past_core * distance_past_core, 0.0))
 
 
+def inner_spherocube_radius(z: float) -> float:
+    """Inner contour with thick side walls and thinner horizontal end faces."""
+    horizontal_radius = OUTER_RADIUS - SHELL_WALL
+    vertical_radius = OUTER_RADIUS - END_WALL
+    core_half = OUTER_SIZE / 2.0 - OUTER_RADIUS
+    distance_past_core = max(abs(z) - core_half, 0.0)
+    if distance_past_core >= vertical_radius:
+        return 0.04
+    vertical_fraction = distance_past_core / vertical_radius
+    return horizontal_radius * math.sqrt(max(1.0 - vertical_fraction * vertical_fraction, 0.0))
+
+
 def outer_profile(z0: float, z1: float) -> list[tuple[float, float]]:
     core_half = OUTER_SIZE / 2.0 - OUTER_RADIUS
     values: list[float] = [z0, z1]
@@ -101,21 +116,21 @@ def outer_profile(z0: float, z1: float) -> list[tuple[float, float]]:
 
 
 def inner_profile(z0: float, z1: float) -> list[tuple[float, float]]:
-    inner_radius = OUTER_RADIUS - SHELL_WALL
+    inner_vertical_radius = OUTER_RADIUS - END_WALL
     core_half = OUTER_SIZE / 2.0 - OUTER_RADIUS
-    inner_min = -core_half - inner_radius
-    inner_max = core_half + inner_radius
+    inner_min = -core_half - inner_vertical_radius
+    inner_max = core_half + inner_vertical_radius
     start = max(z0, inner_min)
     end = min(z1, inner_max)
     values: list[float] = [start, end]
     for transition in (-core_half, core_half):
-        lo = max(start, transition - inner_radius)
-        hi = min(end, transition + inner_radius)
+        lo = max(start, transition - inner_vertical_radius)
+        hi = min(end, transition + inner_vertical_radius)
         if lo < hi:
             values.extend(float(z) for z in np.linspace(lo, hi, VERTICAL_CURVE_STEPS))
     values.extend(z for z in (-core_half, core_half) if start <= z <= end)
     zs = sorted(set(round(value, 8) for value in values))
-    return [(z, spherocube_radius(z, wall_offset=SHELL_WALL)) for z in zs]
+    return [(z, inner_spherocube_radius(z)) for z in zs]
 
 
 def add_ring_strip(mesh: Mesh, lower: list[int], upper: list[int], *, inward: bool = False) -> None:
@@ -421,7 +436,8 @@ def main() -> None:
     )
     print(
         f"assembly target: {OUTER_SIZE:.1f} x {OUTER_SIZE:.1f} x {OUTER_SIZE:.1f} mm; "
-        f"shell wall={SHELL_WALL:.1f} mm; corner radius={OUTER_RADIUS:.1f} mm"
+        f"side wall={SHELL_WALL:.1f} mm; top/bottom wall={END_WALL:.1f} mm; "
+        f"corner radius={OUTER_RADIUS:.1f} mm"
     )
 
 

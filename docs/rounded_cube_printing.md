@@ -5,6 +5,11 @@ based on the supplied concept image. The exterior is 91 x 91 x 91 mm with a
 nominal 15 mm corner radius. A circular screw joint is hidden inside the square
 shell so that the parts can physically rotate during assembly.
 
+The side walls are 2.8 mm thick. The central planar top and bottom faces are
+1.2 mm thick to transfer heat from an internally mounted Peltier element more
+effectively. Each thin face still corresponds to three nominal 0.4 mm extrusion
+widths and six 0.20 mm layers.
+
 ## Generated files
 
 - `output/rounded_cube_box/rounded_cube_bottom.stl`
@@ -22,8 +27,8 @@ plate. The printable bottom is already upright on its exterior bottom face.
 - Layer height: 0.20 mm (0.15 mm for a smoother exterior)
 - First layer: 0.20 mm
 - Perimeters: 4
-- Top solid layers: 5
-- Bottom solid layers: 5
+- Top solid layers: 6
+- Bottom solid layers: 6
 - Infill: 15% gyroid
 - Seam position: Rear or Aligned; rotate both parts so the seam is on the least
   visible side
@@ -50,6 +55,13 @@ Enable supports for the internal connector webs:
 Use 100% cooling after layer 3. Start with the PLA profile's normal nozzle and
 bed temperatures (typically about 210 C / 60 C) and follow the spool maker's
 range when it differs.
+
+## Peltier temperature limit
+
+PLA is not intended for sustained high-temperature use and may soften or deform
+above about 50-60 C. Use a temperature sensor at the plastic/Peltier interface,
+closed-loop control, and an independent thermal cutoff. Do not run a Peltier
+module without the heat sinking required for its opposite face.
 
 ## Fit and finishing
 
