@@ -10,13 +10,15 @@ import numpy as np
 
 
 # Units are millimetres.  The model is intended for a 0.4 mm nozzle and PLA.
-MODEL_VERSION = "v01"
+MODEL_VERSION = "v02"
 OUTER_SIZE = 91.0
 OUTER_RADIUS = 15.0
 SHELL_WALL = 2.8
-# Thin planar end faces improve heat transfer from a Peltier element.  At a
-# 0.4 mm extrusion width this remains three nominal lines thick.
+# A thin central pad on each end improves heat transfer from a Peltier element.
+# At a 0.4 mm extrusion width this remains three nominal lines thick.
 END_WALL = 1.2
+THERMAL_PAD_SIZE = 45.0
+THERMAL_PAD_CORNER_RADIUS = 4.0
 SEAM_Z = 0.0
 
 # The hidden circular screw joint is used because a rounded-square thread cannot
@@ -25,8 +27,8 @@ SEAM_Z = 0.0
 THREAD_BASE_RADIUS = 37.0
 THREAD_HEIGHT = 0.70
 THREAD_PITCH = 3.2
-THREAD_ENGAGEMENT = 4.2
-THREAD_RADIAL_CLEARANCE = 0.35
+THREAD_ENGAGEMENT = 8.0
+THREAD_RADIAL_CLEARANCE = 0.30
 MALE_INNER_RADIUS = 34.6
 FEMALE_OUTER_RADIUS = 40.5
 THREAD_LEAD_IN = 0.8
@@ -69,6 +71,12 @@ def rounded_square_ring(core_half: float, radius: float) -> np.ndarray:
     return np.asarray(points, dtype=np.float64)
 
 
+def rounded_square_by_size(size: float, radius: float) -> np.ndarray:
+    if radius <= 0.0 or radius * 2.0 >= size:
+        raise ValueError("Rounded-square radius must be positive and less than half the size")
+    return rounded_square_ring(size / 2.0 - radius, radius)
+
+
 def circle_ring(radius: float, count: int, *, angles: np.ndarray | None = None) -> np.ndarray:
     if angles is None:
         angles = np.linspace(0.0, 2.0 * math.pi, count, endpoint=False)
@@ -81,25 +89,16 @@ def matching_circle_ring(square_ring: np.ndarray, radius: float) -> np.ndarray:
 
 
 def spherocube_radius(z: float, *, wall_offset: float = 0.0) -> float:
-    """Cross-section corner radius for a cube Minkowski-rounded by a sphere."""
+    """Support-free 45-degree end bevel with rounded vertical corners."""
     radius = OUTER_RADIUS - wall_offset
-    core_half = OUTER_SIZE / 2.0 - OUTER_RADIUS
-    distance_past_core = max(abs(z) - core_half, 0.0)
-    if distance_past_core >= radius:
-        return 0.04
-    return math.sqrt(max(radius * radius - distance_past_core * distance_past_core, 0.0))
+    half_height = OUTER_SIZE / 2.0 - wall_offset
+    distance_from_end = half_height - abs(z)
+    return min(max(distance_from_end, 0.04), radius)
 
 
 def inner_spherocube_radius(z: float) -> float:
-    """Inner contour with thick side walls and thinner horizontal end faces."""
-    horizontal_radius = OUTER_RADIUS - SHELL_WALL
-    vertical_radius = OUTER_RADIUS - END_WALL
-    core_half = OUTER_SIZE / 2.0 - OUTER_RADIUS
-    distance_past_core = max(abs(z) - core_half, 0.0)
-    if distance_past_core >= vertical_radius:
-        return 0.04
-    vertical_fraction = distance_past_core / vertical_radius
-    return horizontal_radius * math.sqrt(max(1.0 - vertical_fraction * vertical_fraction, 0.0))
+    """Inner 45-degree bevel, offset 2.8 mm from the exterior bevel."""
+    return spherocube_radius(z, wall_offset=SHELL_WALL)
 
 
 def outer_profile(z0: float, z1: float) -> list[tuple[float, float]]:
@@ -116,7 +115,7 @@ def outer_profile(z0: float, z1: float) -> list[tuple[float, float]]:
 
 
 def inner_profile(z0: float, z1: float) -> list[tuple[float, float]]:
-    inner_vertical_radius = OUTER_RADIUS - END_WALL
+    inner_vertical_radius = OUTER_RADIUS - SHELL_WALL
     core_half = OUTER_SIZE / 2.0 - OUTER_RADIUS
     inner_min = -core_half - inner_vertical_radius
     inner_max = core_half + inner_vertical_radius
@@ -176,6 +175,26 @@ def add_cap(mesh: Mesh, ring: list[int], *, normal_up: bool) -> None:
             mesh.faces.append((center, ring[j], ring[i]))
 
 
+def add_thermal_pocket_cap(mesh: Mesh, cavity_ring: list[int], *, top: bool) -> None:
+    """Create a recessed internal pad while retaining a strong bevel perimeter."""
+    cavity_z = OUTER_SIZE / 2.0 - SHELL_WALL
+    pad_z = OUTER_SIZE / 2.0 - END_WALL
+    if not top:
+        cavity_z = -cavity_z
+        pad_z = -pad_z
+
+    pad_points = rounded_square_by_size(THERMAL_PAD_SIZE, THERMAL_PAD_CORNER_RADIUS)
+    shoulder_ring = mesh.add_ring(pad_points, cavity_z)
+    pad_ring = mesh.add_ring(pad_points, pad_z)
+
+    add_annulus(mesh, cavity_ring, shoulder_ring, normal_up=not top)
+    if top:
+        add_ring_strip(mesh, shoulder_ring, pad_ring, inward=True)
+    else:
+        add_ring_strip(mesh, pad_ring, shoulder_ring, inward=True)
+    add_cap(mesh, pad_ring, normal_up=not top)
+
+
 def build_shell(*, top: bool) -> Mesh:
     mesh = Mesh([], [])
     core_half = OUTER_SIZE / 2.0 - OUTER_RADIUS
@@ -194,11 +213,11 @@ def build_shell(*, top: bool) -> Mesh:
 
     if top:
         add_cap(mesh, outer_rings[-1], normal_up=True)
-        add_cap(mesh, inner_rings[-1], normal_up=False)
+        add_thermal_pocket_cap(mesh, inner_rings[-1], top=True)
         add_annulus(mesh, outer_rings[0], inner_rings[0], normal_up=False)
     else:
         add_cap(mesh, outer_rings[0], normal_up=False)
-        add_cap(mesh, inner_rings[0], normal_up=True)
+        add_thermal_pocket_cap(mesh, inner_rings[0], top=False)
         add_annulus(mesh, outer_rings[-1], inner_rings[-1], normal_up=True)
     return mesh
 
@@ -436,7 +455,8 @@ def main() -> None:
     )
     print(
         f"assembly target: {OUTER_SIZE:.1f} x {OUTER_SIZE:.1f} x {OUTER_SIZE:.1f} mm; "
-        f"side wall={SHELL_WALL:.1f} mm; top/bottom wall={END_WALL:.1f} mm; "
+        f"side/end perimeter={SHELL_WALL:.1f} mm; "
+        f"thermal pads={THERMAL_PAD_SIZE:.1f} x {THERMAL_PAD_SIZE:.1f} x {END_WALL:.1f} mm; "
         f"corner radius={OUTER_RADIUS:.1f} mm"
     )
 

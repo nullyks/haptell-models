@@ -5,10 +5,16 @@ based on the supplied concept image. The exterior is 91 x 91 x 91 mm with a
 nominal 15 mm corner radius. A circular screw joint is hidden inside the square
 shell so that the parts can physically rotate during assembly.
 
-The side walls are 2.8 mm thick. The central planar top and bottom faces are
-1.2 mm thick to transfer heat from an internally mounted Peltier element more
-effectively. Each thin face still corresponds to three nominal 0.4 mm extrusion
-widths and six 0.20 mm layers.
+The side walls and the perimeter of each end face are 2.8 mm thick. A recessed
+45 x 45 mm central thermal pad in the top and bottom is 1.2 mm thick to transfer
+heat from an internally mounted Peltier element more effectively. Each thin pad
+still corresponds to three nominal 0.4 mm extrusion widths and six 0.20 mm
+layers.
+
+Version v02 replaces the support-sensitive spherical end edges with 45-degree
+printable bevels. The 15 mm rounding around the vertical corners is retained.
+The hidden thread has 8.0 mm engagement (about 2.5 turns) and 0.30 mm radial
+clearance.
 
 ## Generated files
 
@@ -40,17 +46,19 @@ plate. The printable bottom is already upright on its exterior bottom face.
 - Elephant foot compensation: 0.15-0.20 mm
 - Brim: 4 mm if the selected PLA tends to lift; otherwise none
 
-Enable supports for the internal connector webs:
+Enable supports only for the internal connector webs:
 
-- Support material: enabled, everywhere (the supports must start on the inner
-  cavity floor, not on the build plate)
+- Support material: For support enforcers only
+- On build plate only: disabled (the supports must start on the inner cavity
+  floor)
 - Style: Organic
 - Overhang threshold: 50 degrees
 - Top contact Z distance: 0.20 mm
 - XY separation: 0.30 mm
 - Interface layers: 2
 - Paint/enforce support only below the annular connector ledges. Block support
-  on the thread flanks so the grooves are not filled.
+  on the thread flanks so the grooves are not filled. Do not paint support on
+  the exterior 45-degree bevels.
 
 Use 100% cooling after layer 3. Start with the PLA profile's normal nozzle and
 bed temperatures (typically about 210 C / 60 C) and follow the spool maker's
@@ -65,7 +73,7 @@ module without the heat sinking required for its opposite face.
 
 ## Fit and finishing
 
-The modeled radial thread clearance is 0.35 mm (0.70 mm diametrically). Remove
+The modeled radial thread clearance is 0.30 mm (0.60 mm diametrically). Remove
 all support residue and any seam blob from the thread before the first assembly.
 Start the lid square to the bottom and turn without forcing it. A trace of dry
 PTFE lubricant can be used after cleaning; do not use oil that may attack or
