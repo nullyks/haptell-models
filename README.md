@@ -11,7 +11,11 @@ Related device project: `https://github.com/nullyks/haptell-devices`
 - `output/egg_box_assembly_preview.stl` - assembled preview, useful for checking fit in a slicer
 - `generate_egg_box_stl.py` - generator script for adjusting dimensions and rebuilding the STL files
 - `generate_balance_shift_stl.py` - separate generator for the balance-shift haptic enclosure variant
+- `generate_rounded_cube_box_stl.py` - separate 91 mm rounded-cube enclosure generator
+- `generate_perforated_sphere_stl.py` - separate 91 mm perforated-sphere enclosure generator
 - `output/balance_shift/` - generated STL files for the balance-shift variant; this path is separate so the current egg-box outputs are not overwritten
+- `output/rounded_cube_box/` - rounded-cube STL files
+- `output/perforated_sphere/` - perforated-sphere STL files
 - `docs/balance_shift_current_state.md` - current balance-shift handoff and design notes
 - `docs/v03_current_state.md` - current v03 handoff and print-test notes
 
@@ -79,6 +83,13 @@ To regenerate only the balance-shift variant:
 
 ```powershell
 python generate_balance_shift_stl.py
+```
+
+To regenerate either 91 mm concept enclosure without overwriting the egg files:
+
+```powershell
+python generate_rounded_cube_box_stl.py
+python generate_perforated_sphere_stl.py
 ```
 
 ## Continue With Codex On Another Computer
