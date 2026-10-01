@@ -11,7 +11,7 @@ import numpy as np
 
 
 # Units are millimetres. Designed for PLA with a 0.4 mm nozzle.
-MODEL_VERSION = "v01"
+MODEL_VERSION = "v02"
 OUTER_DIAMETER = 91.0
 OUTER_RADIUS = OUTER_DIAMETER / 2.0
 WALL_THICKNESS = 2.8
@@ -20,7 +20,6 @@ INNER_RADIUS = OUTER_RADIUS - WALL_THICKNESS
 LARGE_HOLE_DIAMETER = 45.0
 SMALL_HOLE_DIAMETER = 35.0
 HOLE_ELEVATION_DEGREES = 42.0
-SIDE_HOLE_AZIMUTH_DEGREES = 82.0
 HOLE_EDGE_CHAMFER = 1.2
 
 THREAD_BASE_RADIUS = 39.4
@@ -50,12 +49,12 @@ class Hole:
 
 
 HOLES = [
-    Hole("top_large_left", LARGE_HOLE_DIAMETER, HOLE_ELEVATION_DEGREES, -SIDE_HOLE_AZIMUTH_DEGREES, "top"),
     Hole("top_small_center", SMALL_HOLE_DIAMETER, HOLE_ELEVATION_DEGREES, 0.0, "top"),
-    Hole("top_large_right", LARGE_HOLE_DIAMETER, HOLE_ELEVATION_DEGREES, SIDE_HOLE_AZIMUTH_DEGREES, "top"),
-    Hole("bottom_small_left", SMALL_HOLE_DIAMETER, -HOLE_ELEVATION_DEGREES, -SIDE_HOLE_AZIMUTH_DEGREES, "bottom"),
-    Hole("bottom_large_center", LARGE_HOLE_DIAMETER, -HOLE_ELEVATION_DEGREES, 0.0, "bottom"),
-    Hole("bottom_small_right", SMALL_HOLE_DIAMETER, -HOLE_ELEVATION_DEGREES, SIDE_HOLE_AZIMUTH_DEGREES, "bottom"),
+    Hole("top_large_120", LARGE_HOLE_DIAMETER, HOLE_ELEVATION_DEGREES, 120.0, "top"),
+    Hole("top_large_240", LARGE_HOLE_DIAMETER, HOLE_ELEVATION_DEGREES, 240.0, "top"),
+    Hole("bottom_small_60", SMALL_HOLE_DIAMETER, -HOLE_ELEVATION_DEGREES, 60.0, "bottom"),
+    Hole("bottom_large_180", LARGE_HOLE_DIAMETER, -HOLE_ELEVATION_DEGREES, 180.0, "bottom"),
+    Hole("bottom_small_300", SMALL_HOLE_DIAMETER, -HOLE_ELEVATION_DEGREES, 300.0, "bottom"),
 ]
 
 
@@ -80,29 +79,9 @@ def batch_subtract(head: m3d.Manifold, cutters: list[m3d.Manifold]) -> m3d.Manif
     return m3d.Manifold.batch_boolean([head, *cutters], m3d.OpType.Subtract)
 
 
-def support_free_sphere(radius: float) -> m3d.Manifold:
-    """Sphere with tangent 45-degree polar frustums and flat print pads."""
-    join_z = radius / math.sqrt(2.0)
-    join_radius = join_z
-    flat_radius = radius * (math.sqrt(2.0) - 1.0)
-    cap_height = radius - join_z
-
-    middle = m3d.Manifold.sphere(radius, SPHERE_SEGMENTS)
-    middle = middle.trim_by_plane((0.0, 0.0, 1.0), -join_z)
-    middle = middle.trim_by_plane((0.0, 0.0, -1.0), -join_z)
-    bottom_cap = m3d.Manifold.cylinder(
-        cap_height,
-        flat_radius,
-        join_radius,
-        SPHERE_SEGMENTS,
-    ).translate((0.0, 0.0, -radius))
-    top_cap = m3d.Manifold.cylinder(
-        cap_height,
-        join_radius,
-        flat_radius,
-        SPHERE_SEGMENTS,
-    ).translate((0.0, 0.0, join_z))
-    return batch_union([middle, bottom_cap, top_cap])
+def exact_sphere(radius: float) -> m3d.Manifold:
+    """Mathematically spherical exterior/interior without polar flats."""
+    return m3d.Manifold.sphere(radius, SPHERE_SEGMENTS)
 
 
 def direction_from_angles(elevation_degrees: float, azimuth_degrees: float) -> np.ndarray:
@@ -276,8 +255,8 @@ def annular_web(*, top: bool) -> m3d.Manifold:
 
 
 def build_parts() -> tuple[m3d.Manifold, m3d.Manifold]:
-    outer = support_free_sphere(OUTER_RADIUS)
-    inner = support_free_sphere(INNER_RADIUS)
+    outer = exact_sphere(OUTER_RADIUS)
+    inner = exact_sphere(INNER_RADIUS)
     shell = batch_subtract(outer, [inner])
     top = shell.trim_by_plane((0.0, 0.0, 1.0), 0.0)
     bottom = shell.trim_by_plane((0.0, 0.0, -1.0), 0.0)
@@ -303,15 +282,13 @@ def manifold_mesh(solid: m3d.Manifold) -> tuple[np.ndarray, np.ndarray]:
 
 def printable_bottom(vertices: np.ndarray, faces: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     transformed = vertices.copy()
-    transformed[:, 2] += OUTER_RADIUS
-    return transformed, faces.copy()
+    transformed[:, 2] = THREAD_ENGAGEMENT - transformed[:, 2]
+    flipped = faces[:, [0, 2, 1]].copy()
+    return transformed, flipped
 
 
 def printable_lid(vertices: np.ndarray, faces: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    transformed = vertices.copy()
-    transformed[:, 2] = OUTER_RADIUS - transformed[:, 2]
-    flipped = faces[:, [0, 2, 1]].copy()
-    return transformed, flipped
+    return vertices.copy(), faces.copy()
 
 
 def combine_meshes(meshes: list[tuple[np.ndarray, np.ndarray]]) -> tuple[np.ndarray, np.ndarray]:
@@ -408,10 +385,9 @@ def main() -> None:
         report(name, vertices, faces)
         print(f"wrote {path}")
 
-    flat_diameter = 2.0 * OUTER_RADIUS * (math.sqrt(2.0) - 1.0)
     print(
         f"assembly target={OUTER_DIAMETER:.1f} mm diameter x {OUTER_DIAMETER:.1f} mm height; "
-        f"wall={WALL_THICKNESS:.1f} mm; polar print pad={flat_diameter:.2f} mm"
+        f"wall={WALL_THICKNESS:.1f} mm; exterior=true sphere"
     )
     print(
         f"thread engagement={THREAD_ENGAGEMENT:.1f} mm ({THREAD_ENGAGEMENT / THREAD_PITCH:.2f} turns); "

@@ -8,15 +8,18 @@ or rounded-cube outputs.
 
 - Exterior: 91 mm diameter and 91 mm assembled height
 - Wall: 2.8 mm
-- Top hemisphere: two 45 mm holes and one central 35 mm hole
-- Bottom hemisphere: one central 45 mm hole and two 35 mm side holes
+- Top hemisphere: two 45 mm holes and one 35 mm hole
+- Bottom hemisphere: one 45 mm hole and two 35 mm holes
 - Hidden thread: 8.0 mm engagement, 3.2 mm pitch, about 2.5 turns
 - Thread radial clearance: 0.30 mm
-- No holes at either polar print pad
+- Exact spherical exterior without flattened poles or exterior bevels
+- Three holes per hemisphere at 120-degree intervals
+- Bottom pattern rotated 60 degrees relative to the top pattern
+- No holes at either pole
 
-Each outer pole has a 37.69 mm flat print pad followed by a tangent 45-degree
-transition into the spherical middle. This avoids the rough support scars found
-under the first rounded-cube prototype while keeping the assembled dimensions.
+The six holes are distributed around the full circumference rather than grouped
+on one viewing side. The top uses small/large/large holes; the bottom uses
+small/large/small holes in the alternating 60-degree positions.
 
 ## Generated files
 
@@ -24,8 +27,9 @@ under the first rounded-cube prototype while keeping the assembled dimensions.
 - `output/perforated_sphere/perforated_sphere_bottom.stl`
 - `output/perforated_sphere/perforated_sphere_assembly_preview.stl` (inspection only)
 
-Both printable parts are already oriented with their polar flat on the build
-plate. Do not rotate or scale them.
+Both printable parts are already oriented with the threaded opening toward the
+build plate. Do not rotate or scale them. Supports are intentionally required
+for the inner spherical ceilings and the upper arcs of the side openings.
 
 ## PrusaSlicer: Prusa XL, 0.4 mm nozzle, PLA
 
@@ -40,22 +44,25 @@ plate. Do not rotate or scale them.
 - Elephant-foot compensation: 0.15-0.20 mm
 - Avoid crossing perimeters: enabled
 - Seam position: Rear or Aligned
-- Brim: normally unnecessary on the 37.69 mm flat; add 4 mm only if the PLA
-  lifts from the selected sheet
+- Brim: 4-6 mm, with a 0.10-0.15 mm separation if needed to protect the male
+  thread's smooth lead-in
 
-Use painted supports rather than automatic supports over the whole model:
+Supports are required:
 
-- Support material: For support enforcers only
-- On build plate only: disabled
+- Support material: On build plate only
 - Style: Organic
 - Top contact Z distance: 0.20 mm
 - XY separation: 0.30 mm
 - Interface layers: 2
-- Paint support below the internal connector webs and under only the upper arcs
-  of the horizontal 35/45 mm openings
-- Block support on the outer polar pads, their 45-degree transitions, the
-  thread flanks, and the lower portions of the openings
+- Ensure support reaches the inner spherical ceiling and the upper arcs of all
+  horizontal 35/45 mm openings
+- Add a support enforcer below the bottom half's outer seam shoulder if the
+  automatic preview leaves it unsupported
+- Block support on both thread flanks and keep support-interface material out of
+  the female groove
 
-Inspect the sliced preview layer-by-layer. No support should touch the visible
-polar transitions. Remove all support residue and seam blobs from the thread
-before assembly, then start the lid square and turn it without forcing it.
+Inspect the sliced preview layer-by-layer. The bottom part rests on the male
+thread's smooth lead-in; the active ridge starts above the first layers. Use
+0.15-0.20 mm elephant-foot compensation and remove every brim/support remnant
+from the thread before assembly. Start the lid square and turn it without
+forcing it.
