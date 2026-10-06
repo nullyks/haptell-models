@@ -8,8 +8,8 @@ or rounded-cube outputs.
 
 - Exterior: 91 mm diameter and 91 mm assembled height
 - Wall: 2.8 mm
-- Top hemisphere: two 45 mm holes and one 35 mm hole
-- Bottom hemisphere: one 45 mm hole and two 35 mm holes
+- Top hemisphere: two 31.5 mm holes and one 24.5 mm hole
+- Bottom hemisphere: one 31.5 mm hole and two 24.5 mm holes
 - Hidden thread: 8.0 mm engagement, 3.2 mm pitch, about 2.5 turns
 - Thread radial clearance: 0.30 mm
 - Exact spherical exterior without flattened poles or exterior bevels
@@ -19,7 +19,8 @@ or rounded-cube outputs.
 
 The six holes are distributed around the full circumference rather than grouped
 on one viewing side. The top uses small/large/large holes; the bottom uses
-small/large/small holes in the alternating 60-degree positions.
+small/large/small holes in the alternating 60-degree positions. Version v03
+reduces both hole classes by 30% from the reference image dimensions.
 
 ## Generated files
 
@@ -55,7 +56,7 @@ Supports are required:
 - XY separation: 0.30 mm
 - Interface layers: 2
 - Ensure support reaches the inner spherical ceiling and the upper arcs of all
-  horizontal 35/45 mm openings
+  horizontal 24.5/31.5 mm openings
 - Add a support enforcer below the bottom half's outer seam shoulder if the
   automatic preview leaves it unsupported
 - Block support on both thread flanks and keep support-interface material out of
