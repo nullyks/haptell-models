@@ -1,5 +1,5 @@
 {
-  "model_version": "v03-76mm-snap-fan",
+  "model_version": "v04-rounder-two-vents",
   "assembly_bounds_mm": [
     76.0,
     76.0,
@@ -9,12 +9,12 @@
   "snap_radial_interference_mm": 0.5,
   "snap_seated_clearance_mm": 0.45000000000000573,
   "socket_remaining_wall_mm": 1.8499999999999999,
-  "vent_count_per_half": 36,
+  "vent_count_per_half": 24,
   "component_collisions_mm3": {
     "fan_max_12mm_depth": 4.440892098500626e-16,
     "arduino_uno_provisional_depth": 0.0,
     "battery": 0.0,
-    "tp4056_provisional_height": -5.684341886080802e-14,
+    "tp4056_provisional_height": 0.0,
     "bottom_peltier": 0.0,
     "top_peltier": 0.0
   },

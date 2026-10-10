@@ -1,0 +1,21 @@
+{
+  "family": "egg_box",
+  "revision": "2026-10-10_111632_86ac2244",
+  "archived_at_utc": "2026-10-10T11:16:32.436920+00:00",
+  "generator": "generate_egg_box_stl.py",
+  "git_head_for_reference_only": "7a5b47d2769ba004e3dfc84af6e6ccbce63de44c",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "ced6ba43b92ef2109090b2ba7bc4cad80d30d2e86405d4d97a88f17b0aed2794",
+  "sha256": {
+    "stl/egg_box_assembly_preview.stl": "18be6d042e5d13f5b11fdeb02f66fc184613eb226c00f552868816523383d93a",
+    "stl/egg_box_bottom.stl": "a49df1e2c22100e22a5fa1cd75a6e784d4bcce6ed4fdd6f940be97f39c3062ee",
+    "stl/egg_box_lid.stl": "95a9d9be439244635e10fab59ecbb7490ea774edd56de2e15edb026fc9ca7ab0",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_rounded_cube_box_stl.py": "3e86ec5e06412fde147e99ba9dc3d2485e7840c708460cafcf49044127b88a05",
+    "source/model_archive.py": "a3133ce7a5a946bcd573e350a6d11c3348791f85e893ac0140640c9b9dfcf2fc",
+    "source/requirements.txt": "92f61841fe5dcb04449fcab88679f422a15fea19e46773582975e914ddcc63c5"
+  }
+}

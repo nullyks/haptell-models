@@ -15,9 +15,9 @@ from model_archive import preserve_models
 
 # Millimetres. Drawing supplied 2026-10-10; all three exterior axes are 76 mm.
 # The drawing's thread annotation is superseded by the user's snap request.
-MODEL_VERSION = "v03-76mm-snap-fan"
+MODEL_VERSION = "v04-rounder-two-vents"
 OUTER_SIZE = 76.0
-OUTER_RADIUS = 1.0
+OUTER_RADIUS = 2.5
 SHELL_WALL = 2.8
 END_WALL = 1.2
 THERMAL_PAD_SIZE = 45.0
@@ -72,7 +72,7 @@ PELTIER_INTERFACE = 0.2
 VENT_LENGTH = 18.0
 VENT_HEIGHT = 2.4
 VENT_CENTERS = (-23.0, 0.0, 23.0)
-VENT_LEVELS = (15.0, 22.0, 29.0)
+VENT_LEVELS = (15.0, 29.0)
 
 
 @dataclass

@@ -1,17 +1,18 @@
-# Rounded Cube Box — v03, 76 mm snap enclosure
+# Rounded Cube Box â€” v04, 76 mm snap enclosure
 
 Current generator: `generate_rounded_cube_box_stl.py`.
 Client dimensions received 2026-10-10 supersede the previous 91 mm v02.
 The image's thread annotation is superseded by the user's explicit snap request.
 The previous threaded model and every intermediate trial remain archived.
 
-- [Current v03 trial](revisions/2026-10-10_110233_cc65c905/)
+- [Current v04 trial](revisions/2026-10-10_111644_c2a314f8/)
+- [Previous v03 trial, R1 and three vent rows](revisions/2026-10-10_110233_cc65c905/)
 - [Previous 91 mm threaded v02](revisions/2026-10-10_103358_24bd9aba/)
 
 ## Geometry and output
 
 - Exterior: **76 x 76 x 76 mm**, centered seam at Z=0.
-- All twelve exterior edges are circularly rounded R1 mm, with spherical corner
+- All twelve exterior edges are circularly rounded R2.5 mm, with spherical corner
   patches. The previous 45-degree end bevels and circular screw tubes are removed.
 - Side walls/end perimeter: 2.8 mm. Top/bottom centered thermal contact pads
   retain their 45 x 45 mm outline, R4 corners, and **1.2 mm wall thickness**.
@@ -22,17 +23,17 @@ The previous threaded model and every intermediate trial remain archived.
   retention over easy opening. Opening force has not been physically measured.
 - Socket depth: 0.95 mm; remaining local exterior wall: 1.85 mm.
 - Side/front registration strips align the halves; back is clear for UNO.
-- Each half has **36 rounded horizontal slots**, 18 x 2.4 mm, three rows
-  on all four sides. Rows are 15, 22, and 29 mm away from the center seam.
+- Each half has **24 rounded horizontal slots**, 18 x 2.4 mm, two rows
+  on all four sides. Rows are 15 and 29 mm away from the center seam.
 - Lid has a 12 x 6 mm USB-C access aperture for the charging board.
 
 Latest files:
 
 - `output/rounded_cube_box/rounded_cube_bottom.stl`
 - `output/rounded_cube_box/rounded_cube_lid.stl`
-- `output/rounded_cube_box/rounded_cube_assembly_preview.stl` — inspection only
+- `output/rounded_cube_box/rounded_cube_assembly_preview.stl` â€” inspection only
 - `output/rounded_cube_box/validation.json`
-- `output/rounded_cube_box/rounded_cube_overview.png` — geometry and placement
+- `output/rounded_cube_box/rounded_cube_overview.png` â€” current PrusaSlicer review overview
 
 ## Components and arrangement
 
@@ -53,7 +54,7 @@ Fan mounts vertically in XZ, with its axis along Y. Two bottom seats and side
 cheeks position it; two lower screws retain it against the mounting ears.
 Use M3 through screws, nuts, and washers large enough to cover the 7.4 x 3.4 mm
 slots. Fan hole pitch is provisionally 40 mm; slots accept horizontal pitches
-38–42 mm. **The seller does not give hole pitch or hole diameter. Measure both
+38â€“42 mm. **The seller does not give hole pitch or hole diameter. Measure both
 axes on the actual fan before printing a final fitting sample.** Backing plane
 allows 12 mm fan depth plus 0.6 mm padding/spacer clearance; choose spacers to
 match the actual fan thickness. Keep the central rotor opening free.
@@ -77,20 +78,38 @@ Both print STL files already have their **open side facing the build plate**.
 The lid is 38.0 mm high. The bottom is 44.4 mm high because its 6.4 mm
 registration lip projects past the seam and touches the bed.
 
-Suggested initial slicer setup for a 0.4 mm nozzle:
+Validated slicing setup on 2026-10-10, PrusaSlicer 2.9.6:
 
-- 0.20 mm layers, 4 perimeters, at least 6 solid end layers for the 1.2 mm pads.
-- 15–20% infill; 4–6 mm brim to stabilize the separate lip/tongue footprints.
-- Enable removable internal supports for the broad roof underside, electronics
-  shelves, fan seats/arms, and elevated bottom shell rim. Supports starting on
-  the bed are appropriate; verify slicer coverage under each shelf.
-- Keep supports out of snap-to-shell gaps, hook/socket details, screw slots,
-  and air slots. Paint blockers/enforcers where automatic support is intrusive.
-- Use the material profile matching the filament. PETG is a reasonable first
-  snap-fit trial material; actual latch strength and heat behavior require a
-  print test. No material-specific opening-force claim is made.
-- Review the slicer's layer preview before printing. No slicer toolpath or
-  actual print has been validated in this revision.
+- Printer: Original Prusa XL Input Shaper, standard 0.4 mm nozzle, one active tool.
+- Filament: Generic PLA @XLIS; print preset: 0.20mm STRUCTURAL @XLIS 0.4.
+- 0.20 mm layers, 4 perimeters, 6 top/bottom solid layers, 15% infill, 5 mm brim.
+- Automatic snug supports from the build plate, 0.20 mm Z contact gap,
+  0.35 mm XY separation, 3 interface layers. Automatic support generation is
+  explicitly enabled; the vendor preset otherwise uses support enforcers only.
+- Both final G-codes were inspected in Prusa G-code Viewer, including interior
+  cutaways. Supports reach the roof/trays and elevated bottom rim. Side vents
+  remain open in the preview; their narrow roofs use bridging.
+- Both imported STLs report manifold=yes and one connected part; slicing
+  completed without a mesh repair/error message.
+- Bottom: **4h 2m 32s, 94.66 g**. Lid: **3h 7m 3s, 82.72 g**.
+  Combined separate jobs: **7h 9m 35s, 177.38 g**, including supports/brim.
+  These are slicer estimates, not measured print results.
+- Remove internal supports carefully around the cantilevers; verify that all
+  four tongues move before closing. PLA latch strength and actual opening force
+  still require a physical print test.
+
+Open `output/rounded_cube_box/rounded_cube_bottom_xl_pla.3mf` or
+`rounded_cube_lid_xl_pla.3mf` in PrusaSlicer for editable model/settings projects.
+Matching `.gcode` files, `prusa_xl_04_pla.ini`, screenshots, and
+`prusa_slicer_validation.json` are stored beside them. Re-slice using the actual
+XL tool-count/filament variant if it differs from this single-tool setup.
+The assembly-preview STL is for inspection, not a print job.
+
+For reproduction, load the saved INI when slicing each print STL. The installed
+CLI preset selector returned an unrelated printer during the initial attempt;
+the final INI resolves the installed official PrusaResearch vendor profile's
+inheritance explicitly. Final G-code and 3MF metadata were checked for XLIS and
+0.4 mm; no MINI configuration is used in the delivered files.
 
 Remove internal supports through the open side before fitting electronics.
 Install fan and rear UNO/front battery into the lower half from above. Attach

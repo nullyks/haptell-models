@@ -42,11 +42,12 @@ This repository contains parametric STL generators for four families of two-piec
 
 ## Current rounded-cube model
 
-- Generator: `generate_rounded_cube_box_stl.py`, version `v03-76mm-snap-fan`.
+- Generator: `generate_rounded_cube_box_stl.py`, version `v04-rounder-two-vents`.
 - Current handoff: `models/rounded_cube_box/README.md`. Earlier 91 mm threaded
-  notes in `docs/rounded_cube_printing.md` describe the archived v02, not v03.
+  notes in `docs/rounded_cube_printing.md` describe the archived v02, not the current model.
 - Client drawing received 2026-10-10: exterior 76 x 76 x 76 mm, all edges and
-  corners rounded with nominal R1 mm. User explicitly replaced the drawing's
+  corners initially R1 mm, increased to R2.5 mm at user request. Each half has
+  two rows of 18 x 2.4 mm side slots (24 slots total). User replaced the drawing's
   thread detail with a firm four-tongue snap closure.
 - Keep centered 45 x 45 mm top/bottom thermal pads and their 1.2 mm thickness.
 - Peltier elements: Hailege SP1848, 40 x 40 x 3.4 mm. User explicitly confirmed
@@ -60,6 +61,10 @@ This repository contains parametric STL generators for four families of two-piec
 - Both printable parts have their openings toward the bed; internal roof,
   shelf and rim supports are required. Bottom print height is 44.4 mm due to
   the lip; lid height is 38 mm; assembled bounds are 76 mm on all three axes.
+- PrusaSlicer 2.9.6 review: XL Input Shaper standard 0.4 mm, Generic PLA,
+  0.20 mm STRUCTURAL, 4 perimeters, 6 solid layers, 15% infill, 5 mm brim,
+  automatic snug build-plate supports. Saved 3MF/INI/G-code and review JSON
+  are under output/rounded_cube_box; re-slice after any geometry change.
 - Validation must include zero boundary edges, one connected solid per half,
   no seated-half interference, nominal component collisions and loading paths,
   and unchanged thermal-pad thickness. See generated `validation.json`.
