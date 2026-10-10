@@ -40,6 +40,33 @@ This repository contains parametric STL generators for four families of two-piec
 - Balance-shift STL files are generated separately under `output/balance_shift/` and must not overwrite the current `output/egg_box_*.stl` files.
 - Target printer/material assumption: FDM printing with a 0.4 mm nozzle.
 
+## Current rounded-cube model
+
+- Generator: `generate_rounded_cube_box_stl.py`, version `v03-76mm-snap-fan`.
+- Current handoff: `models/rounded_cube_box/README.md`. Earlier 91 mm threaded
+  notes in `docs/rounded_cube_printing.md` describe the archived v02, not v03.
+- Client drawing received 2026-10-10: exterior 76 x 76 x 76 mm, all edges and
+  corners rounded with nominal R1 mm. User explicitly replaced the drawing's
+  thread detail with a firm four-tongue snap closure.
+- Keep centered 45 x 45 mm top/bottom thermal pads and their 1.2 mm thickness.
+- Peltier elements: Hailege SP1848, 40 x 40 x 3.4 mm. User explicitly confirmed
+  no separate heatsinks. Do not add heatsink mounts unless requested.
+- Central fan: JZK nominal 50 x 50 x 10 mm, vertical in XZ. Cradle accepts up
+  to 12 mm depth, two lower M3 mounting slots, nominal 40 mm pitch. Hole pitch
+  is a provisional assumption because seller did not provide it; confirm on
+  the actual fan. Electronics body heights are also provisional as documented.
+- Rear UNO (R3 assumed), front 65 x 35 x 10 mm LiPo, upper-front 26 x 17 mm
+  TP4056 shelf, and a USB-C access opening. Keep these clear of both thermal pads.
+- Both printable parts have their openings toward the bed; internal roof,
+  shelf and rim supports are required. Bottom print height is 44.4 mm due to
+  the lip; lid height is 38 mm; assembled bounds are 76 mm on all three axes.
+- Validation must include zero boundary edges, one connected solid per half,
+  no seated-half interference, nominal component collisions and loading paths,
+  and unchanged thermal-pad thickness. See generated `validation.json`.
+- Do not present nominal envelope fit as verified physical hardware/plug fit,
+  cooling performance, or measured snap force. TP4056 is a charger/protection
+  module, not a 5 V boost supply or a Peltier driver.
+
 ## Current Model Parameters
 
 All dimensions are millimetres.

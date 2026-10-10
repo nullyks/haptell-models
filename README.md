@@ -32,7 +32,7 @@ references; future model versions belong in the shared primary branch archive.
 - `output/egg_box_assembly_preview.stl` - assembled preview, useful for checking fit in a slicer
 - `generate_egg_box_stl.py` - generator script for adjusting dimensions and rebuilding the STL files
 - `generate_balance_shift_stl.py` - separate generator for the balance-shift haptic enclosure variant
-- `generate_rounded_cube_box_stl.py` - separate 91 mm rounded-cube enclosure generator
+- `generate_rounded_cube_box_stl.py` - 76 mm rounded cube with four snap locks, a central fan mount, and side ventilation; see [current cube design and printing notes](models/rounded_cube_box/README.md)
 - `generate_perforated_sphere_stl.py` - separate 91 mm perforated-sphere enclosure generator
 - `output/balance_shift/` - generated STL files for the balance-shift variant; this path is separate so the current egg-box outputs are not overwritten
 - `output/rounded_cube_box/` - rounded-cube STL files
@@ -109,7 +109,7 @@ To regenerate only the balance-shift variant:
 python generate_balance_shift_stl.py
 ```
 
-To regenerate either 91 mm concept enclosure without overwriting the egg files:
+To regenerate the 76 mm rounded cube or the separate 91 mm sphere without overwriting the egg files:
 
 ```powershell
 python generate_rounded_cube_box_stl.py
