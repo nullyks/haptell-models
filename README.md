@@ -1,18 +1,49 @@
-# Egg Box STL
+# Haptell Enclosure Models
 
-Parametric STL model for a hollow, two-piece egg-shaped device enclosure prototype.
+Parametric STL models for four families of two-piece device enclosure prototypes.
+
+Related device project: `https://github.com/nullyks/haptell-devices`
+
+## Shared primary branch
+
+`master` contains all model families, the latest printable STL files, and the
+permanent trial archive. Use this branch when cloning or continuing the project.
+
+| Model family | Generator | Latest STL files | Trial archive |
+| --- | --- | --- | --- |
+| Egg box (five small holders) | `generate_egg_box_stl.py` | `output/egg_box_*.stl` | `models/egg_box/revisions/` |
+| Balance-shift egg | `generate_balance_shift_stl.py` | `output/balance_shift/` | `models/balance_shift/revisions/` |
+| Rounded cube | `generate_rounded_cube_box_stl.py` | `output/rounded_cube_box/` | `models/rounded_cube_box/revisions/` |
+| Perforated sphere | `generate_perforated_sphere_stl.py` | `output/perforated_sphere/` | `models/perforated_sphere/revisions/` |
+
+Develop changes on temporary `codex/<change-name>` branches from `master`, then
+merge validated generators, outputs, and archive revisions back into `master`.
+The existing family development branches and version tags remain as historical
+references; future model versions belong in the shared primary branch archive.
 
 ## Files
+
+- `models/` - permanent archive of all trial models, grouped by model family;
+  see [archive structure and workflow](models/README.md)
+- `model_archive.py` - automatic preservation used by all generators
 
 - `output/egg_box_bottom.stl` - printable bottom half with male registration lip
 - `output/egg_box_lid.stl` - printable lid
 - `output/egg_box_assembly_preview.stl` - assembled preview, useful for checking fit in a slicer
 - `generate_egg_box_stl.py` - generator script for adjusting dimensions and rebuilding the STL files
+- `generate_balance_shift_stl.py` - separate generator for the balance-shift haptic enclosure variant
+- `generate_rounded_cube_box_stl.py` - separate 91 mm rounded-cube enclosure generator
+- `generate_perforated_sphere_stl.py` - separate 91 mm perforated-sphere enclosure generator
+- `output/balance_shift/` - generated STL files for the balance-shift variant; this path is separate so the current egg-box outputs are not overwritten
+- `output/rounded_cube_box/` - rounded-cube STL files
+- `output/perforated_sphere/` - perforated-sphere STL files
+- `docs/balance_shift_current_state.md` - current balance-shift handoff and design notes
+- `docs/v03_current_state.md` - current v03 handoff and print-test notes
 
 ## Current Parameters
 
 - Product status: `v01` is the first suitable prototype for a device enclosure and should be kept as the backup/reference model.
-- Next development target: `v02`, based on `v01`.
+- Current development version: `v03`, based on the latest `v02-development`, removes the large motor holder and provides five identical small `10.0 x 4.05 mm` holders for client testing.
 - Maximum diameter: 90 mm
 - Assembled length: 130 mm
 - Sharp-tip half print height: 68 mm
@@ -25,12 +56,64 @@ Parametric STL model for a hollow, two-piece egg-shaped device enclosure prototy
 - Retention feature: 0.24 mm annular detent bead with matching 0.22 mm socket groove and gentler 0.9 mm ramps
 - Material target: STL for 0.4 mm nozzle printing
 
+## v03 Haptic Mounts
+
+The model includes five small internal actuator pockets. Each pocket uses a raised flat contact pad tied into the egg shell, side guide clips, a wire/FPC exit gap, and a small over-lip preload to hold the actuator against the shell for better vibration transfer.
+
+- Three holders are distributed equally around the top half circumference at `z=42.0 mm`, angles `90`, `210`, and `330` degrees.
+- One holder is centered at the top inner pole.
+- One holder is centered at the bottom inner pole.
+- All five holders use `10.0 mm` diameter x `4.05 mm` pocket depth, with the reinforced small-holder clip geometry from late `v02`.
+
+The v03 mounts are generated parametrically in `generate_egg_box_stl.py`; do not hand-edit the STL files.
+
+For the current v03 handoff, validation output, and print-test risks, see `docs/v03_current_state.md`.
+
+## Balance-Shift Haptic Variant
+
+`generate_balance_shift_stl.py` creates a separate two-piece shell variant for a handheld balance-shift haptic prototype. It keeps the current outer 90 mm x 130 mm egg silhouette and closure geometry, but replaces the small motor holders with a lower-half servo cradle and a moving-mass clearance envelope.
+
+Generated files:
+
+- `output/balance_shift/balance_shift_lid.stl`
+- `output/balance_shift/balance_shift_bottom.stl`
+
+Current first-pass balance-shift assumptions:
+
+- Servo body envelope measured from `MS24-UF.stl`: `20.0 x 40.0 x 40.0 mm`
+- Servo body center offset from shaft: `0.0 x 10.2 mm`
+- Shaft center: on the shell seam plane, on the main shell centerline
+- Shaft axis: vertical / parallel to the egg long axis, so the arm sweeps in a horizontal `xy` plane
+- Moving weight envelope: `12.0 mm` diameter x `4.0 mm` height
+- Achieved safe arm radius to weight center: `29.4 mm`
+- Moving weight to shell clearance: about `3.58 mm`
+- Bottom cradle: two simple shell-attached screw bars at the MS24 mounting-ear locations; the servo body passage is left open, and the earlier ribs, posts, side rails, saddle pads, and internal cable guide have been removed
+- The seam lip is left intact for closure strength; no sweep relief is needed at the current radius.
+
+For placement logic, clearance math, and tradeoffs, see `docs/balance_shift_current_state.md`.
+
 ## Regenerate
 
-Run the script with Python and it will overwrite the STL files in `output/`.
+Run the script with Python. Existing STL files are preserved in `models/`
+before `output/` is updated; the completed result is then archived too.
+Before changing a generator, run `python model_archive.py` to snapshot the
+current outputs and source. Archived revisions must never be overwritten or deleted.
 
 ```powershell
 python generate_egg_box_stl.py
+```
+
+To regenerate only the balance-shift variant:
+
+```powershell
+python generate_balance_shift_stl.py
+```
+
+To regenerate either 91 mm concept enclosure without overwriting the egg files:
+
+```powershell
+python generate_rounded_cube_box_stl.py
+python generate_perforated_sphere_stl.py
 ```
 
 ## Continue With Codex On Another Computer

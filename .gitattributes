@@ -1,0 +1,2 @@
+# Archive snapshots must retain exact bytes so manifest checksums stay valid.
+models/** -text

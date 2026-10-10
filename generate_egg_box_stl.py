@@ -7,9 +7,11 @@ from collections import Counter
 from dataclasses import dataclass
 
 import numpy as np
+from model_archive import preserve_models
 
 
 # Units are millimetres.
+MODEL_VERSION = "v03"
 DIAMETER = 90.0
 TOTAL_HEIGHT = 130.0
 BOTTOM_HEIGHT = 62.0
@@ -34,6 +36,27 @@ EQUATOR_RADIUS = DIAMETER / 2.0
 TOP_POWER = 0.60
 BOTTOM_POWER = 0.46
 
+MOUNT_RADIAL_CLEARANCE = 0.2
+MOUNT_CLIP_WALL = 1.2
+MOUNT_SEAT_MARGIN = 1.0
+MOUNT_SEAT_EMBED = 0.8
+MOUNT_MIN_SEAT_STANDOFF = 0.6
+MOUNT_SEAT_STANDOFF_FACTOR = 0.012
+MOUNT_CLIP_HEAD = 0.7
+MOUNT_LIP_OVERLAP = 0.35
+MOUNT_PRELOAD = 0.15
+MOUNT_WIRE_SLOT_DEGREES = 70.0
+MOUNT_CLIP_ARC_DEGREES = 34.0
+MOUNT_ARC_STEPS = 6
+MOUNT_SEAT_SEGMENTS = 64
+SMALL_MOUNT_DIAMETER = 10.0
+SMALL_MOUNT_THICKNESS = 4.05
+SMALL_MOUNT_CLIP_WALL = 1.8
+SMALL_MOUNT_CLIP_ARC_DEGREES = 46.0
+SMALL_MOUNT_SEAT_MARGIN = 1.4
+SMALL_MOUNT_CLIP_HEAD = 0.9
+TOP_RING_MOUNT_Z = 42.0
+
 
 @dataclass
 class Mesh:
@@ -46,6 +69,62 @@ class Mesh:
 
     def add_ring(self, points: np.ndarray, z: float) -> list[int]:
         return [self.add_vertex((float(x), float(y), float(z))) for x, y in points]
+
+
+@dataclass(frozen=True)
+class HapticMount:
+    name: str
+    diameter: float
+    thickness: float
+    z: float
+    angle_degrees: float
+    clip_count: int
+    part: str = "top"
+    placement: str = "side"
+    wire_slot_degrees: float = 0.0
+    depth_extra: float = 0.0
+    clip_wall: float = MOUNT_CLIP_WALL
+    clip_arc_degrees: float = MOUNT_CLIP_ARC_DEGREES
+    seat_margin: float = MOUNT_SEAT_MARGIN
+    seat_embed: float = MOUNT_SEAT_EMBED
+    clip_head: float = MOUNT_CLIP_HEAD
+
+    @property
+    def pocket_depth(self) -> float:
+        return self.thickness + self.depth_extra
+
+
+def small_haptic_mount(
+    name: str,
+    *,
+    part: str,
+    placement: str,
+    z: float = TOP_RING_MOUNT_Z,
+    angle_degrees: float = 0.0,
+) -> HapticMount:
+    return HapticMount(
+        name,
+        diameter=SMALL_MOUNT_DIAMETER,
+        thickness=SMALL_MOUNT_THICKNESS,
+        z=z,
+        angle_degrees=angle_degrees,
+        clip_count=3,
+        part=part,
+        placement=placement,
+        clip_wall=SMALL_MOUNT_CLIP_WALL,
+        clip_arc_degrees=SMALL_MOUNT_CLIP_ARC_DEGREES,
+        seat_margin=SMALL_MOUNT_SEAT_MARGIN,
+        clip_head=SMALL_MOUNT_CLIP_HEAD,
+    )
+
+
+HAPTIC_MOUNTS = [
+    small_haptic_mount("top_ring_10x4_holder_90", part="top", placement="side", angle_degrees=90.0),
+    small_haptic_mount("top_ring_10x4_holder_210", part="top", placement="side", angle_degrees=210.0),
+    small_haptic_mount("top_ring_10x4_holder_330", part="top", placement="side", angle_degrees=330.0),
+    small_haptic_mount("top_center_10x4_holder", part="top", placement="center"),
+    small_haptic_mount("bottom_center_10x4_holder", part="bottom", placement="center"),
+]
 
 
 def polygon_area(points: np.ndarray) -> float:
@@ -248,6 +327,237 @@ def offset_dome_profile(height: float, power: float, distance: float, *, top: bo
     return out
 
 
+def top_inner_profile() -> list[tuple[float, float]]:
+    profile = [(SOCKET_DEPTH, lid_socket_radius())]
+    profile.extend(
+        (z, radius)
+        for radius, z in offset_dome_profile(TOP_HEIGHT, TOP_POWER, WALL_THICKNESS, top=True)
+        if z > SOCKET_DEPTH
+    )
+    return sorted(profile)
+
+
+def top_inner_radius_at_z(z: float) -> float:
+    profile = top_inner_profile()
+    if z <= profile[0][0]:
+        return profile[0][1]
+    for (z0, r0), (z1, r1) in zip(profile, profile[1:]):
+        if z <= z1:
+            ratio = (z - z0) / (z1 - z0)
+            return r0 + ratio * (r1 - r0)
+    return profile[-1][1]
+
+
+def top_inner_slope_at_z(z: float) -> float:
+    dz = 0.25
+    z0 = max(SOCKET_DEPTH, z - dz)
+    z1 = min(TOP_HEIGHT, z + dz)
+    if z1 == z0:
+        return 0.0
+    return (top_inner_radius_at_z(z1) - top_inner_radius_at_z(z0)) / (z1 - z0)
+
+
+def top_inner_pole_z() -> float:
+    return top_inner_profile()[-1][0]
+
+
+def bottom_inner_pole_z() -> float:
+    return offset_dome_profile(BOTTOM_HEIGHT, BOTTOM_POWER, WALL_THICKNESS, top=False)[-1][1]
+
+
+def local_point(
+    center: np.ndarray,
+    u_axis: np.ndarray,
+    v_axis: np.ndarray,
+    normal: np.ndarray,
+    x: float,
+    y: float,
+    w: float,
+) -> tuple[float, float, float]:
+    point = center + x * u_axis + y * v_axis + w * normal
+    return (float(point[0]), float(point[1]), float(point[2]))
+
+
+def top_side_mount_frame(mount: HapticMount) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    theta = math.radians(mount.angle_degrees)
+    radial = np.array([math.cos(theta), math.sin(theta), 0.0], dtype=np.float64)
+    tangent = np.array([-math.sin(theta), math.cos(theta), 0.0], dtype=np.float64)
+    radius = top_inner_radius_at_z(mount.z)
+    center = np.array([radius * radial[0], radius * radial[1], mount.z], dtype=np.float64)
+
+    slope = top_inner_slope_at_z(mount.z)
+    outward_normal = radial - slope * np.array([0.0, 0.0, 1.0], dtype=np.float64)
+    outward_normal /= np.linalg.norm(outward_normal)
+    cavity_normal = -outward_normal
+    meridian_tangent = np.cross(cavity_normal, tangent)
+    meridian_tangent /= np.linalg.norm(meridian_tangent)
+    return center, tangent, meridian_tangent, cavity_normal
+
+
+def top_center_mount_frame() -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    center = np.array([0.0, 0.0, top_inner_pole_z()], dtype=np.float64)
+    u_axis = np.array([1.0, 0.0, 0.0], dtype=np.float64)
+    v_axis = np.array([0.0, 1.0, 0.0], dtype=np.float64)
+    cavity_normal = np.array([0.0, 0.0, -1.0], dtype=np.float64)
+    return center, u_axis, v_axis, cavity_normal
+
+
+def bottom_center_mount_frame() -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    center = np.array([0.0, 0.0, bottom_inner_pole_z()], dtype=np.float64)
+    u_axis = np.array([1.0, 0.0, 0.0], dtype=np.float64)
+    v_axis = np.array([0.0, 1.0, 0.0], dtype=np.float64)
+    cavity_normal = np.array([0.0, 0.0, 1.0], dtype=np.float64)
+    return center, u_axis, v_axis, cavity_normal
+
+
+def mount_frame(mount: HapticMount) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    if mount.part == "top" and mount.placement == "side":
+        return top_side_mount_frame(mount)
+    if mount.part == "top" and mount.placement == "center":
+        return top_center_mount_frame()
+    if mount.part == "bottom" and mount.placement == "center":
+        return bottom_center_mount_frame()
+    raise ValueError(f"Unsupported mount placement: part={mount.part!r} placement={mount.placement!r}")
+
+
+def add_oriented_cylinder(
+    mesh: Mesh,
+    center: np.ndarray,
+    u_axis: np.ndarray,
+    v_axis: np.ndarray,
+    normal: np.ndarray,
+    *,
+    radius: float,
+    w0: float,
+    w1: float,
+    segments: int,
+) -> None:
+    bottom = []
+    top = []
+    for i in range(segments):
+        angle = 2.0 * math.pi * i / segments
+        x = radius * math.cos(angle)
+        y = radius * math.sin(angle)
+        bottom.append(mesh.add_vertex(local_point(center, u_axis, v_axis, normal, x, y, w0)))
+        top.append(mesh.add_vertex(local_point(center, u_axis, v_axis, normal, x, y, w1)))
+
+    bottom_center = mesh.add_vertex(local_point(center, u_axis, v_axis, normal, 0.0, 0.0, w0))
+    top_center = mesh.add_vertex(local_point(center, u_axis, v_axis, normal, 0.0, 0.0, w1))
+    for i in range(segments):
+        j = (i + 1) % segments
+        mesh.faces.append((bottom[i], bottom[j], top[j]))
+        mesh.faces.append((bottom[i], top[j], top[i]))
+        mesh.faces.append((top_center, top[i], top[j]))
+        mesh.faces.append((bottom_center, bottom[j], bottom[i]))
+
+
+def add_annular_arc_solid(
+    mesh: Mesh,
+    center: np.ndarray,
+    u_axis: np.ndarray,
+    v_axis: np.ndarray,
+    normal: np.ndarray,
+    *,
+    inner_radius: float,
+    outer_radius: float,
+    start_degrees: float,
+    end_degrees: float,
+    w0: float,
+    w1: float,
+    steps: int,
+) -> None:
+    angles = [math.radians(start_degrees + (end_degrees - start_degrees) * i / steps) for i in range(steps + 1)]
+    inner_bottom = []
+    outer_bottom = []
+    inner_top = []
+    outer_top = []
+    for angle in angles:
+        cos_a = math.cos(angle)
+        sin_a = math.sin(angle)
+        inner_bottom.append(mesh.add_vertex(local_point(center, u_axis, v_axis, normal, inner_radius * cos_a, inner_radius * sin_a, w0)))
+        outer_bottom.append(mesh.add_vertex(local_point(center, u_axis, v_axis, normal, outer_radius * cos_a, outer_radius * sin_a, w0)))
+        inner_top.append(mesh.add_vertex(local_point(center, u_axis, v_axis, normal, inner_radius * cos_a, inner_radius * sin_a, w1)))
+        outer_top.append(mesh.add_vertex(local_point(center, u_axis, v_axis, normal, outer_radius * cos_a, outer_radius * sin_a, w1)))
+
+    for i in range(steps):
+        j = i + 1
+        mesh.faces.append((outer_bottom[i], outer_bottom[j], outer_top[j]))
+        mesh.faces.append((outer_bottom[i], outer_top[j], outer_top[i]))
+        mesh.faces.append((inner_bottom[i], inner_top[j], inner_bottom[j]))
+        mesh.faces.append((inner_bottom[i], inner_top[i], inner_top[j]))
+        mesh.faces.append((inner_top[i], outer_top[i], outer_top[j]))
+        mesh.faces.append((inner_top[i], outer_top[j], inner_top[j]))
+        mesh.faces.append((inner_bottom[i], outer_bottom[j], outer_bottom[i]))
+        mesh.faces.append((inner_bottom[i], inner_bottom[j], outer_bottom[j]))
+
+    mesh.faces.append((inner_bottom[0], outer_bottom[0], outer_top[0]))
+    mesh.faces.append((inner_bottom[0], outer_top[0], inner_top[0]))
+    mesh.faces.append((inner_bottom[-1], outer_top[-1], outer_bottom[-1]))
+    mesh.faces.append((inner_bottom[-1], inner_top[-1], outer_top[-1]))
+
+
+def mount_clip_centers(mount: HapticMount) -> list[float]:
+    available_span = 360.0 - MOUNT_WIRE_SLOT_DEGREES
+    start = mount.wire_slot_degrees + MOUNT_WIRE_SLOT_DEGREES / 2.0
+    return [start + available_span * (i + 0.5) / mount.clip_count for i in range(mount.clip_count)]
+
+
+def add_haptic_mount(mesh: Mesh, mount: HapticMount) -> None:
+    center, u_axis, v_axis, normal = mount_frame(mount)
+    motor_radius = mount.diameter / 2.0
+    seat_radius = motor_radius + mount.seat_margin
+    seat_top_w = max(MOUNT_MIN_SEAT_STANDOFF, MOUNT_SEAT_STANDOFF_FACTOR * seat_radius * seat_radius)
+    wall_inner_radius = motor_radius + MOUNT_RADIAL_CLEARANCE
+    wall_outer_radius = wall_inner_radius + mount.clip_wall
+    wall_top_w = seat_top_w + mount.pocket_depth + mount.clip_head
+    lip_bottom_w = seat_top_w + mount.pocket_depth - MOUNT_PRELOAD
+    lip_inner_radius = max(0.0, motor_radius - MOUNT_LIP_OVERLAP)
+
+    add_oriented_cylinder(
+        mesh,
+        center,
+        u_axis,
+        v_axis,
+        normal,
+        radius=seat_radius,
+        w0=-mount.seat_embed,
+        w1=seat_top_w,
+        segments=MOUNT_SEAT_SEGMENTS,
+    )
+
+    for clip_center in mount_clip_centers(mount):
+        start = clip_center - mount.clip_arc_degrees / 2.0
+        end = clip_center + mount.clip_arc_degrees / 2.0
+        add_annular_arc_solid(
+            mesh,
+            center,
+            u_axis,
+            v_axis,
+            normal,
+            inner_radius=wall_inner_radius,
+            outer_radius=wall_outer_radius,
+            start_degrees=start,
+            end_degrees=end,
+            w0=seat_top_w,
+            w1=wall_top_w,
+            steps=MOUNT_ARC_STEPS,
+        )
+        add_annular_arc_solid(
+            mesh,
+            center,
+            u_axis,
+            v_axis,
+            normal,
+            inner_radius=lip_inner_radius,
+            outer_radius=wall_outer_radius,
+            start_degrees=start,
+            end_degrees=end,
+            w0=lip_bottom_w,
+            w1=wall_top_w,
+            steps=MOUNT_ARC_STEPS,
+        )
+
+
 def build_top(outer: np.ndarray) -> Mesh:
     mesh = Mesh([], [])
 
@@ -279,6 +589,10 @@ def build_top(outer: np.ndarray) -> Mesh:
     add_cap(mesh, inner_rings[-1], normal_up=False)
 
     add_annulus(mesh, outer_rings[0], inner_rings[0], normal_up=False)
+    for mount in HAPTIC_MOUNTS:
+        if mount.part != "top":
+            continue
+        add_haptic_mount(mesh, mount)
     return mesh
 
 
@@ -334,6 +648,10 @@ def build_bottom(outer: np.ndarray) -> Mesh:
     add_ring_strip(mesh, lip_upper_inner, lip_top_inner, inward=True)
     add_annulus(mesh, lip_top_outer, lip_top_inner, normal_up=True)
 
+    for mount in HAPTIC_MOUNTS:
+        if mount.part != "bottom":
+            continue
+        add_haptic_mount(mesh, mount)
     return mesh
 
 
@@ -394,6 +712,7 @@ def boundary_edge_count(mesh: Mesh) -> int:
     return sum(1 for count in edges.values() if count != 2)
 
 
+@preserve_models("egg_box")
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     outer = make_outline()
@@ -416,11 +735,23 @@ def main() -> None:
         print(f"  bounds min={mins.round(3).tolist()} max={maxs.round(3).tolist()} size={size.round(3).tolist()}")
 
     print("parameters:")
+    print(f"  model version={MODEL_VERSION}")
     print(f"  max diameter={DIAMETER:.1f} mm")
     print(f"  assembled length={TOTAL_HEIGHT:.1f} mm")
     print(f"  wall thickness={WALL_THICKNESS:.1f} mm")
     print(f"  fit clearance={CLEARANCE:.1f} mm")
     print(f"  lip height={LIP_HEIGHT:.1f} mm")
+    print("haptic mounts:")
+    for mount in HAPTIC_MOUNTS:
+        center, _u_axis, _v_axis, _normal = mount_frame(mount)
+        center_text = ", ".join(f"{value:.2f}" for value in center)
+        print(
+            f"  {mount.name}: part={mount.part} placement={mount.placement} "
+            f"diameter={mount.diameter:.2f} mm "
+            f"thickness={mount.thickness:.2f} mm pocket_depth={mount.pocket_depth:.2f} mm "
+            f"center=[{center_text}] mm angle={mount.angle_degrees:.1f} deg clips={mount.clip_count} "
+            f"clip_wall={mount.clip_wall:.2f} mm clip_arc={mount.clip_arc_degrees:.1f} deg"
+        )
 
 
 if __name__ == "__main__":
