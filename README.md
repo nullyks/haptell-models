@@ -6,6 +6,10 @@ Related device project: `https://github.com/nullyks/haptell-devices`
 
 ## Files
 
+- `models/` - permanent archive of all trial models, grouped by model family;
+  see [archive structure and workflow](models/README.md)
+- `model_archive.py` - automatic preservation used by all generators
+
 - `output/egg_box_bottom.stl` - printable bottom half with male registration lip
 - `output/egg_box_lid.stl` - printable lid
 - `output/egg_box_assembly_preview.stl` - assembled preview, useful for checking fit in a slicer
@@ -73,7 +77,10 @@ For placement logic, clearance math, and tradeoffs, see `docs/balance_shift_curr
 
 ## Regenerate
 
-Run the script with Python and it will overwrite the STL files in `output/`.
+Run the script with Python. Existing STL files are preserved in `models/`
+before `output/` is updated; the completed result is then archived too.
+Before changing a generator, run `python model_archive.py` to snapshot the
+current outputs and source. Archived revisions must never be overwritten or deleted.
 
 ```powershell
 python generate_egg_box_stl.py

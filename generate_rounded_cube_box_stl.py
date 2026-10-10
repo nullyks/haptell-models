@@ -7,6 +7,7 @@ from collections import Counter
 from dataclasses import dataclass
 
 import numpy as np
+from model_archive import preserve_models
 
 
 # Units are millimetres.  The model is intended for a 0.4 mm nozzle and PLA.
@@ -423,6 +424,7 @@ def validate_thread_clearance() -> tuple[float, float]:
     return min(clearances), max(clearances)
 
 
+@preserve_models("rounded_cube_box")
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 

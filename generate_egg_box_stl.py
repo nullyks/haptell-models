@@ -7,6 +7,7 @@ from collections import Counter
 from dataclasses import dataclass
 
 import numpy as np
+from model_archive import preserve_models
 
 
 # Units are millimetres.
@@ -711,6 +712,7 @@ def boundary_edge_count(mesh: Mesh) -> int:
     return sum(1 for count in edges.values() if count != 2)
 
 
+@preserve_models("egg_box")
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     outer = make_outline()

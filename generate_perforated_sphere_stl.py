@@ -8,6 +8,7 @@ from dataclasses import dataclass
 
 import manifold3d as m3d
 import numpy as np
+from model_archive import preserve_models
 
 
 # Units are millimetres. Designed for PLA with a 0.4 mm nozzle.
@@ -365,6 +366,7 @@ def validate_hole_spacing() -> float:
     return minimum_gap
 
 
+@preserve_models("perforated_sphere")
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     top_solid, bottom_solid = build_parts()

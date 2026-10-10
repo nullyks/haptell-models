@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import numpy as np
 
 import generate_egg_box_stl as egg
+from model_archive import preserve_models
 
 
 # Units are millimetres.
@@ -397,6 +398,7 @@ def write_report(mesh: egg.Mesh, filename: str, name: str) -> None:
     print(f"  bounds min={mins.round(3).tolist()} max={maxs.round(3).tolist()} size={size.round(3).tolist()}")
 
 
+@preserve_models("balance_shift")
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     outer = egg.make_outline()
