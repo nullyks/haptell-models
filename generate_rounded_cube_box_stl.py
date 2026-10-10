@@ -15,7 +15,7 @@ from model_archive import preserve_models
 
 # Millimetres. Drawing supplied 2026-10-10; all three exterior axes are 76 mm.
 # The drawing's thread annotation is superseded by the user's snap request.
-MODEL_VERSION = "v04-rounder-two-vents"
+MODEL_VERSION = "v05-discreet-end-vents"
 OUTER_SIZE = 76.0
 OUTER_RADIUS = 2.5
 SHELL_WALL = 2.8
@@ -69,10 +69,10 @@ CHARGER_CENTER = (0.0, 24.5, 25.5)
 PELTIER_SIZE = 40.0
 PELTIER_THICKNESS = 3.4
 PELTIER_INTERFACE = 0.2
-VENT_LENGTH = 18.0
-VENT_HEIGHT = 2.4
-VENT_CENTERS = (-23.0, 0.0, 23.0)
-VENT_LEVELS = (15.0, 29.0)
+VENT_LENGTH = 10.0
+VENT_HEIGHT = 1.4
+VENT_CENTERS = (-20.0, 0.0, 20.0)
+VENT_LEVELS = (31.5, 34.5)
 
 
 @dataclass
@@ -221,7 +221,8 @@ def build_parts() -> tuple[m3d.Manifold, m3d.Manifold]:
     lid = union([shell ^ half_space(top=True), electronics_shelves(top=True)])
     bottom = subtract(bottom, vents())
     lid = subtract(lid, [*vents(), *snap_sockets(),
-                        box((12.0, 8, 6.0), (0, 37, 26.5))])
+                        rounded_extrusion(12.0, 6.0, 8.0, 2.0).rotate((90, 0, 0))
+                        .translate((0, 37, 26.5))])
     return lid, bottom
 
 

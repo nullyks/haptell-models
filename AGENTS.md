@@ -42,12 +42,13 @@ This repository contains parametric STL generators for four families of two-piec
 
 ## Current rounded-cube model
 
-- Generator: `generate_rounded_cube_box_stl.py`, version `v04-rounder-two-vents`.
+- Generator: `generate_rounded_cube_box_stl.py`, version `v05-discreet-end-vents`.
 - Current handoff: `models/rounded_cube_box/README.md`. Earlier 91 mm threaded
   notes in `docs/rounded_cube_printing.md` describe the archived v02, not the current model.
 - Client drawing received 2026-10-10: exterior 76 x 76 x 76 mm, all edges and
   corners initially R1 mm, increased to R2.5 mm at user request. Each half has
-  two rows of 18 x 2.4 mm side slots (24 slots total). User replaced the drawing's
+  two rows of 10 x 1.4 mm side slots (24 slots total), 31.5 and 34.5 mm
+  from the seam. The center stays closed; USB-C access remains, with R2 corners. User replaced the drawing's
   thread detail with a firm four-tongue snap closure.
 - Keep centered 45 x 45 mm top/bottom thermal pads and their 1.2 mm thickness.
 - Peltier elements: Hailege SP1848, 40 x 40 x 3.4 mm. User explicitly confirmed

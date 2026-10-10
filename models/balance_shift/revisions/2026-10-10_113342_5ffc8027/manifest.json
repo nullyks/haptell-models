@@ -1,0 +1,20 @@
+{
+  "family": "balance_shift",
+  "revision": "2026-10-10_113342_5ffc8027",
+  "archived_at_utc": "2026-10-10T11:33:42.500893+00:00",
+  "generator": "generate_balance_shift_stl.py",
+  "git_head_for_reference_only": "d57e5c2a708e3dc005ec4a22d10ff699ecd630b3",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "a6e3805926f928431181fd1aa6a85ce0c9abd1877480b54430c64fe766798751",
+  "sha256": {
+    "stl/balance_shift_bottom.stl": "ae956ccaf1a653268764492faa4abe62fb90b6fb1c8e260e03fd3517bac1d0b2",
+    "stl/balance_shift_lid.stl": "2ad80c5c43c6cb28cf5a4bca358803adda6ecbed3580901787d9041c3a2823a2",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_rounded_cube_box_stl.py": "dfbe0f7ff6e1e82f856c1e935c55626d98d7418f17158febc5671623ca5c5a2b",
+    "source/model_archive.py": "a3133ce7a5a946bcd573e350a6d11c3348791f85e893ac0140640c9b9dfcf2fc",
+    "source/requirements.txt": "92f61841fe5dcb04449fcab88679f422a15fea19e46773582975e914ddcc63c5"
+  }
+}

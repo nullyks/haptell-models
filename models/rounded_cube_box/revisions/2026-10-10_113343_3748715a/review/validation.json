@@ -1,0 +1,30 @@
+{
+  "model_version": "v05-discreet-end-vents",
+  "assembly_bounds_mm": [
+    76.0,
+    76.0,
+    76.0
+  ],
+  "snap_count": 4,
+  "snap_radial_interference_mm": 0.5,
+  "snap_seated_clearance_mm": 0.45000000000000573,
+  "socket_remaining_wall_mm": 1.8499999999999999,
+  "vent_count_per_half": 24,
+  "component_collisions_mm3": {
+    "fan_max_12mm_depth": 4.440892098500626e-16,
+    "arduino_uno_provisional_depth": 0.0,
+    "battery": 0.0,
+    "tp4056_provisional_height": 0.0,
+    "bottom_peltier": 0.0,
+    "top_peltier": 0.0
+  },
+  "halves_overlap_mm3": 0.0,
+  "thermal_pad_thickness_mm": 1.2,
+  "extra_power_board_space_mm": [
+    16,
+    20,
+    6
+  ],
+  "loading_check": "Fan, UNO and battery enter bottom half from above.",
+  "fit_scope": "Nominal body envelopes only. UNO component depth 14 mm and TP4056 height 5 mm are assumptions; connector overhang, plugs, wiring, straps, and power-converter/Peltier-driver hardware need measured verification. No heatsinks requested. Not a thermal-performance certification."
+}

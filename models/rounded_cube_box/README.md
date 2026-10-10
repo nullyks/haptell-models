@@ -5,7 +5,8 @@ Client dimensions received 2026-10-10 supersede the previous 91 mm v02.
 The image's thread annotation is superseded by the user's explicit snap request.
 The previous threaded model and every intermediate trial remain archived.
 
-- [Current v04 trial](revisions/2026-10-10_111644_c2a314f8/)
+- [Current v05 trial](revisions/2026-10-10_113343_3748715a/)
+- [Previous v04 trial](revisions/2026-10-10_111644_c2a314f8/)
 - [Previous v03 trial, R1 and three vent rows](revisions/2026-10-10_110233_cc65c905/)
 - [Previous 91 mm threaded v02](revisions/2026-10-10_103358_24bd9aba/)
 
@@ -23,9 +24,13 @@ The previous threaded model and every intermediate trial remain archived.
   retention over easy opening. Opening force has not been physically measured.
 - Socket depth: 0.95 mm; remaining local exterior wall: 1.85 mm.
 - Side/front registration strips align the halves; back is clear for UNO.
-- Each half has **24 rounded horizontal slots**, 18 x 2.4 mm, two rows
-  on all four sides. Rows are 15 and 29 mm away from the center seam.
-- Lid has a 12 x 6 mm USB-C access aperture for the charging board.
+- Each half has **24 rounded horizontal slots**, 10 x 1.4 mm, two rows
+  on all four sides. Rows are 31.5 and 34.5 mm away from the center seam, i.e. 6.5 and
+  3.5 mm from the outer top/bottom. Slot centers along each wall are -20, 0, 20 mm.
+  The middle of the cube is closed. Reduced vent area follows aesthetic intent;
+  airflow and cooling performance remain untested.
+- Lid has a 12 x 6 mm USB-C access aperture for the charging board, now with
+  R2 mm corners. It permits charging without opening the firm snap closure.
 
 Latest files:
 
@@ -33,7 +38,7 @@ Latest files:
 - `output/rounded_cube_box/rounded_cube_lid.stl`
 - `output/rounded_cube_box/rounded_cube_assembly_preview.stl` â€” inspection only
 - `output/rounded_cube_box/validation.json`
-- `output/rounded_cube_box/rounded_cube_overview.png` â€” current PrusaSlicer review overview
+- `output/rounded_cube_box/rounded_cube_overview.png` â€” current geometry, front/rear views
 
 ## Components and arrangement
 
@@ -86,13 +91,12 @@ Validated slicing setup on 2026-10-10, PrusaSlicer 2.9.6:
 - Automatic snug supports from the build plate, 0.20 mm Z contact gap,
   0.35 mm XY separation, 3 interface layers. Automatic support generation is
   explicitly enabled; the vendor preset otherwise uses support enforcers only.
-- Both final G-codes were inspected in Prusa G-code Viewer, including interior
-  cutaways. Supports reach the roof/trays and elevated bottom rim. Side vents
-  remain open in the preview; their narrow roofs use bridging.
-- Both imported STLs report manifold=yes and one connected part; slicing
-  completed without a mesh repair/error message.
-- Bottom: **4h 2m 32s, 94.66 g**. Lid: **3h 7m 3s, 82.72 g**.
-  Combined separate jobs: **7h 9m 35s, 177.38 g**, including supports/brim.
+- v05 STLs were regenerated and re-sliced; each saved 3MF was also re-sliced
+  successfully with its embedded XL/PLA settings. Both generated G-codes contain
+  support and interface paths. The assembled geometry was viewed in PrusaSlicer.
+  Earlier detailed G-code screenshots belong to archived v04, not this trial.
+- Bottom: **4h 6m 41s, 97.27 g**. Lid: **3h 11m 16s, 85.00 g**.
+  Combined separate jobs: **7h 17m 57s, 182.27 g**, including supports/brim.
   These are slicer estimates, not measured print results.
 - Remove internal supports carefully around the cantilevers; verify that all
   four tongues move before closing. PLA latch strength and actual opening force
@@ -100,7 +104,7 @@ Validated slicing setup on 2026-10-10, PrusaSlicer 2.9.6:
 
 Open `output/rounded_cube_box/rounded_cube_bottom_xl_pla.3mf` or
 `rounded_cube_lid_xl_pla.3mf` in PrusaSlicer for editable model/settings projects.
-Matching `.gcode` files, `prusa_xl_04_pla.ini`, screenshots, and
+Matching `.gcode` files, `prusa_xl_04_pla.ini`, a geometry overview, and
 `prusa_slicer_validation.json` are stored beside them. Re-slice using the actual
 XL tool-count/filament variant if it differs from this single-tool setup.
 The assembly-preview STL is for inspection, not a print job.

@@ -1,0 +1,28 @@
+{
+  "model_version": "v05-discreet-end-vents",
+  "slicer": "PrusaSlicer 2.9.6",
+  "settings": "Saved XLIS / 0.4 / PLA / 0.20 STRUCTURAL, 4 perimeters, 6 solid layers, 15% infill, 5 mm brim, automatic snug bed-only supports, Z 0.2 mm / XY 0.35 mm.",
+  "parts": {
+    "bottom": {
+      "statistics": {
+        "filament used [g]": "97.27",
+        "estimated printing time (normal mode)": "4h 6m 41s",
+        "printer_model": "XLIS",
+        "nozzle_diameter": "0.4",
+        "support_material_auto": "1"
+      },
+      "gcode_sha256": "bc719841c9ad8c796c30eda4145aa7f746c51d42d20bb3cd51701bddfdd67831"
+    },
+    "lid": {
+      "statistics": {
+        "filament used [g]": "85.00",
+        "estimated printing time (normal mode)": "3h 11m 16s",
+        "printer_model": "XLIS",
+        "nozzle_diameter": "0.4",
+        "support_material_auto": "1"
+      },
+      "gcode_sha256": "92aaf0a4e07c2a85383fce2ad2aadd491dc7f888ab42febab2769165efed6120"
+    }
+  },
+  "scope": "Re-sliced updated geometry. Physical print, snap force and thermal performance not tested."
+}
