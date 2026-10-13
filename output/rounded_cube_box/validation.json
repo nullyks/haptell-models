@@ -1,5 +1,5 @@
 {
-  "model_version": "v05-discreet-end-vents",
+  "model_version": "v06-reinforced-open-up-bottom",
   "assembly_bounds_mm": [
     76.0,
     76.0,
@@ -11,7 +11,7 @@
   "socket_remaining_wall_mm": 1.8499999999999999,
   "vent_count_per_half": 24,
   "component_collisions_mm3": {
-    "fan_max_12mm_depth": 4.440892098500626e-16,
+    "fan_max_12mm_depth": 0.0,
     "arduino_uno_provisional_depth": 0.0,
     "battery": 0.0,
     "tp4056_provisional_height": 0.0,
@@ -26,5 +26,22 @@
     6
   ],
   "loading_check": "Fan, UNO and battery enter bottom half from above.",
-  "fit_scope": "Nominal body envelopes only. UNO component depth 14 mm and TP4056 height 5 mm are assumptions; connector overhang, plugs, wiring, straps, and power-converter/Peltier-driver hardware need measured verification. No heatsinks requested. Not a thermal-performance certification."
+  "fit_scope": "Nominal body envelopes only. UNO component depth 14 mm and TP4056 height 5 mm are assumptions; connector overhang, plugs, wiring, straps, and power-converter/Peltier-driver hardware need measured verification. No heatsinks requested. Not a thermal-performance certification.",
+  "lid_geometry_difference_vs_v05_mm3": 0.0,
+  "snap_free_span_difference_vs_v05_mm3": 0,
+  "serialized_stl_checks": {
+    "rounded_cube_assembly_preview.stl": {
+      "serialized_non_manifold_edges": 0,
+      "triangles": 18320
+    },
+    "rounded_cube_bottom.stl": {
+      "serialized_non_manifold_edges": 0,
+      "triangles": 9794
+    },
+    "rounded_cube_lid.stl": {
+      "serialized_non_manifold_edges": 0,
+      "triangles": 8682
+    }
+  },
+  "bottom_print_orientation": "Floor on plate; opening up; STL already oriented; no 180-degree rotation."
 }

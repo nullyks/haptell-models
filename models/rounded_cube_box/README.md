@@ -1,11 +1,12 @@
-# Rounded Cube Box â€” v04, 76 mm snap enclosure
+# Rounded Cube Box — v04, 76 mm snap enclosure
 
 Current generator: `generate_rounded_cube_box_stl.py`.
 Client dimensions received 2026-10-10 supersede the previous 91 mm v02.
 The image's thread annotation is superseded by the user's explicit snap request.
 The previous threaded model and every intermediate trial remain archived.
 
-- [Current v05 trial](revisions/2026-10-10_113343_3748715a/)
+- [Current v06 trial](revisions/2026-10-13_073006_f7a8bc2d/)
+- [Previous v05 trial](revisions/2026-10-10_113343_3748715a/)
 - [Previous v04 trial](revisions/2026-10-10_111644_c2a314f8/)
 - [Previous v03 trial, R1 and three vent rows](revisions/2026-10-10_110233_cc65c905/)
 - [Previous 91 mm threaded v02](revisions/2026-10-10_103358_24bd9aba/)
@@ -36,9 +37,9 @@ Latest files:
 
 - `output/rounded_cube_box/rounded_cube_bottom.stl`
 - `output/rounded_cube_box/rounded_cube_lid.stl`
-- `output/rounded_cube_box/rounded_cube_assembly_preview.stl` â€” inspection only
+- `output/rounded_cube_box/rounded_cube_assembly_preview.stl` — inspection only
 - `output/rounded_cube_box/validation.json`
-- `output/rounded_cube_box/rounded_cube_overview.png` â€” current geometry, front/rear views
+- `output/rounded_cube_box/rounded_cube_overview.png` — current bottom print/support preview
 
 ## Components and arrangement
 
@@ -59,7 +60,7 @@ Fan mounts vertically in XZ, with its axis along Y. Two bottom seats and side
 cheeks position it; two lower screws retain it against the mounting ears.
 Use M3 through screws, nuts, and washers large enough to cover the 7.4 x 3.4 mm
 slots. Fan hole pitch is provisionally 40 mm; slots accept horizontal pitches
-38â€“42 mm. **The seller does not give hole pitch or hole diameter. Measure both
+38–42 mm. **The seller does not give hole pitch or hole diameter. Measure both
 axes on the actual fan before printing a final fitting sample.** Backing plane
 allows 12 mm fan depth plus 0.6 mm padding/spacer clearance; choose spacers to
 match the actual fan thickness. Keep the central rotor opening free.
@@ -79,41 +80,50 @@ Final converter/driver boards and wiring must be checked when selected.
 
 ## Printing and assembly
 
-Both print STL files already have their **open side facing the build plate**.
-The lid is 38.0 mm high. The bottom is 44.4 mm high because its 6.4 mm
-registration lip projects past the seam and touches the bed.
+The **bottom prints floor-down, open-side-up** from v06 onward. Its STL is
+already oriented; do not apply the old 180-degree rotation. Height is 44.4 mm
+(38 mm body + 6.4 mm lip). The unchanged lid still prints open-side-down,
+height 38 mm.
 
-Validated slicing setup on 2026-10-10, PrusaSlicer 2.9.6:
+See the full [Estonian Prusa XL / PLA setup guide](PRUSA_XL_PLA_JUHEND.md).
 
-- Printer: Original Prusa XL Input Shaper, standard 0.4 mm nozzle, one active tool.
-- Filament: Generic PLA @XLIS; print preset: 0.20mm STRUCTURAL @XLIS 0.4.
-- 0.20 mm layers, 4 perimeters, 6 top/bottom solid layers, 15% infill, 5 mm brim.
-- Automatic snug supports from the build plate, 0.20 mm Z contact gap,
-  0.35 mm XY separation, 3 interface layers. Automatic support generation is
-  explicitly enabled; the vendor preset otherwise uses support enforcers only.
-- v05 STLs were regenerated and re-sliced; each saved 3MF was also re-sliced
-  successfully with its embedded XL/PLA settings. Both generated G-codes contain
-  support and interface paths. The assembled geometry was viewed in PrusaSlicer.
-  Earlier detailed G-code screenshots belong to archived v04, not this trial.
-- Bottom: **4h 6m 41s, 97.27 g**. Lid: **3h 11m 16s, 85.00 g**.
-  Combined separate jobs: **7h 17m 57s, 182.27 g**, including supports/brim.
-  These are slicer estimates, not measured print results.
-- Remove internal supports carefully around the cantilevers; verify that all
-  four tongues move before closing. PLA latch strength and actual opening force
-  still require a physical print test.
+v06 addresses 2026-10-13 feedback: fragile holders broke while removing the
+dense internal supports. Fan backing increased 3.2 -> 4.4 mm, seats 1.6 -> 2.8,
+cheeks 2.0 -> 3.2. Battery/UNO shelves are 2.8 mm thick with sloping/floor-attached
+ribs. Battery guide walls grow outward. Sloped braces support fixed registration
+pads and snap roots; the flexible snap spans, hooks, seating clearances, fan
+seating faces and holes, and nominal component locations are unchanged.
 
-Open `output/rounded_cube_box/rounded_cube_bottom_xl_pla.3mf` or
-`rounded_cube_lid_xl_pla.3mf` in PrusaSlicer for editable model/settings projects.
-Matching `.gcode` files, `prusa_xl_04_pla.ini`, a geometry overview, and
-`prusa_slicer_validation.json` are stored beside them. Re-slice using the actual
-XL tool-count/filament variant if it differs from this single-tool setup.
-The assembly-preview STL is for inspection, not a print job.
+PrusaSlicer 2.9.6, XL Input Shaper standard 0.4 mm, Generic PLA, one active tool:
 
-For reproduction, load the saved INI when slicing each print STL. The installed
-CLI preset selector returned an unrelated printer during the initial attempt;
-the final INI resolves the installed official PrusaResearch vendor profile's
-inheritance explicitly. Final G-code and 3MF metadata were checked for XLIS and
-0.4 mm; no MINI configuration is used in the delivered files.
+- Both parts: 0.20 mm STRUCTURAL, 4 perimeters, 6/6 solid layers, 15% Grid,
+  5 mm outer brim, nozzle 230/220 C, bed 60 C in this Generic PLA profile.
+- **Bottom** uses `prusa_xl_04_pla_bottom.ini`: automatic Snug supports
+  **everywhere** (including from the interior floor), 0.25 mm top/bottom contact,
+  0.50 mm XY spacing, 2/2 interface layers, 0.30 mm interface spacing,
+  3 mm pattern spacing, 1 mm closing radius. Bed-only support is incorrect for
+  this orientation because the solid floor blocks access to interior shelves.
+- **Lid** retains `prusa_xl_04_pla.ini`: automatic Snug supports only from bed,
+  0.20 mm top contact, 0 bottom contact (=same as top), 0.35 mm XY spacing,
+  3/0 interface layers, 0.20 mm interface spacing, 2 mm pattern spacing,
+  2 mm closing radius.
+- Bottom: **3h 44m 53s, 73.13 g**, including approximately **4.96 g supports**.
+  v05 bottom: 4h 6m 41s, 97.27 g, approximately 37.37 g supports. Support
+  extrusion decreased about 87%; these are slicer estimates, not removal tests.
+- Lid retains its prior job: 3h 11m 16s, 85.00 g. Actual material/temperature,
+  tool-count variant and machine firmware must match the profile used to print.
+- Final bottom G-code inspected in Prusa G-code Viewer, full view and lower-layer
+  cutaway. Supports are localized under shelves/overhangs, with no broad roof
+  support block. Both 3MF projects successfully re-sliced with embedded settings.
+- All meshes are watertight after STL serialization. Lid geometry and all four
+  flexible snap spans were compared against v05; symmetric-difference volume 0.
+
+Open `rounded_cube_bottom_xl_pla.3mf` or `rounded_cube_lid_xl_pla.3mf` from
+`output/rounded_cube_box/` **as a project with settings**. Select your actual
+XL tool-count profile if different and re-slice, retaining the above overrides.
+The assembly-preview STL is for inspection only. The guide explains manual
+settings and support removal. Do not remove the permanent orange ribs shown
+in the preview; only the green toolpath regions represent removable supports.
 
 Remove internal supports through the open side before fitting electronics.
 Install fan and rear UNO/front battery into the lower half from above. Attach

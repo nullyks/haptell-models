@@ -1,0 +1,72 @@
+{
+  "model_version": "v06-reinforced-open-up-bottom",
+  "slicer": "PrusaSlicer 2.9.6",
+  "parts": {
+    "bottom": {
+      "statistics": {
+        "filament used [g]": "73.13",
+        "estimated printing time (normal mode)": "3h 44m 53s",
+        "printer_model": "XLIS",
+        "nozzle_diameter": "0.4",
+        "support_material_auto": "1",
+        "support_material_buildplate_only": "0",
+        "support_material_contact_distance": "0.25",
+        "support_material_xy_spacing": "0.5"
+      },
+      "feature_mass_estimate_g": {
+        "Custom": 0.057,
+        "Skirt/Brim": 0.342,
+        "Perimeter": 33.311,
+        "External perimeter": 14.034,
+        "Solid infill": 15.061,
+        "Overhang perimeter": 0.281,
+        "Top solid infill": 1.929,
+        "Internal infill": 1.0,
+        "Support material interface": 1.648,
+        "Bridge infill": 2.155,
+        "Support material": 3.315
+      },
+      "gcode_sha256": "28193dd10102cc5356e032922d32676fe9d08f858aee1999c3c0d3ae2833f064"
+    },
+    "lid": {
+      "statistics": {
+        "filament used [g]": "85.00",
+        "estimated printing time (normal mode)": "3h 11m 16s",
+        "printer_model": "XLIS",
+        "nozzle_diameter": "0.4",
+        "support_material_auto": "1",
+        "support_material_buildplate_only": "1",
+        "support_material_contact_distance": "0.2",
+        "support_material_xy_spacing": "0.35"
+      },
+      "feature_mass_estimate_g": {
+        "Custom": 0.057,
+        "Skirt/Brim": 0.355,
+        "Support material": 31.659,
+        "Perimeter": 25.203,
+        "External perimeter": 10.656,
+        "Overhang perimeter": 0.228,
+        "Support material interface": 3.238,
+        "Bridge infill": 2.398,
+        "Solid infill": 9.672,
+        "Top solid infill": 1.319,
+        "Internal infill": 0.214
+      },
+      "gcode_sha256": "92aaf0a4e07c2a85383fce2ad2aadd491dc7f888ab42febab2769165efed6120"
+    }
+  },
+  "previous_v05_bottom_feature_mass_estimate_g": {
+    "Custom": 0.057,
+    "Skirt/Brim": 0.351,
+    "Support material": 33.546,
+    "Perimeter": 28.551,
+    "External perimeter": 13.008,
+    "Support material interface": 3.826,
+    "Overhang perimeter": 0.556,
+    "Bridge infill": 2.812,
+    "Solid infill": 12.619,
+    "Top solid infill": 1.722,
+    "Internal infill": 0.222
+  },
+  "review": "Final bottom G-code inspected in Prusa G-code Viewer, full model and low-layer cutaway. Interior supports localized below shelves; broad roof supports eliminated by open-up orientation. Geometry validation passed and bottom STL reports manifold=yes, one part. Lid geometry and slicing settings retained. No physical print, removal-force, or thermal test."
+}

@@ -42,7 +42,7 @@ This repository contains parametric STL generators for four families of two-piec
 
 ## Current rounded-cube model
 
-- Generator: `generate_rounded_cube_box_stl.py`, version `v05-discreet-end-vents`.
+- Generator: `generate_rounded_cube_box_stl.py`, version `v06-reinforced-open-up-bottom`.
 - Current handoff: `models/rounded_cube_box/README.md`. Earlier 91 mm threaded
   notes in `docs/rounded_cube_printing.md` describe the archived v02, not the current model.
 - Client drawing received 2026-10-10: exterior 76 x 76 x 76 mm, all edges and
@@ -59,13 +59,25 @@ This repository contains parametric STL generators for four families of two-piec
   the actual fan. Electronics body heights are also provisional as documented.
 - Rear UNO (R3 assumed), front 65 x 35 x 10 mm LiPo, upper-front 26 x 17 mm
   TP4056 shelf, and a USB-C access opening. Keep these clear of both thermal pads.
-- Both printable parts have their openings toward the bed; internal roof,
-  shelf and rim supports are required. Bottom print height is 44.4 mm due to
-  the lip; lid height is 38 mm; assembled bounds are 76 mm on all three axes.
-- PrusaSlicer 2.9.6 review: XL Input Shaper standard 0.4 mm, Generic PLA,
-  0.20 mm STRUCTURAL, 4 perimeters, 6 solid layers, 15% infill, 5 mm brim,
-  automatic snug build-plate supports. Saved 3MF/INI/G-code and review JSON
-  are under output/rounded_cube_box; re-slice after any geometry change.
+- v06 responds to holder breakage during support removal. Fan backing is 4.4 mm,
+  seats 2.8 mm, cheeks 3.2 mm. Battery/UNO shelves are 2.8 mm with sloped/floor
+  ribs; battery guides grow outward. Fixed registration pads and snap roots
+  have sloped braces. Preserve the flexible tongues, hook shape and fit.
+- Bottom now prints floor-down, OPEN SIDE UP; STL is already oriented.
+  Lid remains open-side-down. Heights: bottom 44.4 mm, lid 38 mm.
+  Assembled bounds remain 76 mm on all three axes. Do not restore bottom's
+  old lip-down orientation unless explicitly requested.
+- Detailed Estonian setup guide: models/rounded_cube_box/PRUSA_XL_PLA_JUHEND.md.
+- PrusaSlicer 2.9.6: XL IS standard 0.4 mm, Generic PLA, 0.20 mm STRUCTURAL,
+  4 perimeters, 6/6 solid layers, 15% Grid, 5 mm brim. Bottom has separate
+  prusa_xl_04_pla_bottom.ini: automatic Snug supports EVERYWHERE, 0.25 mm
+  top/bottom contact, 0.50 mm XY gap, 2/2 interface layers, 0.30 mm interface
+  spacing, 3 mm pattern spacing, 1 mm closing radius. Bed-only cannot reach
+  interior shelves through the bottom floor. Lid uses the original shared
+  prusa_xl_04_pla.ini and bed-only supports. Do not mix these profiles.
+- Saved 3MF/INI/G-code and review JSON are under output/rounded_cube_box;
+  re-slice after geometry changes. Nominal reduced support usage is not proof
+  of physical removal force or holder strength; a new print test is needed.
 - Validation must include zero boundary edges, one connected solid per half,
   no seated-half interference, nominal component collisions and loading paths,
   and unchanged thermal-pad thickness. See generated `validation.json`.

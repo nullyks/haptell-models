@@ -15,7 +15,7 @@ from model_archive import preserve_models
 
 # Millimetres. Drawing supplied 2026-10-10; all three exterior axes are 76 mm.
 # The drawing's thread annotation is superseded by the user's snap request.
-MODEL_VERSION = "v05-discreet-end-vents"
+MODEL_VERSION = "v06-reinforced-open-up-bottom"
 OUTER_SIZE = 76.0
 OUTER_RADIUS = 2.5
 SHELL_WALL = 2.8
@@ -57,6 +57,12 @@ FAN_SLOT_LENGTH = 7.4
 FAN_SCREW_DIAMETER = 3.4
 FAN_BACKING_Y = FAN_MAX_DEPTH / 2.0 + 0.6
 FAN_SEAT_Z = -FAN_SIZE / 2.0
+FAN_BRACKET_WALL = 4.4
+FAN_SEAT_THICKNESS = 2.8
+FAN_CHEEK_WALL = 3.2
+SHELF_THICKNESS = 2.8
+REINFORCEMENT_WIDTH = 3.2
+FLOOR_ANCHOR_Z = -INNER_HALF - 0.2
 
 # Seller: battery 65 x 35 x 10; TP4056 PCB 26 x 17; UNO outline 68.6 x 53.4.
 # UNO component depth and TP4056 component height are provisional envelopes.
@@ -119,6 +125,14 @@ def half_space(*, top: bool) -> m3d.Manifold:
     return box((100, 100, 50), (0, 0, 25 if top else -25))
 
 
+def prism_xz(profile, y0: float, y1: float) -> m3d.Manifold:
+    return m3d.Manifold.hull_points([(x, y, z) for x, z in profile for y in (y0, y1)])
+
+
+def prism_yz(profile, x0: float, x1: float) -> m3d.Manifold:
+    return m3d.Manifold.hull_points([(x, y, z) for y, z in profile for x in (x0, x1)])
+
+
 def snap_beam(sign: int, y: float) -> m3d.Manifold:
     stem = box((LIP_THICKNESS, SNAP_WIDTH, LIP_HEIGHT - SNAP_ROOT_Z),
                (sign * (LIP_OUTER - LIP_THICKNESS / 2), y,
@@ -133,7 +147,13 @@ def snap_beam(sign: int, y: float) -> m3d.Manifold:
         for dy in (-SNAP_WIDTH / 2, SNAP_WIDTH / 2)])
     root = box((3.6, SNAP_WIDTH + 2.4, 2.4),
                (sign * 34.0, y, SNAP_ROOT_Z + 1.2))
-    return union([stem, hook, root])
+    # Reinforce below the fixed root only; preserve the complete flexible span.
+    root_brace = prism_xz([(sign * 32.2, SNAP_ROOT_Z + 0.1),
+                          (sign * 35.6, SNAP_ROOT_Z + 0.1),
+                          (sign * 35.6, SNAP_ROOT_Z - 3.6)],
+                         y - (SNAP_WIDTH + 2.4) / 2,
+                         y + (SNAP_WIDTH + 2.4) / 2)
+    return union([stem, hook, root, root_brace])
 
 
 def registration() -> m3d.Manifold:
@@ -145,11 +165,17 @@ def registration() -> m3d.Manifold:
                     (sign * 34, y, 2)) for y in SNAP_Y]
         pieces.append(subtract(rail, cuts))
         pieces.append(subtract(box((3.6, 36, 1.6), (sign * 34, 0, -0.8)), cuts))
+        # A 45-degree underside grows the fixed registration pads from the
+        # wall without a tall support tower. Cut clear of the flexible tongues.
+        rail_brace = prism_xz([(sign * 32.2, -1.5), (sign * 35.6, -1.5),
+                              (sign * 35.6, -5.0)], -18, 18)
+        pieces.append(subtract(rail_brace, cuts))
         pieces.extend(snap_beam(sign, y) for y in SNAP_Y)
     pieces.extend([
         box((56, LIP_THICKNESS, LIP_HEIGHT + 1.6),
             (0, LIP_OUTER - LIP_THICKNESS / 2, (LIP_HEIGHT - 1.6) / 2)),
-        box((56, 3.6, 1.6), (0, 34, -0.8))])
+        box((56, 3.6, 1.6), (0, 34, -0.8)),
+        prism_yz([(32.2, -1.5), (35.6, -1.5), (35.6, -5.0)], -28, 28)])
     return union(pieces)
 
 
@@ -179,21 +205,33 @@ def fan_bracket() -> m3d.Manifold:
     pieces, holes = [], []
     for sign in (-1, 1):
         x = sign * FAN_MOUNT_PITCH / 2
-        pieces.append(box((10.4, 3.2, 10.4),
-                          (x, FAN_BACKING_Y + 1.6, -FAN_MOUNT_PITCH / 2)))
+        backing_center = FAN_BACKING_Y + FAN_BRACKET_WALL / 2
+        pieces.append(box((10.4, FAN_BRACKET_WALL, 10.4),
+                          (x, backing_center, -FAN_MOUNT_PITCH / 2)))
         length = INNER_HALF + 0.4 - abs(x)
-        pieces.append(box((length, 3.2, 2.4),
-                          (sign * (abs(x) + length / 2), FAN_BACKING_Y + 1.6, -24.7)))
-        pieces.append(box((6.0, FAN_MAX_DEPTH + 3.8, 1.6),
-                          (sign * 23.0, 0.7, FAN_SEAT_Z - 0.8)))
-        pieces.append(box((2.0, FAN_MAX_DEPTH + 3.8, 22.0),
-                          (sign * (FAN_SIZE / 2 + FAN_SIDE_CLEARANCE + 1.0),
-                           0.7, FAN_SEAT_Z + 11.0)))
-        pieces.append(box((5.0, 3.2, 5.0),
-                          (sign * 24, FAN_BACKING_Y + 1.6, -23.5)))
+        pieces.append(box((length, FAN_BRACKET_WALL, 3.6),
+                          (sign * (abs(x) + length / 2), backing_center, -25.3)))
+        pieces.append(box((6.0, FAN_MAX_DEPTH + 3.8, FAN_SEAT_THICKNESS),
+                          (sign * 23.0, 0.7, FAN_SEAT_Z - FAN_SEAT_THICKNESS / 2)))
+        cheek_height = 22.0 + FAN_SEAT_THICKNESS
+        pieces.append(box((FAN_CHEEK_WALL, FAN_MAX_DEPTH + 3.8, cheek_height),
+                          (sign * (FAN_SIZE / 2 + FAN_SIDE_CLEARANCE + FAN_CHEEK_WALL / 2),
+                           0.7, -3.0 - cheek_height / 2)))
+        pieces.append(box((5.0, FAN_BRACKET_WALL, 5.0),
+                          (sign * 24, backing_center, -23.5)))
+        # Sloped load paths grow from the thick end perimeter. The floor feet
+        # start outside the complete 45 mm thermal pad, not on its thin membrane.
+        pieces.append(prism_xz([(sign * 23.2, FLOOR_ANCHOR_Z),
+                                (sign * 35.6, FLOOR_ANCHOR_Z),
+                                (sign * 35.6, -25.2), (sign * 14.8, -25.2)],
+                               FAN_BACKING_Y, FAN_BACKING_Y + FAN_BRACKET_WALL))
+        pieces.append(prism_xz([(sign * 23.2, FLOOR_ANCHOR_Z),
+                                (sign * 28.55, FLOOR_ANCHOR_Z),
+                                (sign * 28.55, -27.7), (sign * 20.0, -27.7)],
+                               -7.2, 8.6))
         holes.append(capsule(FAN_SLOT_LENGTH, FAN_SCREW_DIAMETER, 8)
                      .rotate((90, 0, 0))
-                     .translate((x, FAN_BACKING_Y + 1.6, -FAN_MOUNT_PITCH / 2)))
+                     .translate((x, backing_center, -FAN_MOUNT_PITCH / 2)))
     return subtract(union(pieces), holes)
 
 
@@ -206,12 +244,23 @@ def electronics_shelves(*, top: bool) -> m3d.Manifold:
             box((1.6, 20, 3.2), (14.0, 25, 24.0))])
     # Battery and UNO use foam/tape/straps, without a guessed PCB hole pattern
     # or pressure clips on the LiPo pouch. Shelf contacts are nominal supports.
-    return union([
-        box((67.4, 14, 2), (0, 28.5, -18.0)),
-        box((2, 10, 8), (-33.8, 30.5, -14)),
-        box((2, 10, 8), (33.8, 30.5, -14)),
-        box((69.6, 15.5, 1.6), (0, -27.75, -28.0)),
-        box((40, 1.6, 3.2), (0, -19.5, -25.6))])
+    pieces = [
+        box((67.4, 14, SHELF_THICKNESS), (0, 28.5, -17.0 - SHELF_THICKNESS / 2)),
+        # Grow the guide walls outward, keeping the battery-facing clearance.
+        box((3.2, 10, 8), (-34.4, 30.5, -14)),
+        box((3.2, 10, 8), (34.4, 30.5, -14)),
+        box((69.6, 15.5, SHELF_THICKNESS), (0, -27.75, -27.2 - SHELF_THICKNESS / 2)),
+        box((40, 2.8, 3.2), (0, -18.9, -25.6))]
+    for x in (-28.0, 0.0, 28.0):
+        pieces.append(prism_yz([(21.5, -19.7), (35.6, -19.7),
+                                (35.6, -33.8)],
+                               x - REINFORCEMENT_WIDTH / 2,
+                               x + REINFORCEMENT_WIDTH / 2))
+    for x in (-28.0, 28.0):
+        # Short floor-attached ribs underneath the rear UNO shelf, outside pads.
+        pieces.append(box((REINFORCEMENT_WIDTH, 15.5, 5.6),
+                          (x, -27.75, -32.6)))
+    return union(pieces)
 
 
 def build_parts() -> tuple[m3d.Manifold, m3d.Manifold]:
@@ -340,9 +389,9 @@ def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     lid, bottom = build_parts()
     validation = validate(lid, bottom)
-    # Both openings face the bed. Bottom lip defines its bed height.
+    # Bottom now prints floor-down/open-up. Lid retains its prior orientation.
     outputs = [
-        ("rounded_cube_bottom", bottom.rotate((180, 0, 0)).translate((0, 0, LIP_HEIGHT))),
+        ("rounded_cube_bottom", bottom.translate((0, 0, HALF))),
         ("rounded_cube_lid", lid),
         ("rounded_cube_assembly_preview", m3d.Manifold.compose([bottom, lid]))]
     for name, solid in outputs:
