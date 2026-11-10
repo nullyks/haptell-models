@@ -18,3 +18,11 @@ Digital geometry and final sliced-toolpath checks pass within their documented
 scope. No physical opening-force, fatigue, fan-fit, surface-quality, support
 removal or thermal test has been performed. Record those results below after
 printing. Archived STL/source/manifest files must remain unchanged.
+
+## 2026-11-10 — testprinti minev versioon kinnitatud
+
+Kasutaja kinnitas v07 säilitamise ja selle versiooni testprintimisele saatmise.
+Testprindi aluseks jääb commit `44c6968` ja revisjon
+`2026-11-10_185836_23d24978`, koos `review/selected_prints/` failidega.
+Mudeli geomeetria, STL-id, 3MF-projektid, profiilid ja G-code jäävad muutmata.
+Testprindi tulemusi ei ole veel saadud.
