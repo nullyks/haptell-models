@@ -22,6 +22,7 @@ models/
   balance_shift/revisions/...
   rounded_cube_box/revisions/...
   perforated_sphere/revisions/...
+  pneumatic_cube/revisions/...    # ühes tükis õõnes membraanikuubik
 ```
 
 STL-failide nimed jäävad iga katsetuse sees samaks. Katsetuse identiteedi annab
@@ -32,7 +33,7 @@ muutma. Manifesti `family` näitab mudeliperet ning `generator` õiget käivitus
 
 1. Enne generaatori muutmist käivita projekti juurkaustas `python model_archive.py`.
    See kopeerib praegused STL-id ja lähtekoodi arhiivi midagi ümber genereerimata.
-2. Muuda generaatorit ja käivita see tavapäraselt. Kõik neli generaatorit
+2. Muuda generaatorit ja käivita see tavapäraselt. Kõik generaatorid
    arhiveerivad olemasolevad väljundid enne nende ülekirjutamist ning uued
    väljundid pärast edukat jooksu. Arhiveerimise vea korral töö katkeb.
 3. Täpselt sama STL- ja lähtekoodikomplekti kordussalvestamisel kasutatakse

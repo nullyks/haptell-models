@@ -1,0 +1,38 @@
+{
+  "model_version": "pneumatic-v01-80mm-r8-27mm-rounded-apertures",
+  "orientation": "edge",
+  "support_mode": "auto",
+  "transform_3x4": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.7071067811865475,
+      -0.7071067811865475,
+      0.0
+    ],
+    [
+      0.0,
+      0.7071067811865475,
+      0.7071067811865475,
+      53.25483183597614
+    ]
+  ],
+  "source_stl_sha256": "1077b898532c59533255dac262a8afe2d8c8f9cb647bbf663f2cf8ad7f07c353",
+  "oriented_stl_sha256": "4bb6c0f7bed448d4373cec20d04432acf7464db981b39ed91dd26bfc5c3b440d",
+  "profile_sha256": "67513bae8a19123739ab307530a6e40267ab3c48bc926db1532cb6246f334b5c",
+  "project_sha256": "a6e7a732c00b4133f7a720cca959eb89af3303e6226b1d3c909bf17672be6a0f",
+  "gcode_sha256": "66bccf6e4f9a5dd70c8b71b58f34033fd3eed182bd2ac75ee86586ec142aec47",
+  "modifiers": [],
+  "statistics": {
+    "filament used [mm]": "44392.58",
+    "filament used [cm3]": "106.78",
+    "filament used [g]": "132.40",
+    "estimated printing time (normal mode)": "11h 22m 59s",
+    "estimated printing time (silent mode)": "12h 16m 21s"
+  }
+}

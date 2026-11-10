@@ -1,0 +1,64 @@
+{
+  "model_version": "pneumatic-v01-80mm-r8-27mm-rounded-apertures",
+  "body_bounds_mm": [
+    80.0,
+    80.0,
+    80.0
+  ],
+  "outer_radius_mm": 8.0,
+  "wall_mm": 4.0,
+  "hole_count": 18,
+  "holes_per_face": 3,
+  "hole_throat_diameter_mm": 27.0,
+  "hole_mouth_diameter_mm": 30.2,
+  "inner_and_outer_hole_blend_radius_mm": 1.6,
+  "minimum_face_web_between_blends_mm": 3.2,
+  "hole_centers_face_uv_mm": [
+    [
+      -16.7,
+      16.7
+    ],
+    [
+      16.7,
+      16.7
+    ],
+    [
+      0.0,
+      -16.7
+    ]
+  ],
+  "connected_solids": 1,
+  "euler_characteristic": -32,
+  "boundary_edges": 0,
+  "non_manifold_edges": 0,
+  "volume_mm3": 86172.78071804675,
+  "print_orientation": "edge",
+  "print_transform_3x4": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.7071067811865475,
+      -0.7071067811865475,
+      0.0
+    ],
+    [
+      0.0,
+      0.7071067811865475,
+      0.7071067811865475,
+      53.254833995939045
+    ]
+  ],
+  "print_bounds_mm": [
+    80.0,
+    106.509668,
+    106.509668
+  ],
+  "interior": "Empty: no mounts, thermal pads, fasteners or seam.",
+  "reference_adjustment": "User approved aperture/layout changes while retaining 80 mm and R8. Reference diameter/pitch 35 mm would leave zero web.",
+  "limits": "Nominal geometry only. Printed rims require deburring/smoothing and tactile inspection before inserting a balloon. No pressure or membrane-durability test performed."
+}

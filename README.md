@@ -1,6 +1,7 @@
 # Haptell Enclosure Models
 
-Parametric STL models for four families of two-piece device enclosure prototypes.
+Parametric STL models for five device-enclosure families: four two-piece designs
+and a one-piece hollow pneumatic cube.
 
 Related device project: `https://github.com/nullyks/haptell-devices`
 
@@ -15,6 +16,7 @@ permanent trial archive. Use this branch when cloning or continuing the project.
 | Balance-shift egg | `generate_balance_shift_stl.py` | `output/balance_shift/` | `models/balance_shift/revisions/` |
 | Rounded cube | `generate_rounded_cube_box_stl.py` | `output/rounded_cube_box/` | `models/rounded_cube_box/revisions/` |
 | Perforated sphere | `generate_perforated_sphere_stl.py` | `output/perforated_sphere/` | `models/perforated_sphere/revisions/` |
+| Pneumatic cube (one piece) | `generate_pneumatic_cube_stl.py` | `output/pneumatic_cube/` | `models/pneumatic_cube/revisions/` |
 
 Develop changes on temporary `codex/<change-name>` branches from `master`, then
 merge validated generators, outputs, and archive revisions back into `master`.
@@ -34,6 +36,7 @@ references; future model versions belong in the shared primary branch archive.
 - `generate_balance_shift_stl.py` - separate generator for the balance-shift haptic enclosure variant
 - `generate_rounded_cube_box_stl.py` - 80 mm R8 rounded cube with eight snap locks, fan-only internal holders, and side ventilation; see [current cube design and printing notes](models/rounded_cube_box/README.md)
 - `generate_perforated_sphere_stl.py` - separate 91 mm perforated-sphere enclosure generator
+- `generate_pneumatic_cube_stl.py` - one-piece hollow 80 mm R8 cube with 18 rounded membrane apertures; see [geometry and printing guide](models/pneumatic_cube/README.md)
 - `output/balance_shift/` - generated STL files for the balance-shift variant; this path is separate so the current egg-box outputs are not overwritten
 - `output/rounded_cube_box/` - rounded-cube STL files
 - `output/perforated_sphere/` - perforated-sphere STL files

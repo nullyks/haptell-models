@@ -1,0 +1,22 @@
+{
+  "family": "perforated_sphere",
+  "revision": "2026-11-10_194912_9cc454fb",
+  "archived_at_utc": "2026-11-10T19:49:12.451029+00:00",
+  "generator": "generate_perforated_sphere_stl.py",
+  "git_head_for_reference_only": "da883bdec8e8cd8fc63c41dd1be713d2216d97f7",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "e429d6f11cfa0e9ba6979254fadc2a56a268958fcc3d7208bfe0e06551c2e5e8",
+  "sha256": {
+    "stl/perforated_sphere_assembly_preview.stl": "0eebab6486843671e412b412d46b204e57c4360754542315bad5532ed680027b",
+    "stl/perforated_sphere_bottom.stl": "bc30ea18e5d3b1de02b34584c3dbbf865fc0a513d79a2e07908e0557f16b9f7b",
+    "stl/perforated_sphere_lid.stl": "f008447f7d0c34f55ef48537fcc7320be5fb3b93e2b979ac41e6a976b9e44cf2",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_pneumatic_cube_stl.py": "02da83b57129c004c72c409e1d0d57c06b9286a7f5585b88c32810a647fd1982",
+    "source/generate_rounded_cube_box_stl.py": "520dda4d9de6ced844aa2376508a5ebd939e1f5615d41f8aa597c94bfc2a8466",
+    "source/model_archive.py": "6e34f6107ae3f51623e0ec3eaced1425ba7d4d48dc2c389d99247a2eabcb74bd",
+    "source/requirements.txt": "92f61841fe5dcb04449fcab88679f422a15fea19e46773582975e914ddcc63c5"
+  }
+}

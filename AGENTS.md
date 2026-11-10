@@ -1,6 +1,8 @@
 # Codex Handoff Notes
 
-This repository contains parametric STL generators for four families of two-piece, 3D-printable device enclosure prototypes: egg box, balance-shift egg, rounded cube, and perforated sphere.
+This repository contains five parametric STL model families: four two-piece
+enclosures (egg box, balance-shift egg, rounded cube, perforated sphere) and
+a one-piece hollow pneumatic cube.
 
 ## Current Product State
 
@@ -10,7 +12,7 @@ This repository contains parametric STL generators for four families of two-piec
 - Never delete, replace, or edit archived revisions under `models/`.
 - Layout: `models/<family>/revisions/<UTC-date>_<time>_<unique-id>/` with
   `stl/`, `source/`, and `manifest.json`. See `models/README.md`.
-- All four generators use `model_archive.preserve_models`: existing STL files
+- All generators use `model_archive.preserve_models`: existing STL files
   are archived before overwriting, and completed runs are archived afterward.
   Archive failures must stop generation; do not bypass preservation to proceed.
 - Before editing geometry, run `python model_archive.py` to preserve current
@@ -83,6 +85,43 @@ This repository contains parametric STL generators for four families of two-piec
   bridges, fan overhang supports and visible exterior support contact.
 - Nominal geometry and slicer checks do not verify physical hardware fit,
   snap strength, surface quality, repeated opening or thermal performance.
+
+## Current pneumatic cube — separate one-piece family
+
+- Name: Pneumaatika kuubik. Generator: `generate_pneumatic_cube_stl.py`,
+  `pneumatic-v01-80mm-r8-27mm-rounded-apertures`. Outputs: `output/pneumatic_cube/`;
+  archive family `pneumatic_cube`. Do not replace rounded-cube v07 or its print jobs.
+- User request 2026-11-10: one-piece hollow balloon enclosure, 80 mm / R8,
+  three membrane-safe openings per face, no sharp aperture edges or internal holders.
+- User explicitly approved adjusting holes/layout while preserving 80 mm / R8:
+  reference Ø35 mm / 35 mm pitch leaves zero material between the top pair.
+- Current holes: 18, Ø27 mm throat, R1.6 circular blends on both sides,
+  Ø30.2 mm mouths. Wall 4 mm, inner R4. Minimum web between mouths 3.2 mm.
+  Each face's centers: (-16.7,16.7), (16.7,16.7), (0,-16.7). All mouths stay
+  within flat face regions, clear of R8 edge rounding. No Peltier pads or mounts.
+- Selected print orientation: edge down, 45° about X, already in
+  `pneumatic_cube_print.stl`. `pneumatic_cube.stl` is the ordinary display orientation.
+  Print bounds approx. 80 x 106.51 x 106.51 mm; do not print both STL copies.
+- Prusa XL IS 0.4 mm / PLA: 0.15 mm layer, 0.2 first, 5 perimeters, 100% wall
+  infill, 6/6 solid layers, 8 mm brim, no raft. Manual Snug bed-only startup
+  support below 7 mm; internal support blocker. Open 3MF with settings: INI + STL
+  alone does not include support modifiers. Automatic supports must stay off.
+- Final actual toolpaths: support ends at Z=5.8 mm; zero samples inside cavity;
+  support estimate 1.27 g, total 108.95 g, 8h34m47s. Edge is more stable and
+  shorter than the lower-material but taller corner-down trial.
+- Selected archive: `2026-11-10_194955_a4bccfb6`; first corner-down trial and
+  all six slicing comparisons remain preserved. Handoff and Estonian guide:
+  `models/pneumatic_cube/README.md`, `PRUSA_XL_PLA_JUHEND.md` in that directory.
+- Fresh prints: `tools/prepare_pneumatic_print.py --output-dir NEW_DIRECTORY`;
+  then `tools/check_pneumatic_print.py NEW_DIRECTORY`. Recheck supports and
+  bridges after every geometry change. Check one solid, closed serialized STL,
+  no degenerates, Euler -32 (18 distinct apertures), empty interior, both rim
+  blends, source/3MF agreement and absence of support inside the cavity.
+- Fillets do not verify physical membrane safety. Printed seams, layer ridges
+  and support remnants need smoothing and tactile inspection before balloon
+  insertion. Pressure, balloon material, durability and finish are untested.
+- `pytest.ini` restricts collection to `tests/`; archived test source is
+  historical evidence and must not be executed as the current test suite.
 
 ## Current Model Parameters
 

@@ -1,0 +1,48 @@
+{
+  "selected_revision": "2026-11-10_194955_a4bccfb6",
+  "selected_orientation": "edge down, 45 degrees about X",
+  "reference_adjustment_approved": "User approved aperture/layout adjustment while retaining 80 mm / R8. Reference 35 mm diameter and 35 mm pitch gives zero web.",
+  "physical_test": "Not yet performed: printed finish, support removal, membrane fit, pressure and durability are unverified.",
+  "selection": "Edge-down: longer initial bed contact and shorter/lower print than corner-down, at 0.78 g additional support.",
+  "comparison_cases": 6,
+  "compared_orientations": [
+    "face",
+    "edge",
+    "corner"
+  ],
+  "compared_supports": [
+    "automatic Organic",
+    "external-only Snug"
+  ],
+  "rejected_face_external_reason": "Approximately 42.8 mm sampled unsupported roof bridge.",
+  "rejected_automatic_support_reason": "Automatic Organic put support inside the cavity; bed-only does not prevent this.",
+  "selected_support_mass_g": 1.27,
+  "selected_internal_support_samples": 0,
+  "selected_support_z_max_mm": 5.8,
+  "selected_max_sampled_free_bridge_mm": 1.939,
+  "serialized_mesh_checks": [
+    {
+      "file": "pneumatic_cube.stl",
+      "connected_components": 1,
+      "euler_characteristic": -32,
+      "watertight": true,
+      "volume_mm3": 86172.78057834931,
+      "sha256": "1077b898532c59533255dac262a8afe2d8c8f9cb647bbf663f2cf8ad7f07c353"
+    },
+    {
+      "file": "pneumatic_cube_print.stl",
+      "connected_components": 1,
+      "euler_characteristic": -32,
+      "watertight": true,
+      "volume_mm3": 86172.78366946489,
+      "sha256": "31651b359c651328d3d08efd36bbd98c7f20e9618689e1087c8c4000c9f9103e"
+    }
+  ],
+  "automated_tests": {
+    "command": ".venv/Scripts/python.exe -m pytest -q",
+    "passed": 16
+  },
+  "immutable_prior_file_hashes_verified": 688,
+  "current_source_and_output_match_manifest": true,
+  "investigation_helpers": "Raw scripts assume repository root and .git placement; preserved as execution evidence. Current production tools are under tools/."
+}

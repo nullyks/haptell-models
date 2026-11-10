@@ -1,0 +1,8 @@
+# Archive snapshots must retain exact bytes so manifest checksums stay valid.
+models/** -text
+
+# Preserve exact sliced toolpaths and their recorded hashes.
+*.gcode -text
+
+# Keep the captured pneumatic generator identical after cross-platform checkouts.
+generate_pneumatic_cube_stl.py text eol=lf

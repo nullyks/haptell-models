@@ -1,0 +1,45 @@
+{
+  "orientation": "face",
+  "support_mode": "external",
+  "feature_mass_g": {
+    "Custom": 0.057,
+    "Skirt/Brim": 0.554,
+    "Support material": 0.846,
+    "Perimeter": 62.694,
+    "External perimeter": 17.477,
+    "Solid infill": 12.104,
+    "Overhang perimeter": 0.237,
+    "Support material interface": 0.731,
+    "Internal infill": 12.571,
+    "Top solid infill": 0.705,
+    "Bridge infill": 0.467
+  },
+  "support_mass_g": 1.577,
+  "support_samples_inside_cavity": 0,
+  "support_z_max_mm": 4.15,
+  "bridge_paths": 860,
+  "max_sampled_free_bridge_mm": 42.778,
+  "worst_bridge": {
+    "z": 76.1,
+    "start": [
+      -3.974,
+      5.32,
+      76.1
+    ],
+    "end": [
+      36.05,
+      -17.305,
+      76.1
+    ]
+  },
+  "one_printable_model": true,
+  "project_mesh_max_vertex_error_mm": 8.35964329349709e-08,
+  "statistics": {
+    "filament used [mm]": "36359.08",
+    "filament used [cm3]": "87.45",
+    "filament used [g]": "108.44",
+    "estimated printing time (normal mode)": "7h 34m 46s",
+    "estimated printing time (silent mode)": "7h 59m 39s"
+  },
+  "scope": "Analytic geometry and sampled actual G-code. Not a physical bridge, surface, membrane, pressure or support-removal test."
+}

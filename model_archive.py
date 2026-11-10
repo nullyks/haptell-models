@@ -18,6 +18,7 @@ FAMILIES = {
     "balance_shift": ("generate_balance_shift_stl.py", "output/balance_shift"),
     "rounded_cube_box": ("generate_rounded_cube_box_stl.py", "output/rounded_cube_box"),
     "perforated_sphere": ("generate_perforated_sphere_stl.py", "output/perforated_sphere"),
+    "pneumatic_cube": ("generate_pneumatic_cube_stl.py", "output/pneumatic_cube"),
 }
 
 

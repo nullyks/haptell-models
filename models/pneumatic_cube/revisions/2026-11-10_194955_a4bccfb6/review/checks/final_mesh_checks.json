@@ -1,0 +1,47 @@
+{
+  "meshes": [
+    {
+      "file": "output\\pneumatic_cube\\pneumatic_cube.stl",
+      "sha256": "1077b898532c59533255dac262a8afe2d8c8f9cb647bbf663f2cf8ad7f07c353",
+      "triangles": 204000,
+      "bounds_mm": [
+        80.0,
+        80.0,
+        80.0
+      ],
+      "degenerate_triangles": 0,
+      "duplicate_triangles": 0,
+      "open_edges": 0,
+      "edges_used_more_than_twice": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "positive_closed_volume": true,
+      "passed": true
+    },
+    {
+      "file": "output\\pneumatic_cube\\pneumatic_cube_print.stl",
+      "sha256": "31651b359c651328d3d08efd36bbd98c7f20e9618689e1087c8c4000c9f9103e",
+      "triangles": 204000,
+      "bounds_mm": [
+        80.0,
+        106.509666,
+        106.509666
+      ],
+      "degenerate_triangles": 0,
+      "duplicate_triangles": 0,
+      "open_edges": 0,
+      "edges_used_more_than_twice": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "positive_closed_volume": true,
+      "passed": true
+    }
+  ],
+  "archive": {
+    "revisions": 51,
+    "files_checked": 675,
+    "failures": [],
+    "passed": true
+  },
+  "passed": true
+}

@@ -1,0 +1,298 @@
+{
+  "selected_prints/pneumatic_cube_overview.png": {
+    "source": "output/pneumatic_cube/pneumatic_cube_overview.png",
+    "original_sha256": "48214dc7f88167e6e91f0aff20fd7795b543556a1e21c7314976d4793406c6ea"
+  },
+  "selected_prints/pneumatic_cube_print_orientation.png": {
+    "source": "output/pneumatic_cube/pneumatic_cube_print_orientation.png",
+    "original_sha256": "2de9856c00ab9d803c4bb46ef8412c9702b9effbac53250be9e3a75b209bbb94"
+  },
+  "selected_prints/pneumatic_cube_supports.png": {
+    "source": "output/pneumatic_cube/pneumatic_cube_supports.png",
+    "original_sha256": "a9cc80b2e7d39a29229a0046da6c57394b126d93a6f85111c08e8f0bd43dad6b"
+  },
+  "selected_prints/pneumatic_cube_xl_pla.3mf": {
+    "source": "output/pneumatic_cube/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "76c50edbcbd7490444efb406ad45e7d38d7083ce6931df70b333897604798477"
+  },
+  "selected_prints/pneumatic_cube_xl_pla.gcode": {
+    "source": "output/pneumatic_cube/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "e04d510263674cfe02f763bf7ef541798ed5b23596a27aadc512fd73e0431337"
+  },
+  "selected_prints/print_review.json": {
+    "source": "output/pneumatic_cube/print_review.json",
+    "original_sha256": "03d695f80e77af89b696442a1ddc9cc5fb58d88e057b069bf426b8eedb3053c2"
+  },
+  "selected_prints/prusa_xl_04_pla.ini": {
+    "source": "output/pneumatic_cube/prusa_xl_04_pla.ini",
+    "original_sha256": "34801b560c00ed8ebc1393c1f439c15cac154116052173eeba559d32b3c31ada"
+  },
+  "selected_prints/toolpath_checks.json": {
+    "source": "output/pneumatic_cube/toolpath_checks.json",
+    "original_sha256": "679c88ad0dfbc8f79cc80f1aefa568a4900a369701f50c79444fca15f770cf24"
+  },
+  "selected_prints/validation.json": {
+    "source": "output/pneumatic_cube/validation.json",
+    "original_sha256": "8a333d4933aec00464a1065cc804ed4022d20b57bfd6604a97c2b7ae8c07087e"
+  },
+  "comparison/corner_auto/pneumatic_cube_print.stl": {
+    "source": ".local/pneumatic_review/comparison/corner_auto/pneumatic_cube_print.stl",
+    "original_sha256": "4eb9b5126c2c748fb71a3a2666312e2307bac1940cff9db27aa5da2f48996d8d"
+  },
+  "comparison/corner_auto/pneumatic_cube_xl_pla.3mf": {
+    "source": ".local/pneumatic_review/comparison/corner_auto/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "f16cfe0bb45c8ba8898c595100046c9d19190bc015b4507a4982796e374cdce0"
+  },
+  "comparison/corner_auto/pneumatic_cube_xl_pla.gcode.gz": {
+    "source": ".local/pneumatic_review/comparison/corner_auto/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "169c3820cb71c7f3e79f4c2669e6fa575f659d84c50af283ec765cc79f24d096"
+  },
+  "comparison/corner_auto/print_review.json": {
+    "source": ".local/pneumatic_review/comparison/corner_auto/print_review.json",
+    "original_sha256": "28bfc11efa48b4686aea3a2b5b16005fd21af6d5c81c38c7951781485bb70f39"
+  },
+  "comparison/corner_auto/prusa_xl_04_pla.ini": {
+    "source": ".local/pneumatic_review/comparison/corner_auto/prusa_xl_04_pla.ini",
+    "original_sha256": "67513bae8a19123739ab307530a6e40267ab3c48bc926db1532cb6246f334b5c"
+  },
+  "comparison/corner_auto/slice.log": {
+    "source": ".local/pneumatic_review/comparison/corner_auto/slice.log",
+    "original_sha256": "ac236f37bd68c734c8dc664c811f73f182e9d962d4c1cacd99ef10c16d3a98d2"
+  },
+  "comparison/corner_external/pneumatic_cube_print.stl": {
+    "source": ".local/pneumatic_review/comparison/corner_external/pneumatic_cube_print.stl",
+    "original_sha256": "4eb9b5126c2c748fb71a3a2666312e2307bac1940cff9db27aa5da2f48996d8d"
+  },
+  "comparison/corner_external/pneumatic_cube_xl_pla.3mf": {
+    "source": ".local/pneumatic_review/comparison/corner_external/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "a5efc6c02ac5304aeebb4e16120413e45c4c5262a244d3eac29fb41c7dd3ca49"
+  },
+  "comparison/corner_external/pneumatic_cube_xl_pla.gcode.gz": {
+    "source": ".local/pneumatic_review/comparison/corner_external/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "a34de46345375da0139ae8cf7610932e6b82317cd55d1c13eff00cae269ddbf5"
+  },
+  "comparison/corner_external/print_review.json": {
+    "source": ".local/pneumatic_review/comparison/corner_external/print_review.json",
+    "original_sha256": "5cdaac9bc4440bd4e739676997380de107b2a9bc99a4bc846cb9dd13e95f266d"
+  },
+  "comparison/corner_external/prusa_xl_04_pla.ini": {
+    "source": ".local/pneumatic_review/comparison/corner_external/prusa_xl_04_pla.ini",
+    "original_sha256": "34801b560c00ed8ebc1393c1f439c15cac154116052173eeba559d32b3c31ada"
+  },
+  "comparison/corner_external/slice.log": {
+    "source": ".local/pneumatic_review/comparison/corner_external/slice.log",
+    "original_sha256": "2b12bb42b9c48c4cbe91aa33a112520e63695aebd1d4110d1c34e43e1ffd1314"
+  },
+  "comparison/corner_external/toolpath_checks.json": {
+    "source": ".local/pneumatic_review/comparison/corner_external/toolpath_checks.json",
+    "original_sha256": "9ac0ac296183fbbe90599c4054cdb3b9062b27e27acf6e9e8dcc859f0e484bd3"
+  },
+  "comparison/edge_auto/pneumatic_cube_print.stl": {
+    "source": ".local/pneumatic_review/comparison/edge_auto/pneumatic_cube_print.stl",
+    "original_sha256": "4bb6c0f7bed448d4373cec20d04432acf7464db981b39ed91dd26bfc5c3b440d"
+  },
+  "comparison/edge_auto/pneumatic_cube_xl_pla.3mf": {
+    "source": ".local/pneumatic_review/comparison/edge_auto/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "a6e7a732c00b4133f7a720cca959eb89af3303e6226b1d3c909bf17672be6a0f"
+  },
+  "comparison/edge_auto/pneumatic_cube_xl_pla.gcode.gz": {
+    "source": ".local/pneumatic_review/comparison/edge_auto/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "66bccf6e4f9a5dd70c8b71b58f34033fd3eed182bd2ac75ee86586ec142aec47"
+  },
+  "comparison/edge_auto/print_review.json": {
+    "source": ".local/pneumatic_review/comparison/edge_auto/print_review.json",
+    "original_sha256": "054e34439b4d82b75f8aca733cd2caf962f8923d964bd3234d76e78368560340"
+  },
+  "comparison/edge_auto/prusa_xl_04_pla.ini": {
+    "source": ".local/pneumatic_review/comparison/edge_auto/prusa_xl_04_pla.ini",
+    "original_sha256": "67513bae8a19123739ab307530a6e40267ab3c48bc926db1532cb6246f334b5c"
+  },
+  "comparison/edge_auto/slice.log": {
+    "source": ".local/pneumatic_review/comparison/edge_auto/slice.log",
+    "original_sha256": "c80b08f89dd160cc0651681074ade5e13851bb3b97decb281e88f2c52ca20831"
+  },
+  "comparison/edge_auto/toolpath_checks.json": {
+    "source": ".local/pneumatic_review/comparison/edge_auto/toolpath_checks.json",
+    "original_sha256": "22917811c55d0952d4ff2dcbc697ed80e4705151d7e4b1d3c2e32a26f11ddba1"
+  },
+  "comparison/edge_external/pneumatic_cube_print.stl": {
+    "source": ".local/pneumatic_review/comparison/edge_external/pneumatic_cube_print.stl",
+    "original_sha256": "4bb6c0f7bed448d4373cec20d04432acf7464db981b39ed91dd26bfc5c3b440d"
+  },
+  "comparison/edge_external/pneumatic_cube_xl_pla.3mf": {
+    "source": ".local/pneumatic_review/comparison/edge_external/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "0e0f6b88748da2491057d746d58b5c714baab4b926634de729c567164c263511"
+  },
+  "comparison/edge_external/pneumatic_cube_xl_pla.gcode.gz": {
+    "source": ".local/pneumatic_review/comparison/edge_external/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "4065eb508d039206288a03a3e318d58ca0d78cbcb6c727656dcdbd08013dcaf2"
+  },
+  "comparison/edge_external/print_review.json": {
+    "source": ".local/pneumatic_review/comparison/edge_external/print_review.json",
+    "original_sha256": "17757f4a874346706dbaca86ec0d0f7c327976c262bb215f6ee44eb2dc1e6e72"
+  },
+  "comparison/edge_external/prusa_xl_04_pla.ini": {
+    "source": ".local/pneumatic_review/comparison/edge_external/prusa_xl_04_pla.ini",
+    "original_sha256": "34801b560c00ed8ebc1393c1f439c15cac154116052173eeba559d32b3c31ada"
+  },
+  "comparison/edge_external/slice.log": {
+    "source": ".local/pneumatic_review/comparison/edge_external/slice.log",
+    "original_sha256": "dc6dd67ac2ee8de905dd8e9ce81406ff3cbd18608acc380ffdb8cacca373dd7c"
+  },
+  "comparison/edge_external/toolpath_checks.json": {
+    "source": ".local/pneumatic_review/comparison/edge_external/toolpath_checks.json",
+    "original_sha256": "ccd75c7f40b7996c8b42569b3793d5d44a7a9dd20dc99db4507e557dc4426248"
+  },
+  "comparison/face_auto/pneumatic_cube_print.stl": {
+    "source": ".local/pneumatic_review/comparison/face_auto/pneumatic_cube_print.stl",
+    "original_sha256": "6d2817e040080be9d330c35626cdf07732a0608476ef6838896984962cc236fa"
+  },
+  "comparison/face_auto/pneumatic_cube_xl_pla.3mf": {
+    "source": ".local/pneumatic_review/comparison/face_auto/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "74b45e39846809d9c90d2cbdc68529ac0be7a8cab306c4ab8ba0e633fa9645f8"
+  },
+  "comparison/face_auto/pneumatic_cube_xl_pla.gcode.gz": {
+    "source": ".local/pneumatic_review/comparison/face_auto/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "a3b8c8a400e771243deefa8ddb40f59a805db4cf6eac99f616a9b26b60a48a50"
+  },
+  "comparison/face_auto/print_review.json": {
+    "source": ".local/pneumatic_review/comparison/face_auto/print_review.json",
+    "original_sha256": "0c128c42612ddeea9365d9a5513e5b2b23b3aa218e286cd10a5b4541a5f9dcc6"
+  },
+  "comparison/face_auto/prusa_xl_04_pla.ini": {
+    "source": ".local/pneumatic_review/comparison/face_auto/prusa_xl_04_pla.ini",
+    "original_sha256": "67513bae8a19123739ab307530a6e40267ab3c48bc926db1532cb6246f334b5c"
+  },
+  "comparison/face_auto/slice.log": {
+    "source": ".local/pneumatic_review/comparison/face_auto/slice.log",
+    "original_sha256": "0d0a09598cf2ffa994bf5fa0a6eafe03b70ba03247fb3b938202997fd25c992b"
+  },
+  "comparison/face_auto/toolpath_checks.json": {
+    "source": ".local/pneumatic_review/comparison/face_auto/toolpath_checks.json",
+    "original_sha256": "a057b04d36d7744a3df8f7a512c7b5bc482d7dac12f903a22a73e880c85d8cb7"
+  },
+  "comparison/face_external/pneumatic_cube_print.stl": {
+    "source": ".local/pneumatic_review/comparison/face_external/pneumatic_cube_print.stl",
+    "original_sha256": "6d2817e040080be9d330c35626cdf07732a0608476ef6838896984962cc236fa"
+  },
+  "comparison/face_external/pneumatic_cube_xl_pla.3mf": {
+    "source": ".local/pneumatic_review/comparison/face_external/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "d6fa68ab9cecdc1fc3c428240065b2e4921de1d01d301ba22bd38cd4c8fe2d87"
+  },
+  "comparison/face_external/pneumatic_cube_xl_pla.gcode.gz": {
+    "source": ".local/pneumatic_review/comparison/face_external/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "a39a3aa7321e0d00c7c6e9bd162af7e1b08a95a48ada03dadc2c1b99f0383072"
+  },
+  "comparison/face_external/print_review.json": {
+    "source": ".local/pneumatic_review/comparison/face_external/print_review.json",
+    "original_sha256": "aff9a84e222160a030f062c14d9396662da0b1e52aedce244082ea3191f2d87d"
+  },
+  "comparison/face_external/prusa_xl_04_pla.ini": {
+    "source": ".local/pneumatic_review/comparison/face_external/prusa_xl_04_pla.ini",
+    "original_sha256": "34801b560c00ed8ebc1393c1f439c15cac154116052173eeba559d32b3c31ada"
+  },
+  "comparison/face_external/slice.log": {
+    "source": ".local/pneumatic_review/comparison/face_external/slice.log",
+    "original_sha256": "b3cb1bb772255a712d53c482d3bddd79b9c1b90842b0b31ce71f1f96dfed88dd"
+  },
+  "comparison/face_external/toolpath_checks.json": {
+    "source": ".local/pneumatic_review/comparison/face_external/toolpath_checks.json",
+    "original_sha256": "c29241e8db30401d360312c67aa9f3b26a13ca942323bc744f1d2f44b95e960f"
+  },
+  "final_build/pneumatic_cube_print.stl": {
+    "source": ".local/pneumatic_review/selected_final/pneumatic_cube_print.stl",
+    "original_sha256": "31651b359c651328d3d08efd36bbd98c7f20e9618689e1087c8c4000c9f9103e"
+  },
+  "final_build/pneumatic_cube_xl_pla.3mf": {
+    "source": ".local/pneumatic_review/selected_final/pneumatic_cube_xl_pla.3mf",
+    "original_sha256": "76c50edbcbd7490444efb406ad45e7d38d7083ce6931df70b333897604798477"
+  },
+  "final_build/pneumatic_cube_xl_pla.gcode.gz": {
+    "source": ".local/pneumatic_review/selected_final/pneumatic_cube_xl_pla.gcode",
+    "original_sha256": "e04d510263674cfe02f763bf7ef541798ed5b23596a27aadc512fd73e0431337"
+  },
+  "final_build/print_review.json": {
+    "source": ".local/pneumatic_review/selected_final/print_review.json",
+    "original_sha256": "03d695f80e77af89b696442a1ddc9cc5fb58d88e057b069bf426b8eedb3053c2"
+  },
+  "final_build/prusa_xl_04_pla.ini": {
+    "source": ".local/pneumatic_review/selected_final/prusa_xl_04_pla.ini",
+    "original_sha256": "34801b560c00ed8ebc1393c1f439c15cac154116052173eeba559d32b3c31ada"
+  },
+  "final_build/slice.log": {
+    "source": ".local/pneumatic_review/selected_final/slice.log",
+    "original_sha256": "c356091558b2a8afabc9e18ef0326558d60704018773957e19590b3dc6df8298"
+  },
+  "final_build/toolpath_checks.json": {
+    "source": ".local/pneumatic_review/selected_final/toolpath_checks.json",
+    "original_sha256": "679c88ad0dfbc8f79cc80f1aefa568a4900a369701f50c79444fca15f770cf24"
+  },
+  "checks/before_sha256.json": {
+    "source": ".local/pneumatic_review/before_sha256.json",
+    "original_sha256": "85e449c1d5c7f1c510ca93a5a88690087ec2fc7015517e4eae39632fafe0a5a6"
+  },
+  "checks/initial_mesh_checks.json": {
+    "source": ".local/pneumatic_review/initial_mesh_checks.json",
+    "original_sha256": "3511f91d2a47308a72986815ccbdd07beb2251eb41b6839bd8701a31f401a14f"
+  },
+  "checks/final_mesh_checks.json": {
+    "source": ".local/pneumatic_review/final_mesh_checks.json",
+    "original_sha256": "2bf2b940c6473d187e9881e3b2f6ce7f11062bda8c08231ac1b675e16cb1c5bb"
+  },
+  "checks/comparison_summary.json": {
+    "source": ".local/pneumatic_review/comparison_summary.json",
+    "original_sha256": "7e05117a5596983ac0b350ed7c613b70fba58cfa2764f05569ff63e3fe4d95d3"
+  },
+  "README.md": {
+    "source": "models/pneumatic_cube/README.md",
+    "original_sha256": "2b4acb188b3036102bfe347c8fcb40203b41c53c6df57d1d762d8be69da9749c"
+  },
+  "PRUSA_XL_PLA_JUHEND.md": {
+    "source": "models/pneumatic_cube/PRUSA_XL_PLA_JUHEND.md",
+    "original_sha256": "c116ec338343cd1112c7c4dcea28b0128995dcba148732035b5ae4b6a427d19b"
+  },
+  "source_helpers/tools/prepare_pneumatic_print.py": {
+    "source": "tools/prepare_pneumatic_print.py",
+    "original_sha256": "2db06c3eacb74ce00ea684757125bd5691f4bab9e927465eb155c4e3bf07bafc"
+  },
+  "source_helpers/tools/check_pneumatic_print.py": {
+    "source": "tools/check_pneumatic_print.py",
+    "original_sha256": "078e430ab6acc6cd62a29b4bbc84faedad39b34d655fae7cb51fe6392173e86f"
+  },
+  "source_helpers/tools/verify_models.py": {
+    "source": "tools/verify_models.py",
+    "original_sha256": "f14a1f93ef1462e2fccb5edd839cb211785a030c02a48d69d4302f1355f239db"
+  },
+  "source_helpers/tests/test_pneumatic_cube.py": {
+    "source": "tests/test_pneumatic_cube.py",
+    "original_sha256": "dee023358ec85e9616974ed761b57a20a28d5302d60d192ffb31612822ad87a2"
+  },
+  "source_helpers/pytest.ini": {
+    "source": "pytest.ini",
+    "original_sha256": "c809c969ec7e11b9ff37784e9c6fcc0b7c5148d168e18b05aed797e03fbd6ead"
+  },
+  "source_helpers/requirements-dev.txt": {
+    "source": "requirements-dev.txt",
+    "original_sha256": "5c289021cd3bb6b55e6626fe89652a59f3c56bdf210cd5df3cea13bec1281921"
+  },
+  "source_helpers/requirements-dev.lock.txt": {
+    "source": "requirements-dev.lock.txt",
+    "original_sha256": "0a694b51e7e0f6ccbd94cd055ea4dc7651cf332139cec988ae945110d4e6ecf2"
+  },
+  "source_helpers/.gitattributes": {
+    "source": ".gitattributes",
+    "original_sha256": "2cc0312f8dfe32228afe801afcd9dd05c9ac78d17c6db623a8d88ee69de5c428"
+  },
+  "source_helpers/investigation/compare_pneumatic_prints.py": {
+    "source": ".git/compare_pneumatic_prints.py",
+    "original_sha256": "95cf03419588fa90496ea921e6272ccf6a909528115757054dbf55261617993c"
+  },
+  "source_helpers/investigation/plot_pneumatic_supports.py": {
+    "source": ".git/plot_pneumatic_supports.py",
+    "original_sha256": "22bb8b49b07c2b21d4093e0d40debb903730dd86b36524cdd1620422a3baefe6"
+  },
+  "source_helpers/investigation/archive_pneumatic_review.py": {
+    "source": ".git/archive_pneumatic_review.py",
+    "original_sha256": "aa1796ae4807564a256e6a24a5b6939e7edb13fbdb47923c7af3342f47fdcd18"
+  }
+}
