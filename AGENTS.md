@@ -157,6 +157,24 @@ This writes only to `output/balance_shift/`.
 
 ## Validation Workflow
 
+### Local development tools (installed 2026-11-10)
+
+- Use `.venv\Scripts\python.exe` on this computer; the system Python is older.
+- Install development dependencies with `-m pip install -r requirements-dev.txt`;
+  `requirements-dev.lock.txt` records the complete verified Python environment.
+- Run `python tools/verify_models.py` for read-only serialized STL and archive
+  checks. It currently exits 1 for existing egg/balance-shift zero-area triangles;
+  do not report this baseline as a passing mesh validation or silently repair archives.
+- Run `python tools/slice_models.py` to slice the cube halves into a fresh
+  `.local/slicing/` review directory using their separate saved profiles.
+- Local tools: PrusaSlicer 2.9.7, FreeCAD 1.1.4 + FreeCAD MCP 0.1.30,
+  Blender 4.5.16 LTS + MCP for Blender 2.2.7, Trimesh 5.2.0, CadQuery 2.8.0.
+- Codex MCP servers `haptell_freecad` and `haptell_blender` use independent
+  installed launchers and start their local application when connecting.
+- See `docs/development_tools.md` for commands, paths, and verification results.
+
+### Model geometry checks
+
 After changing geometry, always regenerate STL files and check the script output. Expected output includes:
 
 - `boundary_edges=0` for all STL files
