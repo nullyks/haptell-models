@@ -1,0 +1,141 @@
+{
+  "model_version": "v07-80mm-r8-fan-only-eight-snaps",
+  "slicer": "PrusaSlicer-2.9.7 based on Slic3r (with GUI support)",
+  "print_orientation": "Both openings down, rounded exterior faces up; STLs already oriented.",
+  "manual_supports_required": true,
+  "parts": {
+    "bottom": {
+      "statistics": {
+        "filament used [mm]": "32059.09",
+        "filament used [cm3]": "77.11",
+        "filament used [g]": "95.62",
+        "estimated printing time (normal mode)": "5h 28m 26s",
+        "estimated printing time (silent mode)": "5h 41m 33s"
+      },
+      "source_stl_sha256": "c8339aa69bfccd68244e5b35326b4a600cf3e4d314a08ad198c03fb4e4dbf821",
+      "profile_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca",
+      "gcode_sha256": "bab3e0d153d90f07848b28e7fad76cacf7549d118a0d696ba179a2320db42e0d",
+      "project_sha256": "22953390cbf241827cee2e0942dd27c7fed33de69af59abf669e3d94fddc3f13",
+      "support_enforcer_count": 15,
+      "support_style": "snug",
+      "feature_mass_g": {
+        "Custom": 0.057,
+        "Skirt/Brim": 0.614,
+        "Support material": 21.144,
+        "Perimeter": 40.978,
+        "External perimeter": 15.908,
+        "Support material interface": 1.065,
+        "Overhang perimeter": 0.539,
+        "Bridge infill": 2.346,
+        "Solid infill": 10.783,
+        "Internal infill": 1.131,
+        "Top solid infill": 1.053
+      },
+      "support_mass_g": 22.209,
+      "visible_exterior_interface_filament_mm": 0.0,
+      "longest_bridge_segment_mm": 65.846
+    },
+    "lid": {
+      "statistics": {
+        "filament used [mm]": "23624.94",
+        "filament used [cm3]": "56.82",
+        "filament used [g]": "70.46",
+        "estimated printing time (normal mode)": "4h 34m 55s",
+        "estimated printing time (silent mode)": "4h 46m 38s"
+      },
+      "source_stl_sha256": "af225d8c931583af100792c2ea3405387a3d50d21f0ad4ef96595fe0df49d45e",
+      "profile_sha256": "3a3a9cbaaacc1a7ae14c17c8081ea1b89cde8ca3c02436da6ded49121eb3b3ac",
+      "gcode_sha256": "8037079e03da39c3f090e352b939b5d24b794f2e0a5446211b464eb34e87c97c",
+      "project_sha256": "f985c00ed5ac0868474abe61de93042c1f85248b4ac741b7f0d8a30d9dddc9b7",
+      "support_enforcer_count": 8,
+      "support_style": "organic",
+      "feature_mass_g": {
+        "Custom": 0.057,
+        "Skirt/Brim": 0.363,
+        "Support material": 12.75,
+        "Perimeter": 31.72,
+        "External perimeter": 11.166,
+        "Overhang perimeter": 0.302,
+        "Support material interface": 1.151,
+        "Solid infill": 9.346,
+        "Bridge infill": 2.218,
+        "Internal infill": 0.401,
+        "Top solid infill": 0.99
+      },
+      "support_mass_g": 13.901,
+      "visible_exterior_interface_filament_mm": 0.0,
+      "longest_bridge_segment_mm": 70.77
+    }
+  },
+  "comparison_jobs": 32,
+  "selected_support_mass_g": 36.11,
+  "automatic_snug_same_orientation_support_mass_g": 59.897999999999996,
+  "support_reduction_vs_automatic_snug_percent": 39.7,
+  "toolpath_checks": [
+    {
+      "part": "bottom",
+      "roof_bridge_check": {
+        "job": "bottom_down_grid_fan_snug",
+        "roof_bridge_paths": 1018,
+        "max_sampled_free_roof_bridge_mm": 16.55,
+        "support_interface_z_max": 45.35,
+        "sampling_step_mm": 0.4,
+        "model_probe_below_nozzle_mm": 0.3,
+        "support_anchor_tolerance_mm": 0.6,
+        "worst_path": {
+          "z": 43.8,
+          "start": [
+            24.34,
+            -8.58,
+            43.8
+          ],
+          "end": [
+            24.34,
+            -35.38,
+            43.8
+          ]
+        },
+        "scope": "Sampled analytic rounded-shell/thermal-pad and interface-path estimate; ignores extra fan material conservatively. Not a physical print test."
+      },
+      "project_mesh_max_vertex_error_mm": 9.514096455400929e-07,
+      "one_printable_model_volume": true,
+      "fan_first_overhang_interface_samples": {
+        "cheek_-1": 559,
+        "screw_ear_-1": 490,
+        "seat_-1": 659,
+        "cheek_+1": 560,
+        "screw_ear_+1": 490,
+        "seat_+1": 661
+      }
+    },
+    {
+      "part": "lid",
+      "roof_bridge_check": {
+        "job": "lid_down_grid_fan_organic",
+        "roof_bridge_paths": 886,
+        "max_sampled_free_roof_bridge_mm": 12.79,
+        "support_interface_z_max": 38.6,
+        "sampling_step_mm": 0.4,
+        "model_probe_below_nozzle_mm": 0.3,
+        "support_anchor_tolerance_mm": 0.6,
+        "worst_path": {
+          "z": 37.0,
+          "start": [
+            31.7,
+            35.38,
+            37.0
+          ],
+          "end": [
+            31.7,
+            -35.38,
+            37.0
+          ]
+        },
+        "scope": "Sampled analytic rounded-shell/thermal-pad and interface-path estimate; ignores extra fan material conservatively. Not a physical print test."
+      },
+      "project_mesh_max_vertex_error_mm": 4.771698336142756e-07,
+      "one_printable_model_volume": true
+    }
+  ],
+  "scope": "Nominal geometry and sliced toolpaths only; physical print, snap force, fan fit and thermal performance need testing."
+}

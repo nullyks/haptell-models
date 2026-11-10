@@ -1,0 +1,24 @@
+10 => Processing triangulated mesh
+20 => Generating perimeters
+30 => Preparing infill
+45 => Making infill
+65 => Searching support spots
+69 => Alert if supports needed
+70 => Generating support material
+[2026-11-10 20:53:39.159512] [0x00003a90] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+[2026-11-10 20:53:39.159512] [0x000067f0] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:53:39.159512] [0x00009554] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:53:39.161511] [0x000097d0] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:53:39.161511] [0x00000b78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:53:39.161511] [0x000099d8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+88 => Estimating curled extrusions
+89 => Calculating overhanging perimeters
+88 => Generating skirt and brim
+90 => Exporting G-code to C:\Users\Nullyks\Documents\ChatGPT\Haptell models\.local\v07_review\print_comparison\lid_down_crossband_fan_organic\print.gcode
+Slicing result exported to C:\Users\Nullyks\Documents\ChatGPT\Haptell models\.local\v07_review\print_comparison\lid_down_crossband_fan_organic\print.gcode

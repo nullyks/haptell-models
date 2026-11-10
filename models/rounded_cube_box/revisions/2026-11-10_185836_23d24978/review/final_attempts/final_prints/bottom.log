@@ -1,0 +1,158 @@
+10 => Processing triangulated mesh
+20 => Generating perimeters
+30 => Preparing infill
+45 => Making infill
+65 => Searching support spots
+69 => Alert if supports needed
+70 => Generating support material
+[2026-11-10 20:58:41.831380] [0x000092a8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.831380] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.832379] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.832379] [0x000083f4] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.832379] [0x0000a074] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.832379] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.832379] [0x000097d0] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.832379] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.833379] [0x00002a78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.834379] [0x000009f0] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.836377] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.836377] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.836377] [0x000097d0] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.837377] [0x000083f4] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.838888] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.839405] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.842392] [0x000097d0] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.842392] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.842392] [0x000092a8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.842392] [0x0000a074] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.843392] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.843392] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.844391] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.845391] [0x000092a8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.845391] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.846390] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.847390] [0x000097d0] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.847390] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.847390] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.849389] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.850388] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.852386] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.853386] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.853386] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.853386] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.854385] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.854385] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.855385] [0x000092a8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.856385] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.857384] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.857384] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.858563] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.858563] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.861408] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.862398] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.862398] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.862398] [0x000092a8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.863398] [0x00008dec] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.864397] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.866396] [0x00003a54] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.867396] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.871394] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.873392] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.873392] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.874392] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.878390] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.879391] [0x00008dec] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.880901] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+[2026-11-10 20:58:41.880901] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.880901] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.882407] [0x000092a8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.885810] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.886809] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.887809] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.888809] [0x00008dac] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.892806] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.892806] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.896805] [0x0000674c] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.897803] [0x0000a074] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.898803] [0x000086b8] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.901802] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.912347] [0x00008dec] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+[2026-11-10 20:58:41.917870] [0x00009f78] [error]   Had to calculate Placeable Areas at radius 0 and layer 0, but precalculate was called. Performance may suffer!
+Error: Not precalculated Placeable areas requested, radius 0, layer 0, critical: 0
+88 => Estimating curled extrusions
+89 => Calculating overhanging perimeters
+88 => Generating skirt and brim
+90 => Exporting G-code to C:\Users\Nullyks\Documents\ChatGPT\Haptell models\.local\v07_review\final_prints\rounded_cube_bottom_xl_pla.gcode
+Slicing result exported to C:\Users\Nullyks\Documents\ChatGPT\Haptell models\.local\v07_review\final_prints\rounded_cube_bottom_xl_pla.gcode

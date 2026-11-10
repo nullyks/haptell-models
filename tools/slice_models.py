@@ -9,9 +9,11 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 
 def find_slicer() -> Path:
@@ -41,6 +43,12 @@ def main() -> int:
     if destination == (ROOT / "models").resolve() or (ROOT / "models").resolve() in destination.parents:
         parser.error("Review output must be outside the permanent archive")
     destination.mkdir(parents=True, exist_ok=False)
+    import generate_rounded_cube_box_stl as cube
+    if hasattr(cube, "PRINT_OPEN_SIDE_UP") and not cube.PRINT_OPEN_SIDE_UP:
+        from tools.prepare_cube_prints import build_print_projects
+        build_print_projects(destination, slicer)
+        print(f"Review folder: {destination}")
+        return 0
     source = ROOT / "output/rounded_cube_box"
     version = subprocess.run([str(slicer), "--help"], text=True, capture_output=True, check=True).stdout.splitlines()[0]
     result = {"slicer": version, "parts": {}, "scope": "Offline slicing only; physical print validation is separate."}

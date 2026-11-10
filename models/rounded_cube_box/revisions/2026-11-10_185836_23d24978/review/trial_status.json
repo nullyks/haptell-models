@@ -1,0 +1,20 @@
+{
+  "scope": "All estimates and analytical screens; no physical print or measured snap force.",
+  "comparison_cases": 32,
+  "comparison_warning": "Trials include rejected settings. Enforcers in early fan cases had assembly Y instead of rotated print Y; use only selected_prints for printing.",
+  "final_attempts": {
+    "final_prints": "Rejected bottom Organic: sampled free roof span 25.54 mm near thermal pad edge.",
+    "final_prints_dense_tips": "Rejected bottom Organic: denser tips still left 25.54 mm span.",
+    "final_prints_reliable": "Snug bottom roof passed, but fan screw-ear support was on wrong Y side; rejected.",
+    "final_prints_corrected": "Selected: corrected fan support Y; bottom Snug / lid dense Organic. All final checks passed."
+  },
+  "selected_source_revision": "2026-11-10_185836_23d24978",
+  "selected_checks": "selected_prints/prusa_slicer_validation.json",
+  "tests": {
+    "command": ".venv/Scripts/python.exe -m pytest -q",
+    "passed": 11
+  },
+  "prior_protected_file_hashes_verified": 383,
+  "source_and_all_current_STL_hashes_match_generated_archive": true,
+  "investigation_helpers": "Raw scripts expect repository root and siblings in .git; preserved for inspection. Production entry point is tools/slice_models.py."
+}

@@ -1,0 +1,94 @@
+[
+  {
+    "job": "bottom_down_banded_fan_snug",
+    "roof_bridge_paths": 1016,
+    "max_sampled_free_roof_bridge_mm": 44.69,
+    "support_interface_z_max": 45.35,
+    "sampling_step_mm": 0.4,
+    "model_probe_below_nozzle_mm": 0.3,
+    "support_anchor_tolerance_mm": 0.6,
+    "worst_path": {
+      "z": 45.8,
+      "start": [
+        32.92,
+        16.03,
+        45.8
+      ],
+      "end": [
+        -32.92,
+        16.53,
+        45.8
+      ]
+    },
+    "scope": "Sampled analytic rounded-shell/thermal-pad and interface-path estimate; ignores extra fan material conservatively. Not a physical print test."
+  },
+  {
+    "job": "bottom_down_banded_fan_organic",
+    "roof_bridge_paths": 1016,
+    "max_sampled_free_roof_bridge_mm": 44.69,
+    "support_interface_z_max": 45.4,
+    "sampling_step_mm": 0.4,
+    "model_probe_below_nozzle_mm": 0.3,
+    "support_anchor_tolerance_mm": 0.6,
+    "worst_path": {
+      "z": 45.8,
+      "start": [
+        32.92,
+        16.03,
+        45.8
+      ],
+      "end": [
+        -32.92,
+        16.53,
+        45.8
+      ]
+    },
+    "scope": "Sampled analytic rounded-shell/thermal-pad and interface-path estimate; ignores extra fan material conservatively. Not a physical print test."
+  },
+  {
+    "job": "lid_down_banded_fan_snug",
+    "roof_bridge_paths": 885,
+    "max_sampled_free_roof_bridge_mm": 44.69,
+    "support_interface_z_max": 38.55,
+    "sampling_step_mm": 0.4,
+    "model_probe_below_nozzle_mm": 0.3,
+    "support_anchor_tolerance_mm": 0.6,
+    "worst_path": {
+      "z": 39.0,
+      "start": [
+        -32.92,
+        18.79,
+        39.0
+      ],
+      "end": [
+        32.92,
+        18.31,
+        39.0
+      ]
+    },
+    "scope": "Sampled analytic rounded-shell/thermal-pad and interface-path estimate; ignores extra fan material conservatively. Not a physical print test."
+  },
+  {
+    "job": "lid_down_banded_fan_organic",
+    "roof_bridge_paths": 885,
+    "max_sampled_free_roof_bridge_mm": 44.69,
+    "support_interface_z_max": 38.6,
+    "sampling_step_mm": 0.4,
+    "model_probe_below_nozzle_mm": 0.3,
+    "support_anchor_tolerance_mm": 0.6,
+    "worst_path": {
+      "z": 39.0,
+      "start": [
+        -32.92,
+        18.79,
+        39.0
+      ],
+      "end": [
+        32.92,
+        18.31,
+        39.0
+      ]
+    },
+    "scope": "Sampled analytic rounded-shell/thermal-pad and interface-path estimate; ignores extra fan material conservatively. Not a physical print test."
+  }
+]

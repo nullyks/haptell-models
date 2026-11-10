@@ -1,0 +1,42 @@
+{
+  "model_version": "v07-80mm-r8-fan-only-eight-snaps",
+  "assembly_bounds_mm": [
+    80.0,
+    80.0,
+    80.0
+  ],
+  "outer_edge_radius_mm": 8.0,
+  "shell_wall_mm": 3.2,
+  "snap_count": 8,
+  "snap_width_mm": 10.0,
+  "snap_beam_thickness_mm": 2.2,
+  "snap_radial_interference_mm": 0.7000000000000028,
+  "snap_seated_clearance_mm": 0.4499999999999986,
+  "socket_remaining_wall_mm": 2.0500000000000003,
+  "vent_count_per_half": 24,
+  "component_collisions_mm3": {
+    "fan_max_12mm_depth": 0.0,
+    "bottom_peltier": 0.0,
+    "top_peltier": 0.0
+  },
+  "halves_overlap_mm3": 0.0,
+  "thermal_pad_thickness_mm": 1.2,
+  "loading_check": "Fan enters bottom half from above.",
+  "vent_size_mm": [
+    10.0,
+    2.0
+  ],
+  "retained_internal_features": [
+    "fan cradle",
+    "eight snap tongues",
+    "seam registration"
+  ],
+  "removed_features": [
+    "UNO shelf",
+    "battery shelf and guides",
+    "charger shelf",
+    "USB-C aperture"
+  ],
+  "print_open_side_up": false,
+  "fit_scope": "Nominal fan and Peltier envelopes only. Fan mounting pitch remains provisional. No measured snap force, physical print verification or thermal certification."
+}

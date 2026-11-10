@@ -1,0 +1,750 @@
+{
+  "selected_prints/prusa_slicer_validation.json": {
+    "source": "output/rounded_cube_box/prusa_slicer_validation.json",
+    "original_sha256": "fedfe9daced1031c535197b1be76ca75f4989f1a53021f66daa7de5b7d2b970b"
+  },
+  "prusa_v07_supports.png": {
+    "source": "output/rounded_cube_box/prusa_v07_supports.png",
+    "original_sha256": "f4a9568a02ab9bfad1d5e7c3d054271cd5c6205511a5c64bef48524d318b36cb"
+  },
+  "selected_prints/prusa_xl_04_pla.ini": {
+    "source": "output/rounded_cube_box/prusa_xl_04_pla.ini",
+    "original_sha256": "3a3a9cbaaacc1a7ae14c17c8081ea1b89cde8ca3c02436da6ded49121eb3b3ac"
+  },
+  "selected_prints/prusa_xl_04_pla_bottom.ini": {
+    "source": "output/rounded_cube_box/prusa_xl_04_pla_bottom.ini",
+    "original_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca"
+  },
+  "selected_prints/rounded_cube_bottom_xl_pla.3mf": {
+    "source": "output/rounded_cube_box/rounded_cube_bottom_xl_pla.3mf",
+    "original_sha256": "22953390cbf241827cee2e0942dd27c7fed33de69af59abf669e3d94fddc3f13"
+  },
+  "selected_prints/rounded_cube_bottom_xl_pla.gcode": {
+    "source": "output/rounded_cube_box/rounded_cube_bottom_xl_pla.gcode",
+    "original_sha256": "bab3e0d153d90f07848b28e7fad76cacf7549d118a0d696ba179a2320db42e0d"
+  },
+  "selected_prints/rounded_cube_lid_xl_pla.3mf": {
+    "source": "output/rounded_cube_box/rounded_cube_lid_xl_pla.3mf",
+    "original_sha256": "f985c00ed5ac0868474abe61de93042c1f85248b4ac741b7f0d8a30d9dddc9b7"
+  },
+  "selected_prints/rounded_cube_lid_xl_pla.gcode": {
+    "source": "output/rounded_cube_box/rounded_cube_lid_xl_pla.gcode",
+    "original_sha256": "8037079e03da39c3f090e352b939b5d24b794f2e0a5446211b464eb34e87c97c"
+  },
+  "rounded_cube_overview.png": {
+    "source": "output/rounded_cube_box/rounded_cube_overview.png",
+    "original_sha256": "a4f29da7cec62eef4921085fab60d2da73395495787c566c830118058bc3f386"
+  },
+  "rounded_cube_v07_closed.png": {
+    "source": "output/rounded_cube_box/rounded_cube_v07_closed.png",
+    "original_sha256": "a5bc570f26472d6170ba2f6ce3efc2a3dbdb2856c154fae6c3b991aa110dfc22"
+  },
+  "validation.json": {
+    "source": "output/rounded_cube_box/validation.json",
+    "original_sha256": "ca4729f269032381ea3f67b78e31dd4a4add3d905248c0f301ea8f11f66d9dc2"
+  },
+  "print_comparison/bottom_down_banded_fan_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_organic/print.3mf",
+    "original_sha256": "f149c4b57a0c6fce0b32f83cdea34adf05cc4fe1d78e9c15954034087f8e37c0"
+  },
+  "print_comparison/bottom_down_banded_fan_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_organic/print.gcode",
+    "original_sha256": "ecaac86f916d91d972fa2c16c4ec44d3b7a63cfb857af171277c48f7d6a00945"
+  },
+  "print_comparison/bottom_down_banded_fan_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/bottom_down_banded_fan_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_organic/slice.log",
+    "original_sha256": "e2e5b51731389bc204ee91d90b124a195e48a3a11de3f6a9cf9b97d812505e62"
+  },
+  "print_comparison/bottom_down_banded_fan_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_snug/print.3mf",
+    "original_sha256": "bf3db5b57e33cc4aec835b96a146450d3ae5720e1d247b1f3a916a28062560d6"
+  },
+  "print_comparison/bottom_down_banded_fan_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_snug/print.gcode",
+    "original_sha256": "f7fadb0008ce326b1ff54d8e4243a36eed00f9b66b972e7cd35ee30b079da2ea"
+  },
+  "print_comparison/bottom_down_banded_fan_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_snug/profile.ini",
+    "original_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca"
+  },
+  "print_comparison/bottom_down_banded_fan_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_fan_snug/slice.log",
+    "original_sha256": "4999121883a88a3ef822224871df3004e0740e2d86939736cc5cfe42fa89745d"
+  },
+  "print_comparison/bottom_down_banded_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_organic/print.3mf",
+    "original_sha256": "949129dc7d01a3ed8ce427f812615f8101803f8a40e13986bd6761f28db0bf7d"
+  },
+  "print_comparison/bottom_down_banded_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_organic/print.gcode",
+    "original_sha256": "431698a1a516c588b7005a4e96780ed8db4d44528f189e504c6c1e0b087bec7f"
+  },
+  "print_comparison/bottom_down_banded_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/bottom_down_banded_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_organic/slice.log",
+    "original_sha256": "ce0526c0a0c9d5cac0996ba285a344de7e29c65b22903881087d24b37302459f"
+  },
+  "print_comparison/bottom_down_banded_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_snug/print.3mf",
+    "original_sha256": "517c6da2d6449909ed2c6f32fa2b3175f2670e2d6de8529246d79f1f516da1c8"
+  },
+  "print_comparison/bottom_down_banded_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_snug/print.gcode",
+    "original_sha256": "5bfcb0dfbcedf31ca73faee612b02f091a82a7adcdb04f2a7e418ba5e95bab9a"
+  },
+  "print_comparison/bottom_down_banded_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_snug/profile.ini",
+    "original_sha256": "1772d1180467505f2617f22d4cfba5a27ead95e79f0e2ab8fa6e28723b9bb8b6"
+  },
+  "print_comparison/bottom_down_banded_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_banded_snug/slice.log",
+    "original_sha256": "a8ac2a6e9294d06476cb7a6fa09ed1055dff0a485feb8caacc1c27b787ec06da"
+  },
+  "print_comparison/bottom_down_crossband_fan_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_organic/print.3mf",
+    "original_sha256": "ff8f57574e8ee4a260cc8180293bf128413b33968a191c9280b139323e59d1b6"
+  },
+  "print_comparison/bottom_down_crossband_fan_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_organic/print.gcode",
+    "original_sha256": "e4b0067dab96c2374bd8a3f3b324386d6f7b8d3afd0e6158b89861e34a2e59c4"
+  },
+  "print_comparison/bottom_down_crossband_fan_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/bottom_down_crossband_fan_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_organic/slice.log",
+    "original_sha256": "cca98621f5a112eafed348e3d172330aff99dfdc723242349a580bc6b0d007d9"
+  },
+  "print_comparison/bottom_down_crossband_fan_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_snug/print.3mf",
+    "original_sha256": "013710e3da9c14ad923976c526a0c8f53d63a6e9672c60d124a8ebd1023ec136"
+  },
+  "print_comparison/bottom_down_crossband_fan_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_snug/print.gcode",
+    "original_sha256": "e778acba5bd31689e3ada6a800fbb47368cb3f56cf81bc068795a4d1f9a2b2d3"
+  },
+  "print_comparison/bottom_down_crossband_fan_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_snug/profile.ini",
+    "original_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca"
+  },
+  "print_comparison/bottom_down_crossband_fan_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_crossband_fan_snug/slice.log",
+    "original_sha256": "26c12f3783373ac7b336e064f08976acfe5b1849712adb77eb04c120c00c23d8"
+  },
+  "print_comparison/bottom_down_grid_fan_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_organic/print.3mf",
+    "original_sha256": "f3ea19fcdeeab8827a81fcfa734e55df288ca364a73b2f15ca122c6f00fc42b5"
+  },
+  "print_comparison/bottom_down_grid_fan_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_organic/print.gcode",
+    "original_sha256": "bf4af6a23e1fcdcc9b74e266821f7c80a10e75005826b676420d6e5276acfb7c"
+  },
+  "print_comparison/bottom_down_grid_fan_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/bottom_down_grid_fan_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_organic/slice.log",
+    "original_sha256": "45a8c1b1010179504a81e1e93c897392a87ceabe780850d7ce480a900dc40eaf"
+  },
+  "print_comparison/bottom_down_grid_fan_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_snug/print.3mf",
+    "original_sha256": "7f4360c41b5fc8dbffbd85b98b4b7aadda386d466299f2a6593757b88f9e9066"
+  },
+  "print_comparison/bottom_down_grid_fan_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_snug/print.gcode",
+    "original_sha256": "92da879def13f71b202eb3152cfbcfb61647191018803b4bc46446084c35a4a5"
+  },
+  "print_comparison/bottom_down_grid_fan_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_snug/profile.ini",
+    "original_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca"
+  },
+  "print_comparison/bottom_down_grid_fan_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_grid_fan_snug/slice.log",
+    "original_sha256": "eeae5c2398d0981314ada20ed07adaddf83f80585bb7f846ac131b83d9a8b1eb"
+  },
+  "print_comparison/bottom_down_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic/print.3mf",
+    "original_sha256": "39b045a77a9bff6800a87a6c9d94038a74debd227f403df85101404abd0f72ca"
+  },
+  "print_comparison/bottom_down_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic/print.gcode",
+    "original_sha256": "cdc5a6650a7e49c1b4b240fc3a3766a5e0c3c021a80d8dfb6ea2caaa4edfd686"
+  },
+  "print_comparison/bottom_down_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic/profile.ini",
+    "original_sha256": "2216e430ce3538292b4c619f71afb9694e1e20d1f9bff73af54404c5700f1d09"
+  },
+  "print_comparison/bottom_down_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic/slice.log",
+    "original_sha256": "51dd32875c00d30950d91034725dcb942d6be6e6c775eb932b278b3ab089a38d"
+  },
+  "print_comparison/bottom_down_organic_bridges/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_bridges/print.3mf",
+    "original_sha256": "43df167eb02556fb3ab9432e1fb39f93f0076ec26d4fdd990409e21c51b3cc61"
+  },
+  "print_comparison/bottom_down_organic_bridges/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_bridges/print.gcode",
+    "original_sha256": "59faf26074b2e619b805035c1ff06b1eb94d620c788f31a1c76e1d91e1f2bb27"
+  },
+  "print_comparison/bottom_down_organic_bridges/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_bridges/profile.ini",
+    "original_sha256": "af642efdbdb6e195c528992cab8589c58cb4641af9870aa1982631a60a4dea85"
+  },
+  "print_comparison/bottom_down_organic_bridges/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_bridges/slice.log",
+    "original_sha256": "da2759ed442fe486b81ea23ed0cb6c4d451f72b0cfb4a8633243597f7b908658"
+  },
+  "print_comparison/bottom_down_organic_sparse/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_sparse/print.3mf",
+    "original_sha256": "cc2a8315834879a5ad187ea8aa790af270d0530a588c95cc9918df2d63559ea8"
+  },
+  "print_comparison/bottom_down_organic_sparse/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_sparse/print.gcode",
+    "original_sha256": "e8606db195dae148666130536ecba75181938efbee7cc6e9589c0eba3bd8d4c0"
+  },
+  "print_comparison/bottom_down_organic_sparse/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_sparse/profile.ini",
+    "original_sha256": "ada98b1a574376ccde159ede6a6ec90f6a899e821ee358c3f7e7897b7eaebd56"
+  },
+  "print_comparison/bottom_down_organic_sparse/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_organic_sparse/slice.log",
+    "original_sha256": "ea750edc5a0b3f15e78df62f8d51bc13a2cad77233446b541364cd743d8e046c"
+  },
+  "print_comparison/bottom_down_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug/print.3mf",
+    "original_sha256": "1a0c714f676a1163e7a31216979dc9a03eaadb09e55fe19522d247006889f58a"
+  },
+  "print_comparison/bottom_down_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug/print.gcode",
+    "original_sha256": "34600db977d3dee060ca0031163799da4cc9a684d1f4da417f1be6768ffb1d06"
+  },
+  "print_comparison/bottom_down_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug/profile.ini",
+    "original_sha256": "baeabb212462f37cdd1fbb128aa9e9a81cf06fe94e96c3caffbc482387e279e0"
+  },
+  "print_comparison/bottom_down_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug/slice.log",
+    "original_sha256": "a3c80842fdf8e536a5ba5b32818ef86ef78facd55c7b90494da5c7a2462dd13e"
+  },
+  "print_comparison/bottom_down_snug_bridges/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_bridges/print.3mf",
+    "original_sha256": "895f9b8b87bfd2b6b3734c212a274a0b12982f767279c94f3d85b3d20a06c8c8"
+  },
+  "print_comparison/bottom_down_snug_bridges/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_bridges/print.gcode",
+    "original_sha256": "406de8cee4fdf9a86ad4c60033339dfd198aeaba0bcf6b5a02a12bf7b618655c"
+  },
+  "print_comparison/bottom_down_snug_bridges/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_bridges/profile.ini",
+    "original_sha256": "eaca4ef3d9a0a3542cbf6ee7b5eb7dc8657b65c89deca058d0689bc1605eb63f"
+  },
+  "print_comparison/bottom_down_snug_bridges/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_bridges/slice.log",
+    "original_sha256": "26dcc108c3d0b732c2a54445707813896269e026697154aa5de8c1b3db7899ff"
+  },
+  "print_comparison/bottom_down_snug_sparse/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_sparse/print.3mf",
+    "original_sha256": "b939eef44ca1c77a9f84aa96226a3e86e4469268ad75b0a2bd353c49a75dabee"
+  },
+  "print_comparison/bottom_down_snug_sparse/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_sparse/print.gcode",
+    "original_sha256": "aff08830f8c6c165bdc54c16615719f9a98b729e8b73e3019511d3dd9ddf7679"
+  },
+  "print_comparison/bottom_down_snug_sparse/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_sparse/profile.ini",
+    "original_sha256": "cdb950417ba967c94407bfa38c67447e7212639f215dca52171510434afe3e14"
+  },
+  "print_comparison/bottom_down_snug_sparse/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_down_snug_sparse/slice.log",
+    "original_sha256": "de626eba60c5ac27e3a878e716a8404356a0f228090834b60939b66e7cb4382c"
+  },
+  "print_comparison/bottom_up_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_up_organic/print.3mf",
+    "original_sha256": "7c8d245909ed67fd2610600b00bc6f6afb46b91a42a89dc8d76dd59be7d0fb5b"
+  },
+  "print_comparison/bottom_up_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_up_organic/print.gcode",
+    "original_sha256": "ff91c25b71daca37e5456a33d72ff449b31d2777bc21dc0e39f00bcbecf26fa0"
+  },
+  "print_comparison/bottom_up_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_up_organic/profile.ini",
+    "original_sha256": "8a4bae4bf5eee062a460d07d787efec788229e4d361772a6fe61c49da6b7cc4b"
+  },
+  "print_comparison/bottom_up_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_up_organic/slice.log",
+    "original_sha256": "f98dc2ae92bc7c30f2f2c9ffc944a5e23f5c2d08076e4da1aceaadfa6fe8a2ab"
+  },
+  "print_comparison/bottom_up_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/bottom_up_snug/print.3mf",
+    "original_sha256": "13d20da62905b8507b39e9c169c637cb843e091c0897a5838065915a82615711"
+  },
+  "print_comparison/bottom_up_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/bottom_up_snug/print.gcode",
+    "original_sha256": "3bd534422d244c2c935614f507266841a0240793ac96041df62fcad14476c167"
+  },
+  "print_comparison/bottom_up_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/bottom_up_snug/profile.ini",
+    "original_sha256": "461b8cf446aa3b8b2dfb61ddccb48638ac77046572ad6862f8f8ba5eb8b6d12d"
+  },
+  "print_comparison/bottom_up_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/bottom_up_snug/slice.log",
+    "original_sha256": "378ab4584ea33f321da01d74d72889c0793dc5c29ddc58004742279678e1d9b4"
+  },
+  "print_comparison/comparison.json": {
+    "source": ".local/v07_review/print_comparison/comparison.json",
+    "original_sha256": "2c618500d30682e1007290b932ea8efc55f69e52c4290660bbdd9307440683f9"
+  },
+  "print_comparison/lid_down_banded_fan_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_organic/print.3mf",
+    "original_sha256": "892e2da03764236c235aea10a580732407f992e830bdbb52bdeac1bba4c781bc"
+  },
+  "print_comparison/lid_down_banded_fan_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_organic/print.gcode",
+    "original_sha256": "197d2901dcec5bd4aa40e615a36682153ca7a528024582785cd45310857e3548"
+  },
+  "print_comparison/lid_down_banded_fan_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/lid_down_banded_fan_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_organic/slice.log",
+    "original_sha256": "52c1a6a7dd2af67d9f81a36d9456dcbd49589f5df06892bb60e32f4324a184ca"
+  },
+  "print_comparison/lid_down_banded_fan_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_snug/print.3mf",
+    "original_sha256": "6a96e8204815442506cc320e2d70604849237fd68ff0384c5ff31cfce32b4c04"
+  },
+  "print_comparison/lid_down_banded_fan_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_snug/print.gcode",
+    "original_sha256": "5343f221aadb519b4d5665bc00782394ca711db6d0f9ba8b043ac471dcc6a98f"
+  },
+  "print_comparison/lid_down_banded_fan_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_snug/profile.ini",
+    "original_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca"
+  },
+  "print_comparison/lid_down_banded_fan_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_fan_snug/slice.log",
+    "original_sha256": "6354505f28a85a43c97931828794f29152244dba9a3e39c1690349f052a709bf"
+  },
+  "print_comparison/lid_down_banded_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_organic/print.3mf",
+    "original_sha256": "dc01e3b63e7cb8c2d96fcc8f937b2aa2981cccb33c45909d1fb53605a0c4b2f7"
+  },
+  "print_comparison/lid_down_banded_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_organic/print.gcode",
+    "original_sha256": "c3382bed6538b93b11be12a29b4a07fb01e7a8eb94575948f3688de193af77dd"
+  },
+  "print_comparison/lid_down_banded_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/lid_down_banded_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_organic/slice.log",
+    "original_sha256": "7d4b65f2c6b70abc7f1b3a020be4dbf3932bd8c657aad5657047c04bcd1350b3"
+  },
+  "print_comparison/lid_down_banded_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_snug/print.3mf",
+    "original_sha256": "1175a2ac25b2cab8e475e1e86cdbd98c26b98833065b128ed6c6ebd1588d78b8"
+  },
+  "print_comparison/lid_down_banded_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_snug/print.gcode",
+    "original_sha256": "b106cd7378b2faeb09630c0113280c007987bad226bb67196abd805ce23dca2c"
+  },
+  "print_comparison/lid_down_banded_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_snug/profile.ini",
+    "original_sha256": "1772d1180467505f2617f22d4cfba5a27ead95e79f0e2ab8fa6e28723b9bb8b6"
+  },
+  "print_comparison/lid_down_banded_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_banded_snug/slice.log",
+    "original_sha256": "9b93f88eac0c45e1239117c9dc456f87eeb36cf3d9cbc3dc7f24241448561c40"
+  },
+  "print_comparison/lid_down_crossband_fan_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_organic/print.3mf",
+    "original_sha256": "74928a5635b781e294ea91568e03dc83d8050a5ea7564cfc8b32f261393f2c99"
+  },
+  "print_comparison/lid_down_crossband_fan_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_organic/print.gcode",
+    "original_sha256": "b40af3a63b3dfbe629001335ba9804f995c6b0fb0371ca5dcf3742e5aa476df8"
+  },
+  "print_comparison/lid_down_crossband_fan_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/lid_down_crossband_fan_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_organic/slice.log",
+    "original_sha256": "51e74246a097bbf7889ea0b19c38dc6383d9369734381753732dba1358832c90"
+  },
+  "print_comparison/lid_down_crossband_fan_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_snug/print.3mf",
+    "original_sha256": "6f96a1b3ab2bf0acfcb1dd660f1eabdf9a602f878a42505a5a044e810a33bf09"
+  },
+  "print_comparison/lid_down_crossband_fan_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_snug/print.gcode",
+    "original_sha256": "39e3592c6a02e543a19dbac63df74e64bdd16d682cd7b90c4b8a680837495678"
+  },
+  "print_comparison/lid_down_crossband_fan_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_snug/profile.ini",
+    "original_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca"
+  },
+  "print_comparison/lid_down_crossband_fan_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_crossband_fan_snug/slice.log",
+    "original_sha256": "5bd1bccd60695957e4a6995b804ff5eb7e9cfa355fde9ffc78ff27e978083fad"
+  },
+  "print_comparison/lid_down_grid_fan_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_organic/print.3mf",
+    "original_sha256": "72ecfbb9e645e91efa42c1b2d45c1f6841f66a2b7e44065cc55a3eeef7eaa3d8"
+  },
+  "print_comparison/lid_down_grid_fan_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_organic/print.gcode",
+    "original_sha256": "a00436a4b51b8882d25f0538032a05c50a2810e1fbb60a52a713ee4811518627"
+  },
+  "print_comparison/lid_down_grid_fan_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_organic/profile.ini",
+    "original_sha256": "f39ba67b6970af6fbfbd934ade7542565d6cc3bf7c9aa3edb81cb57bbb974e8c"
+  },
+  "print_comparison/lid_down_grid_fan_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_organic/slice.log",
+    "original_sha256": "abaef0e90d470b1094ca14166776bd7f184076d336e352926930e708a535b3ca"
+  },
+  "print_comparison/lid_down_grid_fan_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_snug/print.3mf",
+    "original_sha256": "2aaf80186c38ef956af02c320621e3d4f6bd2ffbdf3828311c231445f2d666cf"
+  },
+  "print_comparison/lid_down_grid_fan_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_snug/print.gcode",
+    "original_sha256": "cde307b940f25c41b5172393acd4d50cdcf6cfcb8af135c999151e3c290fddb2"
+  },
+  "print_comparison/lid_down_grid_fan_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_snug/profile.ini",
+    "original_sha256": "34c5ce661e439955e45e18ba0a6bcb9ffe236cc072bd45522293627f7a295cca"
+  },
+  "print_comparison/lid_down_grid_fan_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_grid_fan_snug/slice.log",
+    "original_sha256": "7e1df94fb67b1943453a479deb7ed80ccf6fa62d51ead61b25239d5625f06d77"
+  },
+  "print_comparison/lid_down_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic/print.3mf",
+    "original_sha256": "d8df5a8ef6a3f2b1ce182d29813ff47e00abca322c4ef9bf4bc2d7b446326897"
+  },
+  "print_comparison/lid_down_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic/print.gcode",
+    "original_sha256": "5b7ca66db8c4f480dd21594a4416663aa8df622df2568c30e5398b679d4ef12a"
+  },
+  "print_comparison/lid_down_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic/profile.ini",
+    "original_sha256": "2216e430ce3538292b4c619f71afb9694e1e20d1f9bff73af54404c5700f1d09"
+  },
+  "print_comparison/lid_down_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic/slice.log",
+    "original_sha256": "2596cc8460d7a5f431ec365c9d466910912d43a02fb3b2c63dc82feae263163b"
+  },
+  "print_comparison/lid_down_organic_bridges/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_bridges/print.3mf",
+    "original_sha256": "aa0d315040c433fee5c9b72063c229ea71fccc3f8ba8c7b941b580406bc26787"
+  },
+  "print_comparison/lid_down_organic_bridges/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_bridges/print.gcode",
+    "original_sha256": "17303b3b308b1b1c1e060af28c4c836bf616ee315017388f8dd8c556856a9bfd"
+  },
+  "print_comparison/lid_down_organic_bridges/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_bridges/profile.ini",
+    "original_sha256": "af642efdbdb6e195c528992cab8589c58cb4641af9870aa1982631a60a4dea85"
+  },
+  "print_comparison/lid_down_organic_bridges/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_bridges/slice.log",
+    "original_sha256": "04a2d9ae89271a62fa37178b511b82d80be0cbbc57acc6d7321221c9c45e4f0b"
+  },
+  "print_comparison/lid_down_organic_sparse/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_sparse/print.3mf",
+    "original_sha256": "2220ee80001bdf7a71552e29d85315e2cd84b87ed9a2dceb64e945ed28b1c427"
+  },
+  "print_comparison/lid_down_organic_sparse/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_sparse/print.gcode",
+    "original_sha256": "2c75bcf385849eee5bf8c156b164dbbc1db985454fa1afbfeea6dd1657b06807"
+  },
+  "print_comparison/lid_down_organic_sparse/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_sparse/profile.ini",
+    "original_sha256": "ada98b1a574376ccde159ede6a6ec90f6a899e821ee358c3f7e7897b7eaebd56"
+  },
+  "print_comparison/lid_down_organic_sparse/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_organic_sparse/slice.log",
+    "original_sha256": "ba8eac02b1831d193ca986a6bef32de072c38843bc3f9f7bbca993aeef14108e"
+  },
+  "print_comparison/lid_down_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug/print.3mf",
+    "original_sha256": "874c555afbc9c24f78c7787fdfca23c48781ce5874ae3e8441bb9fdf56fd3e61"
+  },
+  "print_comparison/lid_down_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug/print.gcode",
+    "original_sha256": "51e3a68b4161990b25fd2cc0332ca0403e946bfb66ecbb9591a417ab09da598b"
+  },
+  "print_comparison/lid_down_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug/profile.ini",
+    "original_sha256": "baeabb212462f37cdd1fbb128aa9e9a81cf06fe94e96c3caffbc482387e279e0"
+  },
+  "print_comparison/lid_down_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug/slice.log",
+    "original_sha256": "b744b00940aa8db2c92fa99befdf950af991da63e001b96842bd2ab730c06beb"
+  },
+  "print_comparison/lid_down_snug_bridges/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_bridges/print.3mf",
+    "original_sha256": "73ef686a79d6d881381b2e25989e1d53f186e334cc7652f6108139bf45fe8f6c"
+  },
+  "print_comparison/lid_down_snug_bridges/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_bridges/print.gcode",
+    "original_sha256": "c82e7c9dbc518f550aeca8bf9dc5d27770f47580323c7383ed7b4a6c5a169355"
+  },
+  "print_comparison/lid_down_snug_bridges/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_bridges/profile.ini",
+    "original_sha256": "eaca4ef3d9a0a3542cbf6ee7b5eb7dc8657b65c89deca058d0689bc1605eb63f"
+  },
+  "print_comparison/lid_down_snug_bridges/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_bridges/slice.log",
+    "original_sha256": "345ba3ab9aa5dcaa8dc9f72077f216f5510b2f013a421c52ded13798f59d2669"
+  },
+  "print_comparison/lid_down_snug_sparse/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_sparse/print.3mf",
+    "original_sha256": "fd2cdac11e33b6d5d3c774d1681060e32f8b072b5d14f55ec7ea80d12828d38a"
+  },
+  "print_comparison/lid_down_snug_sparse/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_sparse/print.gcode",
+    "original_sha256": "e4f40c7989bed41d050fe4775230b5f8bd953fd26d1da2ceeb7cf80c16db79f1"
+  },
+  "print_comparison/lid_down_snug_sparse/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_sparse/profile.ini",
+    "original_sha256": "cdb950417ba967c94407bfa38c67447e7212639f215dca52171510434afe3e14"
+  },
+  "print_comparison/lid_down_snug_sparse/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_down_snug_sparse/slice.log",
+    "original_sha256": "cd2f80e1a9b6cf618a38fc2e8ee2db380957e66e8d5ac535f5fa8320095b44bd"
+  },
+  "print_comparison/lid_up_organic/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_up_organic/print.3mf",
+    "original_sha256": "d3934bf3234055f1c31ceb3e4cb19be710ad39fce9c1a8fd08dc288f1ee66b11"
+  },
+  "print_comparison/lid_up_organic/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_up_organic/print.gcode",
+    "original_sha256": "451a24103a17b14fd33cf0879c4b91ee63d72da08f3ddde8d292b1697a348c36"
+  },
+  "print_comparison/lid_up_organic/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_up_organic/profile.ini",
+    "original_sha256": "8a4bae4bf5eee062a460d07d787efec788229e4d361772a6fe61c49da6b7cc4b"
+  },
+  "print_comparison/lid_up_organic/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_up_organic/slice.log",
+    "original_sha256": "d33da547652709ab5a2629cf2c1935e5f7d06a9efcd7292aa5951d3470a81a43"
+  },
+  "print_comparison/lid_up_snug/print.3mf": {
+    "source": ".local/v07_review/print_comparison/lid_up_snug/print.3mf",
+    "original_sha256": "edf1fe83142c3a77dcbbd3dea319daadbfc7f84587a207bcebd16dee6fa1bcaa"
+  },
+  "print_comparison/lid_up_snug/print.gcode.gz": {
+    "source": ".local/v07_review/print_comparison/lid_up_snug/print.gcode",
+    "original_sha256": "fa8b63370f1c4a9a4dce7f92eac5f949ee32c95f8ea7f4ec324d5328fc0cd0f0"
+  },
+  "print_comparison/lid_up_snug/profile.ini": {
+    "source": ".local/v07_review/print_comparison/lid_up_snug/profile.ini",
+    "original_sha256": "461b8cf446aa3b8b2dfb61ddccb48638ac77046572ad6862f8f8ba5eb8b6d12d"
+  },
+  "print_comparison/lid_up_snug/slice.log": {
+    "source": ".local/v07_review/print_comparison/lid_up_snug/slice.log",
+    "original_sha256": "de83708548aa2289f72086dd7e36ee711ea68a3fd40437b6acf62f9783054ee1"
+  },
+  "print_comparison/roof_bridge_checks.json": {
+    "source": ".local/v07_review/print_comparison/roof_bridge_checks.json",
+    "original_sha256": "0618b72144fb5441af73ed8c34b4d522f7798a13d0de1995c8ce5300089d9182"
+  },
+  "print_comparison/roof_bridge_checks_crossband.json": {
+    "source": ".local/v07_review/print_comparison/roof_bridge_checks_crossband.json",
+    "original_sha256": "1d53a14409ce98e9dd72b6d7e52c1e3ce974403a4e0b8ba97cbb235b7cf1446c"
+  },
+  "print_comparison/roof_bridge_checks_grid.json": {
+    "source": ".local/v07_review/print_comparison/roof_bridge_checks_grid.json",
+    "original_sha256": "8d609e06e5808c81a5122e37cd3913b37e35001deeaeebd6f5f879f1e87abf6a"
+  },
+  "final_attempts/final_prints/bottom.log": {
+    "source": ".local/v07_review/final_prints/bottom.log",
+    "original_sha256": "0f4a295594d9f030afe40e66661990bd92d1426b784f6429df4f5d85f419bb0e"
+  },
+  "final_attempts/final_prints/lid.log": {
+    "source": ".local/v07_review/final_prints/lid.log",
+    "original_sha256": "06ef1d915b82325ec96b49893d7b9f1da006e2dcced5e5f3faa6a08cbc17eb76"
+  },
+  "final_attempts/final_prints/prusa_slicer_validation.json": {
+    "source": ".local/v07_review/final_prints/prusa_slicer_validation.json",
+    "original_sha256": "3ddc1a66d7888d85e08a9002be7196eebf53818af0873e68f558816a81dc6fb9"
+  },
+  "final_attempts/final_prints/rounded_cube_bottom_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints/rounded_cube_bottom_xl_pla.3mf",
+    "original_sha256": "613ed446cff61b403f943897baf416984896b8863fe3d5912c36e4e6bc47f439"
+  },
+  "final_attempts/final_prints/rounded_cube_bottom_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints/rounded_cube_bottom_xl_pla.gcode",
+    "original_sha256": "760199e40ef545a828cc073a88b7fff662c5705a02e83ddb36eb46d6430aa5f1"
+  },
+  "final_attempts/final_prints/rounded_cube_lid_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints/rounded_cube_lid_xl_pla.3mf",
+    "original_sha256": "eabcbafbe6c087dfd418e4adbaad2b8fb522ff42d8437fae43683293f0da842d"
+  },
+  "final_attempts/final_prints/rounded_cube_lid_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints/rounded_cube_lid_xl_pla.gcode",
+    "original_sha256": "38a9672c728aef76065c90e173ea95929835717486b09f1e01c49b84dbb72123"
+  },
+  "final_attempts/final_prints_dense_tips/bottom.log": {
+    "source": ".local/v07_review/final_prints_dense_tips/bottom.log",
+    "original_sha256": "79d0e21b991198477a6b027c3116189db7cb932cabb4c3117712e179feb2a1ae"
+  },
+  "final_attempts/final_prints_dense_tips/lid.log": {
+    "source": ".local/v07_review/final_prints_dense_tips/lid.log",
+    "original_sha256": "c23965cf9e46127a44159b98514f1e1fc511f24d696c3932ad5a87bc47e3d099"
+  },
+  "final_attempts/final_prints_dense_tips/prusa_slicer_validation.json": {
+    "source": ".local/v07_review/final_prints_dense_tips/prusa_slicer_validation.json",
+    "original_sha256": "155f609342a4bce007cbba2caf784e4720eb230c8f7e523df499eb155a515011"
+  },
+  "final_attempts/final_prints_dense_tips/rounded_cube_bottom_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints_dense_tips/rounded_cube_bottom_xl_pla.3mf",
+    "original_sha256": "4eeb0ad639f8c0d6f3c2cb367a2fd5e631f048a38e1a5dddff8139aaa18c681b"
+  },
+  "final_attempts/final_prints_dense_tips/rounded_cube_bottom_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints_dense_tips/rounded_cube_bottom_xl_pla.gcode",
+    "original_sha256": "2a4cf5d8445cec0b356992a1514aa856bfa4ea6c25ad8ded574c0004b0abd0ec"
+  },
+  "final_attempts/final_prints_dense_tips/rounded_cube_lid_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints_dense_tips/rounded_cube_lid_xl_pla.3mf",
+    "original_sha256": "5d8618495d78ce32452ff0363be0a32d905e4d2d21241146476ad5a6aaa4baef"
+  },
+  "final_attempts/final_prints_dense_tips/rounded_cube_lid_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints_dense_tips/rounded_cube_lid_xl_pla.gcode",
+    "original_sha256": "ee214e512f6cc4565b32415e4da05571d716d364f3d7f8394310c8306fbcd270"
+  },
+  "final_attempts/final_prints_reliable/bottom.log": {
+    "source": ".local/v07_review/final_prints_reliable/bottom.log",
+    "original_sha256": "19b63236ea0ac5b9ac97dbce535f01ee28b6f6b0c895dac5a0a3ad9a9f79dbf6"
+  },
+  "final_attempts/final_prints_reliable/lid.log": {
+    "source": ".local/v07_review/final_prints_reliable/lid.log",
+    "original_sha256": "79a6c867f425a8eeff7f19460cbf232ffc9e9421a29e978142e58ba28e281411"
+  },
+  "final_attempts/final_prints_reliable/prusa_slicer_validation.json": {
+    "source": ".local/v07_review/final_prints_reliable/prusa_slicer_validation.json",
+    "original_sha256": "2572a564297ac040e4779cd6ed9778862b08bc2fe0657ffc854ff01bd506def3"
+  },
+  "final_attempts/final_prints_reliable/rounded_cube_bottom_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints_reliable/rounded_cube_bottom_xl_pla.3mf",
+    "original_sha256": "d7fb71eb22f1a7ee2c4750fcf3d220b1b186920e0d7a719a65376923ff417956"
+  },
+  "final_attempts/final_prints_reliable/rounded_cube_bottom_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints_reliable/rounded_cube_bottom_xl_pla.gcode",
+    "original_sha256": "11316d76ab621b14d21686690033f78cce6e533fa22623fc746fa4cf56d5493e"
+  },
+  "final_attempts/final_prints_reliable/rounded_cube_lid_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints_reliable/rounded_cube_lid_xl_pla.3mf",
+    "original_sha256": "27d7a31c2ce1c6721069c317d7e16a663ae187027ec11f146871ed11ad32134a"
+  },
+  "final_attempts/final_prints_reliable/rounded_cube_lid_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints_reliable/rounded_cube_lid_xl_pla.gcode",
+    "original_sha256": "ee6937487089f374872bcec21f011bef0949a9065b6744bf79284c3cabb413da"
+  },
+  "final_attempts/final_prints_corrected/bottom.log": {
+    "source": ".local/v07_review/final_prints_corrected/bottom.log",
+    "original_sha256": "da8aae4494d40975eb232256c71d16163b342c1555a02d94d468f22f683ffa6e"
+  },
+  "final_attempts/final_prints_corrected/lid.log": {
+    "source": ".local/v07_review/final_prints_corrected/lid.log",
+    "original_sha256": "da6808f005aabe94ab09a14120f85130e299b05f39d8ddc6ef394a6b7f7a8f2b"
+  },
+  "final_attempts/final_prints_corrected/prusa_slicer_validation.json": {
+    "source": ".local/v07_review/final_prints_corrected/prusa_slicer_validation.json",
+    "original_sha256": "fedfe9daced1031c535197b1be76ca75f4989f1a53021f66daa7de5b7d2b970b"
+  },
+  "final_attempts/final_prints_corrected/rounded_cube_bottom_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints_corrected/rounded_cube_bottom_xl_pla.3mf",
+    "original_sha256": "22953390cbf241827cee2e0942dd27c7fed33de69af59abf669e3d94fddc3f13"
+  },
+  "final_attempts/final_prints_corrected/rounded_cube_bottom_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints_corrected/rounded_cube_bottom_xl_pla.gcode",
+    "original_sha256": "bab3e0d153d90f07848b28e7fad76cacf7549d118a0d696ba179a2320db42e0d"
+  },
+  "final_attempts/final_prints_corrected/rounded_cube_lid_xl_pla.3mf": {
+    "source": ".local/v07_review/final_prints_corrected/rounded_cube_lid_xl_pla.3mf",
+    "original_sha256": "f985c00ed5ac0868474abe61de93042c1f85248b4ac741b7f0d8a30d9dddc9b7"
+  },
+  "final_attempts/final_prints_corrected/rounded_cube_lid_xl_pla.gcode.gz": {
+    "source": ".local/v07_review/final_prints_corrected/rounded_cube_lid_xl_pla.gcode",
+    "original_sha256": "8037079e03da39c3f090e352b939b5d24b794f2e0a5446211b464eb34e87c97c"
+  },
+  "checks/mesh_checks_final.json": {
+    "source": ".local/v07_review/mesh_checks_final.json",
+    "original_sha256": "dded445411e122c1cdf34f693907cf5cd86756a3f9e93c394c3ee3984b3526c6"
+  },
+  "checks/before_sha256.json": {
+    "source": ".local/v07_review/before_sha256.json",
+    "original_sha256": "b382d5700593233d5e6c0179db3cf597ac12d89a25cf748d88ddbfdcc60f8aa8"
+  },
+  "README.md": {
+    "source": "models/rounded_cube_box/README.md",
+    "original_sha256": "1ffbbe5b2ba6e3df19693f482bcf16093a4f2bf44452ceb0bdd202ef5734c141"
+  },
+  "PRUSA_XL_PLA_JUHEND.md": {
+    "source": "models/rounded_cube_box/PRUSA_XL_PLA_JUHEND.md",
+    "original_sha256": "8ef90199d4011966860806593d1b65c441adb395fac4ffa083eba4819d217edb"
+  },
+  "source_helpers/tools/prepare_cube_prints.py": {
+    "source": "tools/prepare_cube_prints.py",
+    "original_sha256": "0a35309aa4a4b5ea886c8c6e023a862908f095a9d2448f21fea1d13f4f9329b3"
+  },
+  "source_helpers/tools/slice_models.py": {
+    "source": "tools/slice_models.py",
+    "original_sha256": "6f45f07353b6501f2b66497cbe97bd3b8fd290896fe8f7e378cdf2134091af8a"
+  },
+  "source_helpers/tools/verify_models.py": {
+    "source": "tools/verify_models.py",
+    "original_sha256": "06b5d6fc81c0963abb59edda5d29f142f04440ad16362764d423d69823ae6cbe"
+  },
+  "source_helpers/tests/test_rounded_cube_v07.py": {
+    "source": "tests/test_rounded_cube_v07.py",
+    "original_sha256": "e4ccb0460835fd3308f1b5b41377a35532a5783ec9c8ba42f384855d60e79761"
+  },
+  "source_helpers/requirements-dev.txt": {
+    "source": "requirements-dev.txt",
+    "original_sha256": "363b8e8e4a0732716e0129125194903827f1fbc0b1cc2d0af8a3f8d9c69ccb04"
+  },
+  "source_helpers/requirements-dev.lock.txt": {
+    "source": "requirements-dev.lock.txt",
+    "original_sha256": "0a694b51e7e0f6ccbd94cd055ea4dc7651cf332139cec988ae945110d4e6ecf2"
+  },
+  "source_helpers/investigation/compare_v07_printing.py": {
+    "source": ".git/compare_v07_printing.py",
+    "original_sha256": "5975f6f7e57bebdad23a2eddf26213c3749e1ce631e62186387912852328b289"
+  },
+  "source_helpers/investigation/compare_banded_supports.py": {
+    "source": ".git/compare_banded_supports.py",
+    "original_sha256": "fe1846c4b6c3eb129a13e858f3158839a6b14d02a1430e9e17344e9706f611b4"
+  },
+  "source_helpers/investigation/check_roof_bridges.py": {
+    "source": ".git/check_roof_bridges.py",
+    "original_sha256": "61f35035ec604d0300d090e91453012cb22ccf42940e21e77b48cbd7499c735f"
+  },
+  "source_helpers/investigation/validate_final_prints.py": {
+    "source": ".git/validate_final_prints.py",
+    "original_sha256": "94a09aa801c4ecd601e9bf7350f499d27fe2f01510d9329a02359223550e5ca4"
+  },
+  "source_helpers/investigation/plot_v07_supports.py": {
+    "source": ".git/plot_v07_supports.py",
+    "original_sha256": "ba6428f9a5b50db8d6353e1a2c2e7497b2c0b4f5cc10d118956da447b99e5e98"
+  },
+  "source_helpers/investigation/archive_v07_review.py": {
+    "source": ".git/archive_v07_review.py",
+    "original_sha256": "2c40da76c333c72f27a74e31fd66703cdccc993e73dd21632c60aa8a46399232"
+  }
+}

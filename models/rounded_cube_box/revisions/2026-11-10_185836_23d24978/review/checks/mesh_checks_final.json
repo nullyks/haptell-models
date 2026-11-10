@@ -1,0 +1,65 @@
+{
+  "meshes": [
+    {
+      "file": "output\\rounded_cube_box\\rounded_cube_bottom.stl",
+      "sha256": "c8339aa69bfccd68244e5b35326b4a600cf3e4d314a08ad198c03fb4e4dbf821",
+      "triangles": 11280,
+      "bounds_mm": [
+        80.0,
+        80.0,
+        46.799999
+      ],
+      "degenerate_triangles": 0,
+      "duplicate_triangles": 0,
+      "open_edges": 0,
+      "edges_used_more_than_twice": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "positive_closed_volume": true,
+      "passed": true
+    },
+    {
+      "file": "output\\rounded_cube_box\\rounded_cube_lid.stl",
+      "sha256": "af225d8c931583af100792c2ea3405387a3d50d21f0ad4ef96595fe0df49d45e",
+      "triangles": 9740,
+      "bounds_mm": [
+        80.0,
+        80.0,
+        40.0
+      ],
+      "degenerate_triangles": 0,
+      "duplicate_triangles": 0,
+      "open_edges": 0,
+      "edges_used_more_than_twice": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "positive_closed_volume": true,
+      "passed": true
+    },
+    {
+      "file": "output\\rounded_cube_box\\rounded_cube_assembly_preview.stl",
+      "sha256": "cef430150ec2246ccfb84e9b24793a01c8b4cdbe57a05a76cc2909c88637652e",
+      "triangles": 20720,
+      "bounds_mm": [
+        80.0,
+        80.0,
+        80.0
+      ],
+      "degenerate_triangles": 0,
+      "duplicate_triangles": 0,
+      "open_edges": 0,
+      "edges_used_more_than_twice": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "positive_closed_volume": true,
+      "passed": true
+    }
+  ],
+  "archive": {
+    "revisions": 41,
+    "files_checked": 394,
+    "failures": [],
+    "passed": true
+  },
+  "passed": true
+}

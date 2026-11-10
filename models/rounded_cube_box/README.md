@@ -1,172 +1,129 @@
-# Rounded Cube Box — v04, 76 mm snap enclosure
+# Rounded Cube Box — v07, 80 mm / R8
 
-Current generator: `generate_rounded_cube_box_stl.py`.
-Client dimensions received 2026-10-10 supersede the previous 91 mm v02.
-The image's thread annotation is superseded by the user's explicit snap request.
-The previous threaded model and every intermediate trial remain archived.
+Current generator: `generate_rounded_cube_box_stl.py`, version
+`v07-80mm-r8-fan-only-eight-snaps`.
 
-- [Current v06 trial](revisions/2026-10-13_073006_f7a8bc2d/)
-- [Previous v05 trial](revisions/2026-10-10_113343_3748715a/)
-- [Previous v04 trial](revisions/2026-10-10_111644_c2a314f8/)
-- [Previous v03 trial, R1 and three vent rows](revisions/2026-10-10_110233_cc65c905/)
+The user's 2026-11-10 reference requests an **80 x 80 x 80 mm exterior, R8 mm
+on all edges, without decorative dots or indents**. The enclosure remains two
+halves. The user also reports weak closure in the previous print, requests only
+fan-related internal holders, slightly taller vents, and printing that protects
+the exterior finish. The reference's suggested materials are not a print test.
+
+- [Current v07, selected opening-down STLs](revisions/2026-11-10_185836_23d24978/)
+- [Initial v07, floor-down orientation trial](revisions/2026-11-10_182653_f80190dd/)
+- [Previous v06](revisions/2026-10-13_073006_f7a8bc2d/)
+- [Previous v05](revisions/2026-10-10_113343_3748715a/)
+- [Previous v04](revisions/2026-10-10_111644_c2a314f8/)
+- [Previous v03](revisions/2026-10-10_110233_cc65c905/)
 - [Previous 91 mm threaded v02](revisions/2026-10-10_103358_24bd9aba/)
 
-## Geometry and output
+## Geometry
 
-- Exterior: **76 x 76 x 76 mm**, centered seam at Z=0.
-- All twelve exterior edges are circularly rounded R2.5 mm, with spherical corner
-  patches. The previous 45-degree end bevels and circular screw tubes are removed.
-- Side walls/end perimeter: 2.8 mm. Top/bottom centered thermal contact pads
-  retain their 45 x 45 mm outline, R4 corners, and **1.2 mm wall thickness**.
-- Four independent internal snap tongues: 7.2 mm wide, 1.6 mm thick,
-  approximately 12 mm free length to the hook. Nominal 0.50 mm insertion
-  interference and 0.45 mm seated radial clearance in the sockets.
-- Hook insertion ramp: 1.8 mm; short extraction ramp: 0.3 mm. This favors firm
-  retention over easy opening. Opening force has not been physically measured.
-- Socket depth: 0.95 mm; remaining local exterior wall: 1.85 mm.
-- Side/front registration strips align the halves; back is clear for UNO.
-- Each half has **24 rounded horizontal slots**, 10 x 1.4 mm, two rows
-  on all four sides. Rows are 31.5 and 34.5 mm away from the center seam, i.e. 6.5 and
-  3.5 mm from the outer top/bottom. Slot centers along each wall are -20, 0, 20 mm.
-  The middle of the cube is closed. Reduced vent area follows aesthetic intent;
-  airflow and cooling performance remain untested.
-- Lid has a 12 x 6 mm USB-C access aperture for the charging board, now with
-  R2 mm corners. It permits charging without opening the firm snap closure.
+- Exterior 80 mm on each axis; seam at assembly Z=0. Circular R8 edge rounding
+  with spherical corner patches, and matching R4.8 inner rounding.
+- Shell wall 3.2 mm. Centered top/bottom 45 x 45 mm R4 thermal contact areas
+  retain **1.2 mm thickness**. Nominal Peltier bodies remain 40 x 40 x 3.4 mm,
+  with 0.2 mm interface allowance. No separate heatsinks.
+- **Eight snap tongues**, two per wall, 10 mm wide and 2.2 mm thick, with tapered
+  roots. Previous model: four tongues, 7.2 x 1.6 mm. Nominal insertion interference
+  increases from 0.50 to 0.70 mm; seated radial clearance remains 0.45 mm.
+  Socket depth 1.15 mm leaves 2.05 mm exterior wall. Lip height 6.8 mm.
+  These changes target firmer retention; opening force and fatigue need a print test.
+- Retained inside: fan cradle, closure and alignment features. Removed: UNO,
+  battery and charger shelves/guides and the associated USB-C opening.
+- Each half has 24 rounded slots, **10 x 2 mm**, two rows on each wall.
+  Rows are 26.0 and 30.2 mm from the seam; centers along each wall are -20, 0,
+  20 mm. This keeps the slots out of the R8 end rounding. No decorative dimples.
 
-Latest files:
+## Fan
 
-- `output/rounded_cube_box/rounded_cube_bottom.stl`
-- `output/rounded_cube_box/rounded_cube_lid.stl`
-- `output/rounded_cube_box/rounded_cube_assembly_preview.stl` — inspection only
-- `output/rounded_cube_box/validation.json`
-- `output/rounded_cube_box/rounded_cube_overview.png` — current bottom print/support preview
+JZK nominal 50 x 50 x 10 mm fan, vertical in XZ, axis along Y. Cradle envelope
+accepts 50 x 12 x 50 mm. It uses two seats, side cheeks and two lower M3 screw
+slots. Reinforced v06 construction remains: backing 4.4 mm, seats 2.8 mm,
+cheeks 3.2 mm, with load paths to the thick end perimeter outside the thermal pad.
 
-## Components and arrangement
+Mounting pitch **40 mm is provisional**. Horizontal 7.4 x 3.4 mm slots nominally
+accept 38–42 mm pitch. Measure actual hole spacing, screw diameter and body
+depth. Use washers that cover the slots and suitable spacers for the actual fan.
+The nominal fan insertion path from the seam is clear; wires, screws, plugs and
+real hardware have not been physically fitted.
 
-Coordinates below describe the assembly: Z is top/bottom, +Y is front.
-Both Peltier pads are left unobstructed. No separate heatsinks are modeled,
-as explicitly confirmed by the user.
+## Selected printing setup
 
-| Item | Body envelope X x Y x Z (mm) | Center X, Y, Z (mm) | Basis |
-| --- | --- | --- | --- |
-| JZK fan | 50 x 12 x 50 | 0, 0, 0 | Seller nominal 50 x 50 x 10; extra depth allowance |
-| Arduino Uno | 68.6 x 14 x 53.4 | 0, -27.5, 0 | Official R3 outline; 14 mm component depth assumed |
-| LiPo 3000 mAh | 65 x 10 x 35 | 0, 26.5, 0.5 | Seller 65 x 35 x 10, oriented vertically |
-| TP4056 | 26 x 17 x 5 | 0, 24.5, 25.5 | Seller PCB 26 x 17; 5 mm height assumed |
-| Bottom Peltier | 40 x 40 x 3.4 | 0, 0, -34.9 | Seller detailed dimensions, 0.2 mm interface allowance |
-| Top Peltier | 40 x 40 x 3.4 | 0, 0, 34.9 | Same as bottom |
+**Both halves print opening-down, exterior end face up. The STLs are already
+oriented.** Bottom height 46.8 mm; lid height 40 mm. This supersedes v06's
+floor-down bottom in response to the user's new exterior-finish requirement.
 
-Fan mounts vertically in XZ, with its axis along Y. Two bottom seats and side
-cheeks position it; two lower screws retain it against the mounting ears.
-Use M3 through screws, nuts, and washers large enough to cover the 7.4 x 3.4 mm
-slots. Fan hole pitch is provisionally 40 mm; slots accept horizontal pitches
-38–42 mm. **The seller does not give hole pitch or hole diameter. Measure both
-axes on the actual fan before printing a final fitting sample.** Backing plane
-allows 12 mm fan depth plus 0.6 mm padding/spacer clearance; choose spacers to
-match the actual fan thickness. Keep the central rotor opening free.
+Floor-down avoids a large interior roof but places the R8 outside rounding over
+the bed, where its underside overhangs need support or risk poor finish.
+Opening-down moves support contact to internal faces and concealed mating
+edges. The selected projects enforce supports only in reviewed regions.
 
-Battery rests on a front shelf with loose lateral guides. Retain with soft
-insulating foam and a removable adhesive strap; no squeeze clip is applied to
-the pouch. UNO rests on a rear edge shelf, components toward the rear wall;
-its exact mount-hole pattern is not guessed. Secure on component-free PCB
-areas with insulating tape/strap. Charger rests on the upper-front tray with
-USB-C directed toward +Y. Check socket alignment and cable access physically.
+PrusaSlicer 2.9.7, Prusa XL IS standard 0.4 mm, Generic PLA, 0.20 mm STRUCTURAL,
+4 perimeters, 6/6 solid layers, 15% Grid, 5 mm brim:
 
-There is an additional empty 16 x 20 x 6 mm reserve centered at (25, 23, 26)
-for a small power board. This is only a space reservation, not a selected
-converter or driver. TP4056 is a battery charger/protection module; it does
-not produce the regulated 5 V needed by UNO/fan or drive a Peltier element.
-Final converter/driver boards and wiring must be checked when selected.
+| Part | Support | Enforcer volumes | Estimated time | Total PLA | Supports included |
+| --- | --- | --- | --- | --- | --- |
+| Bottom | Snug, allowed everywhere | 15 | 5h 28m 26s | 95.62 g | 22.21 g |
+| Lid | Organic, bed only | 8 | 4h 34m 55s | 70.46 g | 13.90 g |
 
-## Printing and assembly
+Combined supports: **36.11 g**, about **39.7% less** than automatic Snug supports
+on the same geometry and orientation (59.90 g). This compares support extrusion,
+not total filament. Total selected print estimate: 166.08 g / 10h 03m 21s.
+Neither estimate proves removal force, surface quality or retention strength.
 
-The **bottom prints floor-down, open-side-up** from v06 onward. Its STL is
-already oriented; do not apply the old 180-degree rotation. Height is 44.4 mm
-(38 mm body + 6.4 mm lip). The unchanged lid still prints open-side-down,
-height 38 mm.
+Both profiles use 0.25 mm top/bottom support gaps, 0.50 mm XY gap, 0.30 mm
+interface spacing, 5 mm support pattern spacing, 90-degree bridge direction,
+25 mm/s bridges and 100% bridge fan. Bottom has 2/2 interface layers; lid 3/2,
+Organic branch distance 2 mm and tip density 30%.
 
-See the full [Estonian Prusa XL / PLA setup guide](PRUSA_XL_PLA_JUHEND.md).
+**Open the 3MF as a project with settings.** It contains the support enforcer
+volumes and its complete print profile. The manual-support INI alone plus a
+plain STL does not recreate these supports. Do not combine the two profiles.
+`python tools/slice_models.py` creates fresh, self-contained projects with the
+correct enforcers after regeneration. Re-slice whenever geometry changes.
 
-v06 addresses 2026-10-13 feedback: fragile holders broke while removing the
-dense internal supports. Fan backing increased 3.2 -> 4.4 mm, seats 1.6 -> 2.8,
-cheeks 2.0 -> 3.2. Battery/UNO shelves are 2.8 mm thick with sloping/floor-attached
-ribs. Battery guide walls grow outward. Sloped braces support fixed registration
-pads and snap roots; the flexible snap spans, hooks, seating clearances, fan
-seating faces and holes, and nominal component locations are unchanged.
+See the [Estonian print and assembly guide](PRUSA_XL_PLA_JUHEND.md).
 
-PrusaSlicer 2.9.6, XL Input Shaper standard 0.4 mm, Generic PLA, one active tool:
+Latest files are in `output/rounded_cube_box/`:
 
-- Both parts: 0.20 mm STRUCTURAL, 4 perimeters, 6/6 solid layers, 15% Grid,
-  5 mm outer brim, nozzle 230/220 C, bed 60 C in this Generic PLA profile.
-- **Bottom** uses `prusa_xl_04_pla_bottom.ini`: automatic Snug supports
-  **everywhere** (including from the interior floor), 0.25 mm top/bottom contact,
-  0.50 mm XY spacing, 2/2 interface layers, 0.30 mm interface spacing,
-  3 mm pattern spacing, 1 mm closing radius. Bed-only support is incorrect for
-  this orientation because the solid floor blocks access to interior shelves.
-- **Lid** retains `prusa_xl_04_pla.ini`: automatic Snug supports only from bed,
-  0.20 mm top contact, 0 bottom contact (=same as top), 0.35 mm XY spacing,
-  3/0 interface layers, 0.20 mm interface spacing, 2 mm pattern spacing,
-  2 mm closing radius.
-- Bottom: **3h 44m 53s, 73.13 g**, including approximately **4.96 g supports**.
-  v05 bottom: 4h 6m 41s, 97.27 g, approximately 37.37 g supports. Support
-  extrusion decreased about 87%; these are slicer estimates, not removal tests.
-- Lid retains its prior job: 3h 11m 16s, 85.00 g. Actual material/temperature,
-  tool-count variant and machine firmware must match the profile used to print.
-- Final bottom G-code inspected in Prusa G-code Viewer, full view and lower-layer
-  cutaway. Supports are localized under shelves/overhangs, with no broad roof
-  support block. Both 3MF projects successfully re-sliced with embedded settings.
-- All meshes are watertight after STL serialization. Lid geometry and all four
-  flexible snap spans were compared against v05; symmetric-difference volume 0.
+- `rounded_cube_bottom.stl`, `rounded_cube_lid.stl` — printable geometry
+- `rounded_cube_bottom_xl_pla.3mf`, `rounded_cube_lid_xl_pla.3mf` — preferred projects
+- matching G-code and separate INIs — Prusa XL IS 0.4 mm / PLA only
+- `rounded_cube_assembly_preview.stl` — inspection, not a printable combined part
+- `rounded_cube_overview.png`, `rounded_cube_v07_closed.png`, `prusa_v07_supports.png`
+- `validation.json`, `prusa_slicer_validation.json`
 
-Open `rounded_cube_bottom_xl_pla.3mf` or `rounded_cube_lid_xl_pla.3mf` from
-`output/rounded_cube_box/` **as a project with settings**. Select your actual
-XL tool-count profile if different and re-slice, retaining the above overrides.
-The assembly-preview STL is for inspection only. The guide explains manual
-settings and support removal. Do not remove the permanent orange ribs shown
-in the preview; only the green toolpath regions represent removable supports.
-
-Remove internal supports through the open side before fitting electronics.
-Install fan and rear UNO/front battery into the lower half from above. Attach
-Peltier elements at the centered pads and the charger to its upper tray. Route
-wires away from the fan rotor, hooks, and mating seam. Check charging access
-before closing. Align all four snaps and press the halves straight together;
-there is no twisting step. This revision intentionally favors retention.
+The current revision's `review/` preserves all 32 comparison jobs and subsequent
+final-file attempts, including rejected ones. Their G-code is compressed
+losslessly. Those trials are evidence, not alternative ready-to-print jobs;
+use `review/selected_prints/` or the latest output projects.
 
 ## Validation and limits
 
-The generator validates before replacing any latest STL output:
+Both serialized printable meshes are closed, consistently wound, one solid each,
+with zero open/non-manifold edges and zero degenerate triangles. The assembled
+envelope is 80 mm on every axis, seated halves do not intersect, fan/Peltier
+nominal envelopes are clear, and thermal membranes are 1.2 mm at nine probes each.
 
-- No non-manifold/boundary edges and exactly one connected solid per half.
-- Assembled bounds 76 x 76 x 76 mm; no interference between seated halves.
-- Thermal pad thickness 1.2 mm at nine probe locations per pad.
-- No intersections among nominal component bodies or between them and shell,
-  mounts, or shelves; clear fan/UNO/battery insertion paths from the open seam.
-- Positive snap insertion interference and seated pocket clearance.
+The final self-contained 3MFs were sliced with their embedded settings. Each
+contains one printable model plus support enforcers; vertex positions agree
+with the corresponding STL within 0.000001 mm. Actual toolpaths include support
+under all six fan-holder first-overhang regions. A sampled roof-support check
+estimates longest free spans of 16.55 mm bottom / 12.79 mm lid; long G-code bridge
+commands may cross several support strips. This is an analytical screen, not
+a physical bridge-quality test. No sampled support-interface paths lie on the
+broad visible exterior faces. Concealed mating edges still need careful cleanup.
 
-These are geometric checks of nominal envelopes, not measured hardware fit.
-UNO connector overhang, attached plugs, lead bends, pouch expansion/foam/straps,
-charger component height, and any future power hardware need physical checking.
-UNO has only 0.9 mm nominal clearance at either board-length end; programming
-with an internal USB cable is not included in the current envelope.
-Vent area and a fan do not establish a cooling capacity: no thermal test/CFD
-has been performed, and heatsinks were explicitly excluded by the user.
+Physical fan fit, snap force, repeated opening, PLA creep, exterior finish and
+cooling performance remain untested. The reference's PLA/PETG/ABS suggestions do
+not validate these PLA settings for other materials. No cooling capacity is claimed.
 
-## Sources checked 2026-10-10
+## References
 
-- [Client drawing](references/2026-10-10_client_dimensions.png): 76 mm exterior,
-  approximately R1 corners. AI-generated reference; only requested dimensions
-  and rounding intent were adopted.
-- [JZK fan, B0CTMDY7F1](https://www.amazon.de/dp/B0CTMDY7F1): 50 x 50 x 10 mm.
-  Title/bullets label it 5 V; one description section says 12 V. Voltage/current
-  fields are inconsistent, so verify the delivered fan label for electrical work.
-- [songyea battery, B0F99KLK2Y](https://www.amazon.de/dp/B0F99KLK2Y): 65 x 35 x
-  10 mm, 3.7 V, 3000 mAh. Selected variant is the four-pack of 3000 mAh cells;
-  this enclosure holds **one** cell.
-- [StarMaker TP4056, B0D9TSG6VB](https://www.amazon.de/dp/B0D9TSG6VB): detailed
-  PCB size 26 x 17 mm. The generic product-dimensions field is inconsistent
-  and was not used for the PCB footprint.
-- [Hailege SP1848, B0CJY49P6X](https://www.amazon.de/dp/B0CJY49P6X): detailed
-  description 40 x 40 x 3.4 mm (summary rounds thickness to 3 mm). Sold primarily
-  as a thermoelectric generator; active-cooling suitability is not established.
-- [Arduino Uno R3 official specification](https://store.arduino.cc/products/arduino-uno-rev3):
-  68.6 x 53.4 mm outline; R3 assumed because user specified Uno without revision.
+- [Client reference, received 2026-11-10](references/2026-11-10_client_80mm_R8.png)
+- [Prusa: modeling with printing in mind](https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135)
+- [Prusa: support settings](https://help.prusa3d.com/article/support-material_1698)
+- [Prusa: Organic supports](https://help.prusa3d.com/article/organic-supports_480131)
+
+Earlier component-source notes remain in Git history; prior print settings remain in the v06 review.

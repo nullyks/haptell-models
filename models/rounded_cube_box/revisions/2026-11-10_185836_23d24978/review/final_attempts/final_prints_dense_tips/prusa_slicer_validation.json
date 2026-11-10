@@ -1,0 +1,38 @@
+{
+  "model_version": "v07-80mm-r8-fan-only-eight-snaps",
+  "slicer": "PrusaSlicer-2.9.7 based on Slic3r (with GUI support)",
+  "print_orientation": "Both openings down, rounded exterior faces up; STLs already oriented.",
+  "manual_supports_required": true,
+  "parts": {
+    "bottom": {
+      "statistics": {
+        "filament used [mm]": "31129.17",
+        "filament used [cm3]": "74.87",
+        "filament used [g]": "92.84",
+        "estimated printing time (normal mode)": "6h 29m 40s",
+        "estimated printing time (silent mode)": "6h 47m 46s"
+      },
+      "source_stl_sha256": "c8339aa69bfccd68244e5b35326b4a600cf3e4d314a08ad198c03fb4e4dbf821",
+      "profile_sha256": "3a3a9cbaaacc1a7ae14c17c8081ea1b89cde8ca3c02436da6ded49121eb3b3ac",
+      "gcode_sha256": "2a4cf5d8445cec0b356992a1514aa856bfa4ea6c25ad8ded574c0004b0abd0ec",
+      "project_sha256": "4eeb0ad639f8c0d6f3c2cb367a2fd5e631f048a38e1a5dddff8139aaa18c681b",
+      "support_enforcer_count": 15,
+      "support_style": "organic"
+    },
+    "lid": {
+      "statistics": {
+        "filament used [mm]": "23624.94",
+        "filament used [cm3]": "56.82",
+        "filament used [g]": "70.46",
+        "estimated printing time (normal mode)": "4h 34m 55s",
+        "estimated printing time (silent mode)": "4h 46m 38s"
+      },
+      "source_stl_sha256": "af225d8c931583af100792c2ea3405387a3d50d21f0ad4ef96595fe0df49d45e",
+      "profile_sha256": "3a3a9cbaaacc1a7ae14c17c8081ea1b89cde8ca3c02436da6ded49121eb3b3ac",
+      "gcode_sha256": "ee214e512f6cc4565b32415e4da05571d716d364f3d7f8394310c8306fbcd270",
+      "project_sha256": "5d8618495d78ce32452ff0363be0a32d905e4d2d21241146476ad5a6aaa4baef",
+      "support_enforcer_count": 8,
+      "support_style": "organic"
+    }
+  }
+}

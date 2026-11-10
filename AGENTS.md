@@ -42,48 +42,47 @@ This repository contains parametric STL generators for four families of two-piec
 
 ## Current rounded-cube model
 
-- Generator: `generate_rounded_cube_box_stl.py`, version `v06-reinforced-open-up-bottom`.
-- Current handoff: `models/rounded_cube_box/README.md`. Earlier 91 mm threaded
-  notes in `docs/rounded_cube_printing.md` describe the archived v02, not the current model.
-- Client drawing received 2026-10-10: exterior 76 x 76 x 76 mm, all edges and
-  corners initially R1 mm, increased to R2.5 mm at user request. Each half has
-  two rows of 10 x 1.4 mm side slots (24 slots total), 31.5 and 34.5 mm
-  from the seam. The center stays closed; USB-C access remains, with R2 corners. User replaced the drawing's
-  thread detail with a firm four-tongue snap closure.
-- Keep centered 45 x 45 mm top/bottom thermal pads and their 1.2 mm thickness.
-- Peltier elements: Hailege SP1848, 40 x 40 x 3.4 mm. User explicitly confirmed
-  no separate heatsinks. Do not add heatsink mounts unless requested.
-- Central fan: JZK nominal 50 x 50 x 10 mm, vertical in XZ. Cradle accepts up
-  to 12 mm depth, two lower M3 mounting slots, nominal 40 mm pitch. Hole pitch
-  is a provisional assumption because seller did not provide it; confirm on
-  the actual fan. Electronics body heights are also provisional as documented.
-- Rear UNO (R3 assumed), front 65 x 35 x 10 mm LiPo, upper-front 26 x 17 mm
-  TP4056 shelf, and a USB-C access opening. Keep these clear of both thermal pads.
-- v06 responds to holder breakage during support removal. Fan backing is 4.4 mm,
-  seats 2.8 mm, cheeks 3.2 mm. Battery/UNO shelves are 2.8 mm with sloped/floor
-  ribs; battery guides grow outward. Fixed registration pads and snap roots
-  have sloped braces. Preserve the flexible tongues, hook shape and fit.
-- Bottom now prints floor-down, OPEN SIDE UP; STL is already oriented.
-  Lid remains open-side-down. Heights: bottom 44.4 mm, lid 38 mm.
-  Assembled bounds remain 76 mm on all three axes. Do not restore bottom's
-  old lip-down orientation unless explicitly requested.
-- Detailed Estonian setup guide: models/rounded_cube_box/PRUSA_XL_PLA_JUHEND.md.
-- PrusaSlicer 2.9.6: XL IS standard 0.4 mm, Generic PLA, 0.20 mm STRUCTURAL,
-  4 perimeters, 6/6 solid layers, 15% Grid, 5 mm brim. Bottom has separate
-  prusa_xl_04_pla_bottom.ini: automatic Snug supports EVERYWHERE, 0.25 mm
-  top/bottom contact, 0.50 mm XY gap, 2/2 interface layers, 0.30 mm interface
-  spacing, 3 mm pattern spacing, 1 mm closing radius. Bed-only cannot reach
-  interior shelves through the bottom floor. Lid uses the original shared
-  prusa_xl_04_pla.ini and bed-only supports. Do not mix these profiles.
-- Saved 3MF/INI/G-code and review JSON are under output/rounded_cube_box;
-  re-slice after geometry changes. Nominal reduced support usage is not proof
-  of physical removal force or holder strength; a new print test is needed.
-- Validation must include zero boundary edges, one connected solid per half,
-  no seated-half interference, nominal component collisions and loading paths,
-  and unchanged thermal-pad thickness. See generated `validation.json`.
-- Do not present nominal envelope fit as verified physical hardware/plug fit,
-  cooling performance, or measured snap force. TP4056 is a charger/protection
-  module, not a 5 V boost supply or a Peltier driver.
+- Generator: `generate_rounded_cube_box_stl.py`, version
+  `v07-80mm-r8-fan-only-eight-snaps`. Current handoff:
+  `models/rounded_cube_box/README.md`; Estonian printing guide:
+  `models/rounded_cube_box/PRUSA_XL_PLA_JUHEND.md`.
+- User's 2026-11-10 reference supersedes 76 mm v06: exterior **80 x 80 x 80 mm,
+  R8** on all edges/corners, no decorative dots. Shell 3.2 mm, matching R4.8
+  inner rounding. Two halves, eight 10 x 2.2 mm snap tongues (two per wall),
+  0.70 mm insertion interference, 0.45 mm seated clearance. Opening force
+  remains unmeasured; prior print feedback said the closure was too weak.
+- User removed all electronics holders: only fan cradle, seam alignment and
+  closure remain. UNO/battery/charger shelves and USB-C opening are removed.
+- Retain centered 45 x 45 mm R4 thermal membranes, **1.2 mm thick**, and nominal
+  Hailege SP1848 Peltier envelopes 40 x 40 x 3.4 mm. No separate heatsinks.
+- Each half: 24 vents, 10 x 2 mm, levels 26 and 30.2 mm from seam.
+- Fan: nominal JZK 50 x 50 x 10 mm, vertical XZ; cradle accepts 12 mm depth.
+  Provisional 40 mm mounting pitch, lower M3 slots 7.4 x 3.4 mm. Measure hardware.
+  Backing 4.4 mm, seats 2.8 mm, cheeks 3.2 mm with perimeter-supported ribs.
+- **Both halves now print OPEN SIDE DOWN, rounded exterior faces UP**, per new
+  exterior-quality request. STLs already oriented: bottom 46.8 mm, lid 40 mm.
+  This explicitly supersedes the v06 floor-down bottom direction.
+- PrusaSlicer 2.9.7 / XL IS 0.4 mm / Generic PLA: 0.20 mm STRUCTURAL,
+  4 perimeters, 6/6 solid layers, 15% Grid, 5 mm brim. Bottom: Snug everywhere,
+  15 manual enforcers, 2/2 interface layers. Lid: Organic bed-only, 8 enforcers,
+  3/2 layers, branch distance 2 mm, tip density 30%. Both: 0.25 mm top/bottom
+  contact, 0.50 mm XY, 0.30 mm interface spacing, 5 mm base spacing,
+  90-degree bridge angle. Separate saved INIs must not be mixed.
+- Open **3MF as a project with settings**: manual-support profiles alone plus
+  STL do not reproduce the supports. `tools/slice_models.py` creates fresh
+  self-contained 3MF/G-code via `tools/prepare_cube_prints.py`. Support regions
+  depend on current geometry and must be reviewed after any geometry change.
+- Latest jobs in `output/rounded_cube_box/`: bottom 95.62 g / 5h28m26s,
+  lid 70.46 g / 4h34m55s. Supports 36.11 g total, 39.7% below same-orientation
+  automatic Snug estimate. Not evidence of measured removal force or finish.
+- Selected source/STL archive: `2026-11-10_185836_23d24978`. Earlier v07
+  floor-down trial and all rejected slicing trials remain preserved.
+- Validate zero boundary/non-manifold edges, one connected solid per half,
+  no seated overlap, fan/Peltier envelopes and loading path, pad thickness,
+  and saved 3MF main mesh/source agreement. Toolpath review must cover roof
+  bridges, fan overhang supports and visible exterior support contact.
+- Nominal geometry and slicer checks do not verify physical hardware fit,
+  snap strength, surface quality, repeated opening or thermal performance.
 
 ## Current Model Parameters
 
