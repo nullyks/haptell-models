@@ -207,8 +207,8 @@ This writes only to `output/balance_shift/`.
   `.local/slicing/` review directory using their separate saved profiles.
 - Local tools: PrusaSlicer 2.9.7, FreeCAD 1.1.4 + FreeCAD MCP 0.1.30,
   Blender 4.5.16 LTS + MCP for Blender 2.2.7, Trimesh 5.2.0, CadQuery 2.8.0.
-- Codex MCP servers `haptell_freecad` and `haptell_blender` use independent
-  installed launchers and start their local application when connecting.
+- Codex MCP servers `haptell_freecad` and `haptell_blender` connect to apps
+  opened manually. The installed bridge starts only the MCP server.
 - See `docs/development_tools.md` for commands, paths, and verification results.
 
 ### Model geometry checks

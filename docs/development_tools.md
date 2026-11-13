@@ -107,9 +107,10 @@ Kasutaja Codexi seadistuses on kaks uut ühendust:
 - `haptell_freecad`: 17 tööriista; kohalik FreeCADi server pordil 9875.
 - `haptell_blender`: kontrollkliendile 9 põhitööriista; kohalik server pordil 9876.
 
-Ühenduse laadimisel käivitab paigaldatud abiprogramm vajaduse korral vastava
-3D-programmi. Käivitaja asub `%LOCALAPPDATA%\Haptell\Tools\launch_cad_bridge.py`
-failis ja töötab ka repo haru vahetamise järel. Ühenduste algkäivituse piir
+Enne ühenduse kasutamist ava Blender või FreeCAD ise. ChatGPT avamisel
+käivitub ainult ühenduse abiprogramm. Käivitaja asub
+`%LOCALAPPDATA%\Haptell\Tools\launch_cad_bridge.py` failis ja töötab ka repo
+haru vahetamise järel. Ühenduste algkäivituse piir
 on 90 sekundit, tööriistakutse piir 120 sekundit. Mõlemad kuulavad ainult
 `127.0.0.1` aadressil. Blenderi telemeetria on välja lülitatud.
 
@@ -117,10 +118,9 @@ FreeCADi lisa asub `%APPDATA%\FreeCAD\v1-1\Mod\FreeCADMCP\` kaustas.
 Blenderi lisa asub `%APPDATA%\Blender Foundation\Blender\4.5\scripts\addons\`
 kaustas ning on kasutaja eelistustes sisse lülitatud.
 
-Mõlemad ühendused läbiti päris MCP-kliendiga. FreeCADis kontrolliti lisaks
-automaatsest käivitamisest ühenduse loomist, uue kontrollkeha loomist ja
-640 × 480 pildi tagastamist. Kontrollkeha dokument suleti salvestamata.
-Blenderis kontrolliti automaatset käivitumist ja stseeni info päringut.
+2026-11-10 paigalduse kontrollis prooviti mõlemat ühendust päris MCP-kliendiga.
+FreeCADis loodi kontrollkeha ja saadi 640 × 480 pilt. Kontrollkeha dokument
+suleti salvestamata. Blenderis kontrolliti stseeni info päringut.
 Kohalikud raportid on `.local/reports/freecad_connection.json` ja
 `.local/reports/blender_connection.json`.
 
