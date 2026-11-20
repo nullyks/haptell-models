@@ -1,5 +1,5 @@
 {
-  "model_version": "pneumatic-v01-80mm-r8-27mm-rounded-apertures",
+  "model_version": "pneumatic-v02-85mm-r15-spherical-cavity",
   "orientation": "edge",
   "support_mode": "external",
   "transform_3x4": [
@@ -19,23 +19,23 @@
       0.0,
       0.7071067811865475,
       0.7071067811865475,
-      53.25483183597614
+      53.881982336614854
     ]
   ],
-  "source_stl_sha256": "1077b898532c59533255dac262a8afe2d8c8f9cb647bbf663f2cf8ad7f07c353",
-  "oriented_stl_sha256": "31651b359c651328d3d08efd36bbd98c7f20e9618689e1087c8c4000c9f9103e",
-  "profile_sha256": "34801b560c00ed8ebc1393c1f439c15cac154116052173eeba559d32b3c31ada",
-  "project_sha256": "76c50edbcbd7490444efb406ad45e7d38d7083ce6931df70b333897604798477",
-  "gcode_sha256": "e04d510263674cfe02f763bf7ef541798ed5b23596a27aadc512fd73e0431337",
+  "source_stl_sha256": "014aebf6c2d7e14c7b09f0b7feb20ec354e7dac63250f1702d4ad46a4752b18e",
+  "oriented_stl_sha256": "2d0a39c26128f0ce4a51ee1ed4784f9e9ed097b5af892ef62db82955e15b94ce",
+  "profile_sha256": "ab2f5bafbd5358b6760c5a46d64837b1f83fc2a5b62db310e2b0856ced2d72c9",
+  "project_sha256": "0235cc0efcf22dd6c9490fd711a85009e1081f09559c913ec9a4cee63e7a61b6",
+  "gcode_sha256": "7d0aedce9de577be43716c6f0b77ad99f3103a15bcbe6de28617c4aec3eee5ad",
   "modifiers": [
     "SupportEnforcer",
     "SupportBlocker"
   ],
   "statistics": {
-    "filament used [mm]": "36528.11",
-    "filament used [cm3]": "87.86",
-    "filament used [g]": "108.95",
-    "estimated printing time (normal mode)": "8h 34m 47s",
-    "estimated printing time (silent mode)": "9h 8m 37s"
+    "filament used [mm]": "46835.20",
+    "filament used [cm3]": "112.65",
+    "filament used [g]": "139.69",
+    "estimated printing time (normal mode)": "10h 50m 35s",
+    "estimated printing time (silent mode)": "11h 41m 28s"
   }
 }

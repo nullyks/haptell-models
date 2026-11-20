@@ -88,40 +88,34 @@ a one-piece hollow pneumatic cube.
 
 ## Current pneumatic cube — separate one-piece family
 
-- Name: Pneumaatika kuubik. Generator: `generate_pneumatic_cube_stl.py`,
-  `pneumatic-v01-80mm-r8-27mm-rounded-apertures`. Outputs: `output/pneumatic_cube/`;
-  archive family `pneumatic_cube`. Do not replace rounded-cube v07 or its print jobs.
-- User request 2026-11-10: one-piece hollow balloon enclosure, 80 mm / R8,
-  three membrane-safe openings per face, no sharp aperture edges or internal holders.
-- User explicitly approved adjusting holes/layout while preserving 80 mm / R8:
-  reference Ø35 mm / 35 mm pitch leaves zero material between the top pair.
-- Current holes: 18, Ø27 mm throat, R1.6 circular blends on both sides,
-  Ø30.2 mm mouths. Wall 4 mm, inner R4. Minimum web between mouths 3.2 mm.
-  Each face's centers: (-16.7,16.7), (16.7,16.7), (0,-16.7). All mouths stay
-  within flat face regions, clear of R8 edge rounding. No Peltier pads or mounts.
-- Selected print orientation: edge down, 45° about X, already in
-  `pneumatic_cube_print.stl`. `pneumatic_cube.stl` is the ordinary display orientation.
-  Print bounds approx. 80 x 106.51 x 106.51 mm; do not print both STL copies.
-- Prusa XL IS 0.4 mm / PLA: 0.15 mm layer, 0.2 first, 5 perimeters, 100% wall
-  infill, 6/6 solid layers, 8 mm brim, no raft. Manual Snug bed-only startup
-  support below 7 mm; internal support blocker. Open 3MF with settings: INI + STL
-  alone does not include support modifiers. Automatic supports must stay off.
-- Final actual toolpaths: support ends at Z=5.8 mm; zero samples inside cavity;
-  support estimate 1.27 g, total 108.95 g, 8h34m47s. Edge is more stable and
-  shorter than the lower-material but taller corner-down trial.
-- Selected archive: `2026-11-10_194955_a4bccfb6`; first corner-down trial and
-  all six slicing comparisons remain preserved. Handoff and Estonian guide:
-  `models/pneumatic_cube/README.md`, `PRUSA_XL_PLA_JUHEND.md` in that directory.
-- Fresh prints: `tools/prepare_pneumatic_print.py --output-dir NEW_DIRECTORY`;
-  then `tools/check_pneumatic_print.py NEW_DIRECTORY`. Recheck supports and
-  bridges after every geometry change. Check one solid, closed serialized STL,
-  no degenerates, Euler -32 (18 distinct apertures), empty interior, both rim
-  blends, source/3MF agreement and absence of support inside the cavity.
-- Fillets do not verify physical membrane safety. Printed seams, layer ridges
-  and support remnants need smoothing and tactile inspection before balloon
-  insertion. Pressure, balloon material, durability and finish are untested.
-- `pytest.ini` restricts collection to `tests/`; archived test source is
-  historical evidence and must not be executed as the current test suite.
+- Generator: generate_pneumatic_cube_stl.py, pneumatic-v02-85mm-r15-spherical-cavity.
+  Outputs: output/pneumatic_cube/. Archive family: pneumatic_cube.
+- v02 design approved 2026-11-20. Keep 85 × 85 × 85 mm, R15 exterior rounding,
+  Ø79 mm spherical hollow, and 3 mm nominal wall at closed face centers.
+  The two 64 × 28 mm slots wrap onto the outer rounding. Round mouth sizes are
+  Ø31.5 mm (three per top/back/left), Ø34.5 mm (two on right) and Ø10 mm
+  (one centered underneath). Retain 14 separate openings and the 2.5 mm
+  nominal web between neighboring circular mouths. The larger passages taper
+  toward the sphere and have smooth transitions.
+- Selected print orientation: 45° edge-down. The print STL and 3MFs are already
+  oriented. Generic PLA, XL IS 0.4 mm, layers 0.15/0.20 mm, five perimeters,
+  18% Gyroid, 6/6 solid layers, 8 mm brim, enforcer-controlled bed-only Snug.
+  Open the 3MF as a project with its settings and modifiers.
+- Use the versioned v02 5T files in output/prusa_xl_5t_pla_04/ for XL 5T on
+  tool 1. The unversioned pneumatic 5T G-code is an earlier v01 job.
+- The selected XL 5T estimate is 139.74 g / 10h 50m 31s. External support is
+  1.55 g, ending at Z=5.8 mm. Sampled toolpaths show no supports in the sphere or
+  channels. The maximum sampled free bridge span is 4.74 mm.
+- v02 archive: 2026-11-20_134313_71c0bcd8. v01: 2026-11-10_194955_a4bccfb6.
+  See models/pneumatic_cube/README.md and PRUSA_XL_PLA_JUHEND.md.
+- For geometry changes, verify one solid, no serialized open/non-manifold edges
+  or degenerate triangles, Euler −24, 14 separate through openings, Ø79 mm
+  cavity, mouth widths, 3MF/STL agreement, and no internal supports.
+  Prepare a fresh print with tools/prepare_pneumatic_print.py --output-dir NEW,
+  then inspect with tools/check_pneumatic_print.py NEW.
+- Printed bridge quality, seam finish, membrane expansion and durability need
+  physical testing. Smooth all opening rims before inserting the membrane.
+
 
 ## Current Model Parameters
 

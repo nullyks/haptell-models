@@ -1,2 +1,3 @@
 numpy>=1.26
 manifold3d>=3.5
+scikit-image>=0.25,<0.28

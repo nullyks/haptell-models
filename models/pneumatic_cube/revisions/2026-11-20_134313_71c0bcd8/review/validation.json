@@ -1,0 +1,191 @@
+{
+  "model_version": "pneumatic-v02-85mm-r15-spherical-cavity",
+  "body_bounds_mm": [
+    85.0,
+    85.0,
+    85.0
+  ],
+  "outer_radius_mm": 15.0,
+  "spherical_cavity_diameter_mm": 79.0,
+  "face_center_wall_mm": 3.0,
+  "hole_count": 14,
+  "faces": {
+    "front": {
+      "type": "B2",
+      "openings": [
+        {
+          "center_uv_mm": [
+            0,
+            -20
+          ],
+          "width_mm": 64,
+          "height_mm": 28
+        },
+        {
+          "center_uv_mm": [
+            0,
+            20
+          ],
+          "width_mm": 64,
+          "height_mm": 28
+        }
+      ]
+    },
+    "right": {
+      "type": "B1",
+      "openings": [
+        {
+          "center_uv_mm": [
+            -19,
+            0
+          ],
+          "width_mm": 34.5,
+          "height_mm": 34.5
+        },
+        {
+          "center_uv_mm": [
+            19,
+            0
+          ],
+          "width_mm": 34.5,
+          "height_mm": 34.5
+        }
+      ]
+    },
+    "back": {
+      "type": "A",
+      "openings": [
+        {
+          "center_uv_mm": [
+            -17.5,
+            17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        },
+        {
+          "center_uv_mm": [
+            17.5,
+            17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        },
+        {
+          "center_uv_mm": [
+            0,
+            -17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        }
+      ]
+    },
+    "left": {
+      "type": "A",
+      "openings": [
+        {
+          "center_uv_mm": [
+            -17.5,
+            17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        },
+        {
+          "center_uv_mm": [
+            17.5,
+            17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        },
+        {
+          "center_uv_mm": [
+            0,
+            -17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        }
+      ]
+    },
+    "top": {
+      "type": "A",
+      "openings": [
+        {
+          "center_uv_mm": [
+            -17.5,
+            17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        },
+        {
+          "center_uv_mm": [
+            17.5,
+            17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        },
+        {
+          "center_uv_mm": [
+            0,
+            -17.5
+          ],
+          "width_mm": 31.5,
+          "height_mm": 31.5
+        }
+      ]
+    },
+    "bottom": {
+      "type": "C",
+      "openings": [
+        {
+          "center_uv_mm": [
+            0,
+            0
+          ],
+          "width_mm": 10.0,
+          "height_mm": 10
+        }
+      ]
+    }
+  },
+  "minimum_nominal_web_between_circular_mouths_mm": 2.5,
+  "outer_blend_field_radius_mm": 0.5,
+  "cavity_blend_field_radius_mm": 1.25,
+  "connected_solids": 1,
+  "euler_characteristic": -24,
+  "boundary_edges": 0,
+  "non_manifold_edges": 0,
+  "volume_mm3": 196329.65571127707,
+  "print_orientation": "edge",
+  "print_transform_3x4": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.7071067811865475,
+      -0.7071067811865475,
+      0.0
+    ],
+    [
+      0.0,
+      0.7071067811865475,
+      0.7071067811865475,
+      53.881982336614854
+    ]
+  ],
+  "print_bounds_mm": [
+    85.0,
+    107.7713,
+    107.7635
+  ],
+  "limits": "Physical print, aperture finish and membrane behavior require a test."
+}

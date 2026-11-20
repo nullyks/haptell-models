@@ -12,25 +12,29 @@ def solid():
     return cube.build_model()
 
 
-def test_one_piece_empty_cube_has_eighteen_separate_openings(solid):
+def test_spherical_cavity_and_fourteen_openings(solid):
     report = cube.validate(solid)
-    assert report["body_bounds_mm"] == [80, 80, 80]
+    assert report["body_bounds_mm"] == [85, 85, 85]
     assert report["connected_solids"] == 1
-    assert report["euler_characteristic"] == -32
-    assert report["minimum_face_web_between_blends_mm"] >= 3.2
-    assert (solid ^ cube.box((60, 60, 60))).volume() < 1e-6
+    assert report["euler_characteristic"] == -24
+    assert report["spherical_cavity_diameter_mm"] == 79
+    assert report["minimum_nominal_web_between_circular_mouths_mm"] == 2.5
+    assert report["faces"]["front"]["openings"][0]["width_mm"] == 64
+    assert report["faces"]["front"]["openings"][0]["height_mm"] == 28
+    assert report["faces"]["right"]["openings"][0]["width_mm"] == 34.5
+    assert report["faces"]["top"]["openings"][0]["width_mm"] == 31.5
+    assert report["faces"]["bottom"]["openings"][0]["width_mm"] == 10
 
 
-def test_inner_and_outer_rims_are_rounded_and_bore_is_not_enlarged(solid):
-    # Independent probe points on the bottom-center hole of the top face.
-    # Both face ends must flare; the middle must retain its 27 mm throat.
-    for z in (36.4, 39.6):
-        for x, filled in ((13.8, False), (14.2, True)):
-            probe = cube.box((.02, .02, .02), (x, -16.7, z))
-            volume = (solid ^ probe).volume()
-            assert volume > .000007 if filled else volume < 1e-8
-    probe = cube.box((.02, .02, .02), (13.6, -16.7, 38))
-    assert (solid ^ probe).volume() > .000007
+def test_bottom_opening_has_rounded_outer_rim_and_nominal_throat(solid):
+    # The outer lip flares beyond the 5 mm radius. Farther in, the
+    # same radial position must be in material.
+    for point, filled in (((5.12, 0, -42.42), False),
+                          ((5.34, 0, -42.42), True),
+                          ((5.12, 0, -41.5), True)):
+        probe = cube.box((.01, .01, .01), point)
+        volume = (solid ^ probe).volume()
+        assert volume > .0000009 if filled else volume < 1e-8
 
 
 def test_selected_edge_orientation_preserves_geometry(solid):
@@ -39,7 +43,7 @@ def test_selected_edge_orientation_preserves_geometry(solid):
     assert abs(vertices[:, 2].min()) < 1e-8
     assert np.allclose(matrix[:, :3] @ matrix[:, :3].T, np.eye(3))
     assert np.isclose(oriented.volume(), solid.volume())
-    assert np.isclose(np.ptp(vertices[:, 0]), 80)
+    assert np.isclose(np.ptp(vertices[:, 0]), 85)
 
 
 def test_toolpath_reader_handles_leading_decimal_extrusion_and_arcs(tmp_path):
@@ -53,10 +57,9 @@ def test_toolpath_reader_handles_leading_decimal_extrusion_and_arcs(tmp_path):
 
 
 def test_analytic_toolpath_model_matches_material_probes(solid):
-    points = np.array([[0, -16.7, 38], [13.6, -16.7, 38],
-                       [13.8, -16.7, 36.4], [14.2, -16.7, 36.4],
-                       [0, 0, 0], [39, 0, 0]])
-    expected = [False, True, False, True, False, True]
+    points = np.array([[0, 0, 0], [0, 0, -41], [5.12, 0, -42.42],
+                       [5.12, 0, -41.5], [0, 0, 41], [0, 42, 0]])
+    expected = [False, False, False, True, True, True]
     assert analytic_material(points).tolist() == expected
     for point, filled in zip(points, expected):
         volume = (solid ^ cube.box((.01, .01, .01), point)).volume()

@@ -60,33 +60,33 @@ def extrusion_paths(path):
         position = target
 
 
-def rounded_distance(points, radius):
-    q = np.abs(points) - (cube.OUTER_SIZE / 2 - cube.OUTER_RADIUS)
-    return np.linalg.norm(np.maximum(q, 0), axis=1) + np.minimum(np.max(q, axis=1), 0) - radius
-
-
 def analytic_material(points):
-    material = (rounded_distance(points, cube.OUTER_RADIUS) <= 0) & (rounded_distance(points, cube.OUTER_RADIUS - cube.WALL_THICKNESS) >= 0)
-    r, blend = cube.HOLE_DIAMETER / 2, cube.HOLE_EDGE_RADIUS
-    outside, inside = cube.OUTER_SIZE / 2, cube.OUTER_SIZE / 2 - cube.WALL_THICKNESS
-    for _, u, v, n in cube.FACE_FRAMES:
-        s = points @ n
-        radius = np.full(len(points), r)
-        lo, hi = s < inside + blend, s > outside - blend
-        radius[lo] = r + blend - np.sqrt(np.maximum(0, blend ** 2 - (s[lo] - inside - blend) ** 2))
-        radius[hi] = r + blend - np.sqrt(np.maximum(0, blend ** 2 - (s[hi] - outside + blend) ** 2))
-        uv = np.column_stack((points @ u, points @ v))
-        for center in cube.HOLE_CENTERS:
-            cut = (s >= inside - .001) & (s <= outside + .001) & (np.linalg.norm(uv - center, axis=1) < radius)
-            material &= ~cut
-    return material
+    return cube.material_distance(*points.T) <= 0
 
 
 def inspect(directory):
     directory = Path(directory)
     review = json.loads((directory / "print_review.json").read_text())
+    if review["model_version"] != cube.MODEL_VERSION:
+        raise ValueError("Use the checker captured with this print project's model revision.")
     matrix = np.array(review["transform_3x4"])
-    to_model = lambda p: (p - matrix[:, 3]) @ matrix[:, :3]
+    ns = {"m": "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"}
+    with zipfile.ZipFile(directory / "pneumatic_cube_xl_pla.3mf") as archive:
+        model, config = ET.fromstring(archive.read("3D/3dmodel.model")), ET.fromstring(archive.read("Metadata/Slic3r_PE_model.config"))
+        positions = np.array([[float(p.get(k)) for k in ("x", "y", "z")] for p in model.findall("m:resources/m:object/m:mesh/m:vertices/m:vertex", ns)])
+        placement = np.array([float(v) for v in model.find("m:build/m:item", ns).get("transform").split()])
+        first = config.find("object/volume")
+        triangles = model.findall("m:resources/m:object/m:mesh/m:triangles/m:triangle", ns)[:int(first.get("lastid")) + 1]
+        used = np.unique([[int(f.get(k)) for k in ("v1", "v2", "v3")] for f in triangles])
+        assert np.allclose(placement[:9], np.eye(3).ravel())
+        actual = positions[used]
+        expected = trimesh.load_mesh(directory / "pneumatic_cube_print.stl", process=False)
+        error = max(cKDTree(expected.vertices).query(actual)[0].max(), cKDTree(actual).query(expected.vertices)[0].max())
+        assert error < .0001
+        model_count = sum(v.find("metadata[@key='volume_type']").get("value") == "ModelPart" for v in config.findall("object/volume"))
+        assert model_count == 1
+    origin_shift = placement[-3:] - [180, 180, 0]
+    to_model = lambda p: (p - origin_shift - matrix[:, 3]) @ matrix[:, :3]
     feature_mass = defaultdict(float)
     supports, interfaces, bridges = [], [], []
     for feature, points, extrusion, length in extrusion_paths(directory / "pneumatic_cube_xl_pla.gcode"):
@@ -97,7 +97,12 @@ def inspect(directory):
         elif feature == "Bridge infill": bridges.append((points, length))
     support = np.concatenate(supports) if supports else np.empty((0, 3))
     interface = np.concatenate(interfaces) if interfaces else np.empty((0, 3))
-    cavity_points = rounded_distance(to_model(support), cube.OUTER_RADIUS - cube.WALL_THICKNESS) < -.05 if len(support) else np.empty(0)
+    support_in_model = to_model(support).T
+    cavity_points = cube.cavity_distance(*support_in_model) < -.05
+    interior_void_points = (
+        (cube.outer_distance(*support_in_model) < -.1)
+        & (cube.material_distance(*support_in_model) > .1)
+    )
     maximum, worst, cache = 0.0, None, {}
     # Nominal material below a path estimates the previous layer's footprint.
     # Sampled support interfaces are additional anchors. Physical bridge quality
@@ -119,25 +124,13 @@ def inspect(directory):
         span = min(length, longest * length / (len(points) - 1))
         if span > maximum:
             maximum, worst = span, {"z": key, "start": points[0].round(3).tolist(), "end": points[-1].round(3).tolist()}
-    ns = {"m": "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"}
-    with zipfile.ZipFile(directory / "pneumatic_cube_xl_pla.3mf") as archive:
-        model, config = ET.fromstring(archive.read("3D/3dmodel.model")), ET.fromstring(archive.read("Metadata/Slic3r_PE_model.config"))
-        positions = np.array([[float(p.get(k)) for k in ("x", "y", "z")] for p in model.findall("m:resources/m:object/m:mesh/m:vertices/m:vertex", ns)])
-        placement = np.array([float(v) for v in model.find("m:build/m:item", ns).get("transform").split()])
-        first = config.find("object/volume")
-        triangles = model.findall("m:resources/m:object/m:mesh/m:triangles/m:triangle", ns)[:int(first.get("lastid")) + 1]
-        used = np.unique([[int(f.get(k)) for k in ("v1", "v2", "v3")] for f in triangles])
-        actual = positions[used] + placement[-3:] - [180, 180, 0]
-        expected = trimesh.load_mesh(directory / "pneumatic_cube_print.stl", process=False)
-        error = max(cKDTree(expected.vertices).query(actual)[0].max(), cKDTree(actual).query(expected.vertices)[0].max())
-        assert error < .0001
-        model_count = sum(v.find("metadata[@key='volume_type']").get("value") == "ModelPart" for v in config.findall("object/volume"))
-        assert model_count == 1
-    assert abs(sum(feature_mass.values()) - float(review["statistics"]["filament used [g]"])) < .2
+    reported_mass = sum(float(mass) for mass in review["statistics"]["filament used [g]"].split(","))
+    assert abs(sum(feature_mass.values()) - reported_mass) < .2
     result = {"orientation": review["orientation"], "support_mode": review["support_mode"],
         "feature_mass_g": {k: round(v, 3) for k, v in feature_mass.items()},
         "support_mass_g": round(sum(v for k, v in feature_mass.items() if k.startswith("Support material")), 3),
         "support_samples_inside_cavity": int(np.count_nonzero(cavity_points)),
+        "support_samples_inside_shell_envelope": int(np.count_nonzero(interior_void_points)),
         "support_z_max_mm": round(float(support[:, 2].max()), 3) if len(support) else 0,
         "bridge_paths": len(bridges), "max_sampled_free_bridge_mm": round(maximum, 3), "worst_bridge": worst,
         "one_printable_model": True, "project_mesh_max_vertex_error_mm": float(error),

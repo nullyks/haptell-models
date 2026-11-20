@@ -1,0 +1,41 @@
+{
+  "model_version": "pneumatic-v02-85mm-r15-spherical-cavity",
+  "orientation": "face",
+  "support_mode": "external",
+  "transform_3x4": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      42.5
+    ]
+  ],
+  "source_stl_sha256": "014aebf6c2d7e14c7b09f0b7feb20ec354e7dac63250f1702d4ad46a4752b18e",
+  "oriented_stl_sha256": "56d936162f0d59ac25889c0cf823f9dc4bfff7353ed4f0379260b839ce034acf",
+  "profile_sha256": "ab2f5bafbd5358b6760c5a46d64837b1f83fc2a5b62db310e2b0856ced2d72c9",
+  "project_sha256": "eabcb1d378a72b8713ec65dfa7edcea4f6643dddf4064dedce0a137c7f8b396c",
+  "gcode_sha256": "9ae4002597a6698a391f5fa57da2efc779e64cd90c17b018f0e967b6ad6cf3d4",
+  "modifiers": [
+    "SupportEnforcer",
+    "SupportBlocker"
+  ],
+  "statistics": {
+    "filament used [mm]": "45074.17",
+    "filament used [cm3]": "108.42",
+    "filament used [g]": "134.44",
+    "estimated printing time (normal mode)": "10h 13m 51s",
+    "estimated printing time (silent mode)": "11h 1m 17s"
+  }
+}

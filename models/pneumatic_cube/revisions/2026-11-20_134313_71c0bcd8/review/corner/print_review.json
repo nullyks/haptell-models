@@ -1,0 +1,41 @@
+{
+  "model_version": "pneumatic-v02-85mm-r15-spherical-cavity",
+  "orientation": "corner",
+  "support_mode": "external",
+  "transform_3x4": [
+    [
+      0.7071067811865475,
+      -0.7071067811865475,
+      0.0,
+      0.0
+    ],
+    [
+      0.4082482904638631,
+      0.4082482904638631,
+      -0.8164965809277261,
+      0.0
+    ],
+    [
+      0.5773502691896258,
+      0.5773502691896258,
+      0.5773502691896258,
+      62.63124985879423
+    ]
+  ],
+  "source_stl_sha256": "014aebf6c2d7e14c7b09f0b7feb20ec354e7dac63250f1702d4ad46a4752b18e",
+  "oriented_stl_sha256": "2a3c2a267af92e7f72d22eb34bd7c0c78947e760ed6704e242b61b10e8328e0b",
+  "profile_sha256": "ab2f5bafbd5358b6760c5a46d64837b1f83fc2a5b62db310e2b0856ced2d72c9",
+  "project_sha256": "8c022b6dbcb98d6c14806af1dbc02df8f13092bef0fe8e74ec4c4beeb40f4676",
+  "gcode_sha256": "b358caaa708e80a6700191fe767ec39bbf4867db0abb04b0a8e4247abd614360",
+  "modifiers": [
+    "SupportEnforcer",
+    "SupportBlocker"
+  ],
+  "statistics": {
+    "filament used [mm]": "46786.20",
+    "filament used [cm3]": "112.53",
+    "filament used [g]": "139.54",
+    "estimated printing time (normal mode)": "11h 7m 57s",
+    "estimated printing time (silent mode)": "11h 56m 53s"
+  }
+}

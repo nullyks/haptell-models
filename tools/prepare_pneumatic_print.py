@@ -46,7 +46,7 @@ def append_modifier(model, config, solid, name, kind):
         ET.SubElement(volume, "metadata", {"type": "volume", "key": key, "value": value})
 
 
-def prepare(destination, orientation="edge", support="external", slicer=None):
+def prepare(destination, orientation="edge", support="external", slicer=None, profile_source=None):
     destination = Path(destination).resolve()
     if (ROOT / "models").resolve() in destination.parents or (ROOT / "output").resolve() in destination.parents:
         raise ValueError("Generate in a fresh review directory outside output/ and models/")
@@ -54,14 +54,7 @@ def prepare(destination, orientation="edge", support="external", slicer=None):
     slicer = slicer or find_slicer()
     source = ROOT / "output/pneumatic_cube/pneumatic_cube.stl"
     mesh = trimesh.load_mesh(source, process=False)
-    if orientation == "face":
-        rotation = np.eye(3)
-    elif orientation == "edge":
-        rotation = np.array([[1, 0, 0], [0, 1, -1], [0, 1, 1]]) / np.sqrt([[1], [2], [2]])
-    elif orientation == "corner":
-        rotation = np.array([[1, -1, 0], [1, 1, -2], [1, 1, 1]]) / np.sqrt([[2], [6], [3]])
-    else:
-        raise ValueError(orientation)
+    rotation = cube.print_rotation(orientation)
     transform = np.column_stack((rotation, np.zeros(3)))
     transform[2, 3] = -float((mesh.vertices @ rotation.T)[:, 2].min())
     mesh.apply_transform(np.vstack((transform, [0, 0, 0, 1])))
@@ -79,9 +72,11 @@ def prepare(destination, orientation="edge", support="external", slicer=None):
     # First run derives the independent printer profile from the existing XL
     # machine preset. Later runs use the pneumatic family's saved profile.
     saved = ROOT / "output/pneumatic_cube/prusa_xl_04_pla.ini"
-    values = profile_values(saved if saved.exists() else ROOT / "output/rounded_cube_box/prusa_xl_04_pla_bottom.ini")
+    if profile_source is None:
+        profile_source = saved if saved.exists() else ROOT / "output/rounded_cube_box/prusa_xl_04_pla_bottom.ini"
+    values = profile_values(profile_source)
     values.update({"layer_height": "0.15", "first_layer_height": "0.2", "perimeters": "5",
-        "fill_density": "100%", "fill_pattern": "rectilinear", "top_solid_layers": "6", "bottom_solid_layers": "6",
+        "fill_density": "18%", "fill_pattern": "gyroid", "top_solid_layers": "6", "bottom_solid_layers": "6",
         "brim_width": "8", "bridge_speed": "20", "bridge_fan_speed": "100", "bridge_angle": "0",
         "support_material": "0" if support == "none" else "1", "support_material_auto": "1" if support == "auto" else "0",
         "support_material_style": "organic" if support == "auto" else "snug", "support_material_buildplate_only": "1",
@@ -103,7 +98,7 @@ def prepare(destination, orientation="edge", support="external", slicer=None):
         # Only external underside startup curvature is enforced. The internal
         # upper shell is deliberately unsupported; check its actual bridges.
         append_modifier(model, config, cube.box((150, 150, 8), (0, 0, 3)), "External startup support only (Z below 7 mm)", "SupportEnforcer")
-        cavity = cube.rounded_body(cube.OUTER_RADIUS - cube.WALL_THICKNESS).transform(transform.tolist())
+        cavity = cube.cavity_body().transform(transform.tolist())
         append_modifier(model, config, cavity, "Hollow interior: no support contacts", "SupportBlocker")
         modifiers = ["SupportEnforcer", "SupportBlocker"]
     model.set("xmlns:slic3rpe", "http://schemas.slic3r.org/3mf/2017/06")
@@ -139,8 +134,9 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--orientation", choices=("face", "edge", "corner"), default="edge")
     parser.add_argument("--support", choices=("auto", "external", "none"), default="external")
+    parser.add_argument("--profile", type=Path, help="Base Prusa XL printer and filament profile")
     args = parser.parse_args()
-    prepare(args.output_dir, args.orientation, args.support)
+    prepare(args.output_dir, args.orientation, args.support, profile_source=args.profile)
 
 
 if __name__ == "__main__":

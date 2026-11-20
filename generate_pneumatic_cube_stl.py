@@ -1,8 +1,8 @@
-"""One-piece pneumatic cube with eighteen doubly rounded membrane apertures."""
+"""Generate an 85 mm pneumatic cube with a spherical bladder cavity."""
 from __future__ import annotations
 
 from collections import Counter
-import itertools
+from dataclasses import dataclass
 import json
 import math
 from pathlib import Path
@@ -10,81 +10,137 @@ import struct
 
 import manifold3d as m3d
 import numpy as np
+from skimage.measure import marching_cubes
 
 from model_archive import preserve_models
 
-MODEL_VERSION = "pneumatic-v01-80mm-r8-27mm-rounded-apertures"
-OUTER_SIZE = 80.0
-OUTER_RADIUS = 8.0
-WALL_THICKNESS = 4.0
-HOLE_DIAMETER = 27.0
-HOLE_EDGE_RADIUS = 1.6
-HOLE_OFFSET = 16.7
-HOLE_CENTERS = ((-HOLE_OFFSET, HOLE_OFFSET), (HOLE_OFFSET, HOLE_OFFSET), (0.0, -HOLE_OFFSET))
-CURVE_SEGMENTS = 96
-HOLE_SEGMENTS = 128
-FILLET_STEPS = 20
+MODEL_VERSION = "pneumatic-v02-85mm-r15-spherical-cavity"
+OUTER_SIZE = 85.0
+OUTER_RADIUS = 15.0
+WALL_THICKNESS = 3.0
+CAVITY_RADIUS = OUTER_SIZE / 2 - WALL_THICKNESS
+OUTER_BLEND = 0.5
+INNER_BLEND = 1.25
+INNER_CHANNEL_SCALE = 0.65
+GRID_STEP = 0.22
+MESH_TOLERANCE = 0.018
 PRINT_ORIENTATION = "edge"
 OUTPUT = Path("output/pneumatic_cube")
 
-# Right-handed local face frames: local Z points outward, local Y is picture up.
-FACE_FRAMES = (
-    ("front", (-1, 0, 0), (0, 0, 1), (0, 1, 0)),
-    ("right", (0, 1, 0), (0, 0, 1), (1, 0, 0)),
-    ("back", (1, 0, 0), (0, 0, 1), (0, -1, 0)),
-    ("left", (0, -1, 0), (0, 0, 1), (-1, 0, 0)),
-    ("top", (1, 0, 0), (0, 1, 0), (0, 0, 1)),
-    ("bottom", (1, 0, 0), (0, -1, 0), (0, 0, -1)),
+
+@dataclass(frozen=True)
+class Opening:
+    u: float
+    v: float
+    diameter: float
+    straight: float = 0.0
+
+
+A = (Opening(-17.5, 17.5, 31.5), Opening(17.5, 17.5, 31.5), Opening(0, -17.5, 31.5))
+B1 = (Opening(-19, 0, 34.5), Opening(19, 0, 34.5))
+B2 = (Opening(0, -20, 28, 36), Opening(0, 20, 28, 36))
+C = (Opening(0, 0, 10),)
+
+# The drawing shows B2 and B1 on adjacent sides and A above. Put C underneath.
+# Signed axis indices give local horizontal, up and outward coordinates.
+FACES = (
+    ("front", "B2", (-1, 3, 2), B2),
+    ("right", "B1", (2, 3, 1), B1),
+    ("back", "A", (1, 3, -2), A),
+    ("left", "A", (-2, 3, -1), A),
+    ("top", "A", (1, 2, 3), A),
+    ("bottom", "C", (1, -2, -3), C),
 )
+OPENING_COUNT = sum(len(openings) for _, _, _, openings in FACES)
 
 
 def box(size, center=(0, 0, 0)):
     return m3d.Manifold.cube(size, center=True).translate(center)
 
 
-def rounded_body(radius):
-    return box((OUTER_SIZE - 2 * OUTER_RADIUS,) * 3).minkowski_sum(
-        m3d.Manifold.sphere(radius, CURVE_SEGMENTS))
+def cavity_body():
+    return m3d.Manifold.sphere(CAVITY_RADIUS, 96)
 
 
-def aperture_profile():
-    """Radial/axial cutter section: circular R1.6 blends on BOTH wall faces.
-
-    The two quarter circles are tangent to the plane and cylindrical bore.
-    They are not conical chamfers. Their mouths stay entirely on flat face
-    regions, avoiding sharp intersections with the exterior R8 edge rounding.
-    """
-    r, blend = HOLE_DIAMETER / 2, HOLE_EDGE_RADIUS
-    outside = OUTER_SIZE / 2
-    inside = outside - WALL_THICKNESS
-    result = [(0, inside - 1), (r + blend, inside - 1), (r + blend, inside)]
-    for theta in np.linspace(math.pi / 2, 0, FILLET_STEPS + 1)[1:]:
-        result.append((r + blend - blend * math.cos(theta), inside + blend - blend * math.sin(theta)))
-    result.append((r, outside - blend))
-    for theta in np.linspace(0, math.pi / 2, FILLET_STEPS + 1)[1:]:
-        result.append((r + blend - blend * math.cos(theta), outside - blend + blend * math.sin(theta)))
-    result.extend([(r + blend, outside + 1), (0, outside + 1)])
-    return result
+def cavity_distance(x, y, z):
+    return np.sqrt(x * x + y * y + z * z) - CAVITY_RADIUS
 
 
-def face_transform(frame, center):
-    _, u, v, n = frame
-    u, v, n = np.asarray(u), np.asarray(v), np.asarray(n)
-    return np.column_stack((u, v, n, center[0] * u + center[1] * v)).tolist()
+def outer_distance(x, y, z):
+    flat_half = OUTER_SIZE / 2 - OUTER_RADIUS
+    dx, dy, dz = (np.abs(a) - flat_half for a in (x, y, z))
+    return (
+        np.sqrt(np.maximum(dx, 0)**2 + np.maximum(dy, 0)**2 + np.maximum(dz, 0)**2)
+        + np.minimum(np.maximum(np.maximum(dx, dy), dz), 0)
+        - OUTER_RADIUS
+    )
+
+
+def rounded_intersection(a, b, radius):
+    """Intersect two signed fields, rounding the material edge at the join."""
+    shifted_a = a + radius
+    shifted_b = b + radius
+    return (
+        np.hypot(np.maximum(shifted_a, 0), np.maximum(shifted_b, 0))
+        + np.minimum(np.maximum(shifted_a, shifted_b), 0)
+        - radius
+    )
+
+
+def local_coords(coords, axes):
+    return tuple(coords[axis - 1] if axis > 0 else -coords[-axis - 1] for axis in axes)
+
+
+def opening_distance(u, v, depth, opening):
+    # Keep the full profile at the mouth. The smooth taper toward the center
+    # lets the far side of each opening meet the sphere without a blind ledge.
+    progress = np.clip((depth - 18.0) / (38.5 - 18.0), 0, 1)
+    scale = INNER_CHANNEL_SCALE + (1 - INNER_CHANNEL_SCALE) * progress**2 * (3 - 2 * progress)
+    du = np.maximum(np.abs(u - scale * opening.u) - scale * opening.straight / 2, 0)
+    dv = v - scale * opening.v
+    profile = np.hypot(du, dv) - scale * opening.diameter / 2
+    return np.maximum(profile, 14.0 - depth)
+
+
+def material_distance(x, y, z):
+    """Negative inside material, positive in the cavity, channels and exterior."""
+    outer = outer_distance(x, y, z)
+    sphere = cavity_distance(x, y, z)
+    channels = np.full_like(sphere, np.inf)
+    for _, _, axes, openings in FACES:
+        u, v, depth = local_coords((x, y, z), axes)
+        for opening in openings:
+            np.minimum(channels, opening_distance(u, v, depth, opening), out=channels)
+    void = -rounded_intersection(-sphere, -channels, INNER_BLEND)
+    return rounded_intersection(outer, -void, OUTER_BLEND)
 
 
 def build_model():
-    assert WALL_THICKNESS >= 2 * HOLE_EDGE_RADIUS
-    assert OUTER_RADIUS > WALL_THICKNESS
-    mouth = HOLE_DIAMETER / 2 + HOLE_EDGE_RADIUS
-    flat_half = OUTER_SIZE / 2 - OUTER_RADIUS
-    assert max(max(abs(a), abs(b)) + mouth for a, b in HOLE_CENTERS) < flat_half
-    outer = rounded_body(OUTER_RADIUS)
-    inner = rounded_body(OUTER_RADIUS - WALL_THICKNESS)
-    shell = outer - inner
-    tool = m3d.CrossSection([aperture_profile()]).revolve(HOLE_SEGMENTS)
-    cutters = [tool.transform(face_transform(frame, center)) for frame in FACE_FRAMES for center in HOLE_CENTERS]
-    return m3d.Manifold.batch_boolean([shell, *cutters], m3d.OpType.Subtract)
+    grid = np.arange(-44.07, 44.2, GRID_STEP).astype(np.float32)
+    field = np.empty((len(grid),) * 3, dtype=np.float32)
+    y, z = grid[None, :, None], grid[None, None, :]
+    for start in range(0, len(grid), 8):
+        block = slice(start, start + 8)
+        field[block] = material_distance(grid[block, None, None], y, z)
+
+    vertices, triangles, _, _ = marching_cubes(
+        field, level=0, spacing=(GRID_STEP,) * 3, gradient_direction="descent", allow_degenerate=False
+    )
+    vertices += float(grid[0])
+    mesh = m3d.Mesh64(
+        vert_properties=np.ascontiguousarray(vertices, dtype=np.float64),
+        tri_verts=np.ascontiguousarray(triangles, dtype=np.uint64),
+    )
+    solid = m3d.Manifold(mesh)
+    if solid.status() != m3d.Error.NoError or solid.is_empty():
+        raise ValueError(f"Pneumatic cube surface extraction failed: {solid.status()}")
+    base = solid.simplify(0)
+    for tolerance in (MESH_TOLERANCE, 0.022, 0.012, 0.006, 0.003):
+        candidate = base.simplify(tolerance)
+        oriented, _ = print_transform(candidate)
+        if all(np.all(stl_triangles(mesh)[1] > 1e-9) for mesh in (candidate, oriented)):
+            return candidate
+    raise ValueError("Could not simplify the cube without degenerate serialized triangles")
 
 
 def mesh_arrays(solid):
@@ -92,17 +148,18 @@ def mesh_arrays(solid):
     return np.asarray(mesh.vert_properties)[:, :3], np.asarray(mesh.tri_verts)
 
 
-def print_transform(solid, orientation=PRINT_ORIENTATION):
-    """Orient a fresh copy; the assembled/model geometry remains unchanged."""
+def print_rotation(orientation):
     if orientation == "face":
-        rotation = np.eye(3)
-    elif orientation == "edge":
-        rotation = np.array([[1, 0, 0], [0, 1 / math.sqrt(2), -1 / math.sqrt(2)],
-                             [0, 1 / math.sqrt(2), 1 / math.sqrt(2)]])
-    elif orientation == "corner":
-        rotation = np.array([[1, -1, 0], [1, 1, -2], [1, 1, 1]]) / np.sqrt([[2], [6], [3]])
-    else:
-        raise ValueError(orientation)
+        return np.eye(3)
+    if orientation == "edge":
+        return np.array([[1, 0, 0], [0, 1, -1], [0, 1, 1]]) / np.sqrt([[1], [2], [2]])
+    if orientation == "corner":
+        return np.array([[1, -1, 0], [1, 1, -2], [1, 1, 1]]) / np.sqrt([[2], [6], [3]])
+    raise ValueError(orientation)
+
+
+def print_transform(solid, orientation=PRINT_ORIENTATION):
+    rotation = print_rotation(orientation)
     matrix = np.column_stack((rotation, np.zeros(3)))
     oriented = solid.transform(matrix.tolist())
     vertices, _ = mesh_arrays(oriented)
@@ -111,51 +168,85 @@ def print_transform(solid, orientation=PRINT_ORIENTATION):
     return oriented.translate((0, 0, shift)), matrix
 
 
-def write_stl(solid, path):
+def stl_triangles(solid):
     vertices, faces = mesh_arrays(solid)
-    # Record the actual serialized (float32 STL) geometry in independent checks.
+    triangles = vertices[faces].astype("<f4")
+    points = triangles.astype(np.float64)
+    cross = np.cross(points[:, 1] - points[:, 0], points[:, 2] - points[:, 0])
+    return triangles, np.linalg.norm(cross, axis=1), cross
+
+
+def write_stl(solid, path):
+    triangles, lengths, cross = stl_triangles(solid)
+    if (lengths <= 1e-9).any():
+        raise ValueError("Degenerate triangles after float32 STL conversion")
+    records = np.zeros(len(triangles), dtype=[("normal", "<f4", 3), ("points", "<f4", (3, 3)), ("attribute", "<u2")])
+    records["normal"] = cross / lengths[:, None]
+    records["points"] = triangles
     with path.open("wb") as stream:
         stream.write(MODEL_VERSION.encode()[:80].ljust(80, b"\0"))
-        stream.write(struct.pack("<I", len(faces)))
-        for face in faces:
-            a, b, c = vertices[face]
-            normal = np.cross(b - a, c - a)
-            length = np.linalg.norm(normal)
-            normal = normal / length if length else normal
-            stream.write(struct.pack("<12fH", *normal, *a, *b, *c, 0))
+        stream.write(struct.pack("<I", len(triangles)))
+        stream.write(records.tobytes())
+
+
+def model_point(axes, local_point):
+    point = np.zeros(3)
+    for axis, value in zip(axes, local_point):
+        point[abs(axis) - 1] = value if axis > 0 else -value
+    return point
 
 
 def validate(solid):
-    assert solid.status() == m3d.Error.NoError
+    assert solid.volume() > 0
     assert len(solid.decompose()) == 1
     vertices, faces = mesh_arrays(solid)
-    edge_uses = Counter(tuple(sorted((int(face[i]), int(face[(i + 1) % 3])))) for face in faces for i in range(3))
-    assert all(count == 2 for count in edge_uses.values())
-    euler = len(vertices) - len(edge_uses) + len(faces)
-    assert euler == 2 - 2 * (18 - 1), ("Eighteen distinct shell openings", euler)
-    assert np.allclose(np.ptp(vertices, axis=0), OUTER_SIZE, atol=1e-6)
-    assert (solid ^ box((60, 60, 60))).volume() < 1e-6
-    mouth = HOLE_DIAMETER + 2 * HOLE_EDGE_RADIUS
-    gaps = [math.dist(a, b) - mouth for a, b in itertools.combinations(HOLE_CENTERS, 2)]
-    assert min(gaps) >= 3.19
-    for frame, center in itertools.product(FACE_FRAMES, HOLE_CENTERS):
-        probe = m3d.Manifold.cylinder(6, HOLE_DIAMETER / 2 - .02, circular_segments=HOLE_SEGMENTS)
-        probe = probe.translate((0, 0, OUTER_SIZE / 2 - WALL_THICKNESS - 1)).transform(face_transform(frame, center))
-        assert (solid ^ probe).volume() < 1e-5, (frame[0], center, "blocked opening")
+    edges = Counter(tuple(sorted((int(face[i]), int(face[(i + 1) % 3])))) for face in faces for i in range(3))
+    assert all(count == 2 for count in edges.values())
+    euler = len(vertices) - len(edges) + len(faces)
+    assert euler == 2 - 2 * (OPENING_COUNT - 1), ("Separate openings", euler)
+    assert np.allclose(np.ptp(vertices, axis=0), OUTER_SIZE, atol=0.001)
+    cavity_overlap = (solid ^ m3d.Manifold.sphere(CAVITY_RADIUS - 0.06, 96)).volume()
+    assert cavity_overlap < 1e-5, cavity_overlap
+
+    for name, _, axes, openings in FACES:
+        for opening in openings:
+            start = model_point(axes, (opening.u, opening.v, 35.0))
+            end = model_point(axes, (opening.u, opening.v, 44.0))
+            assert (solid ^ box((0.3, 0.3, 0.3), start)).volume() < 1e-7, (name, opening)
+            assert (solid ^ box((0.3, 0.3, 0.3), end)).volume() < 1e-7, (name, opening)
+
+    # Midpoints of the closest pairs are solid at nominal mouth depth.
+    for axes, local_point in ((FACES[4][2], (0, 17.5, 41)),
+                              (FACES[1][2], (0, 0, 41)),
+                              (FACES[0][2], (0, 0, 41))):
+        probe = box((2.49, 2.49, 0.25), model_point(axes, local_point))
+        assert math.isclose((solid ^ probe).volume(), probe.volume(), abs_tol=1e-5)
+
     oriented, matrix = print_transform(solid)
     pv, _ = mesh_arrays(oriented)
-    return {"model_version": MODEL_VERSION, "body_bounds_mm": np.ptp(vertices, axis=0).round(6).tolist(),
-            "outer_radius_mm": OUTER_RADIUS, "wall_mm": WALL_THICKNESS,
-            "hole_count": 18, "holes_per_face": 3, "hole_throat_diameter_mm": HOLE_DIAMETER,
-            "hole_mouth_diameter_mm": mouth, "inner_and_outer_hole_blend_radius_mm": HOLE_EDGE_RADIUS,
-            "minimum_face_web_between_blends_mm": round(min(gaps), 6),
-            "hole_centers_face_uv_mm": HOLE_CENTERS, "connected_solids": 1, "euler_characteristic": euler,
-            "boundary_edges": 0, "non_manifold_edges": 0,
-            "volume_mm3": solid.volume(), "print_orientation": PRINT_ORIENTATION,
-            "print_transform_3x4": matrix.tolist(), "print_bounds_mm": np.ptp(pv, axis=0).round(6).tolist(),
-            "interior": "Empty: no mounts, thermal pads, fasteners or seam.",
-            "reference_adjustment": "User approved aperture/layout changes while retaining 80 mm and R8. Reference diameter/pitch 35 mm would leave zero web.",
-            "limits": "Nominal geometry only. Printed rims require deburring/smoothing and tactile inspection before inserting a balloon. No pressure or membrane-durability test performed."}
+    return {
+        "model_version": MODEL_VERSION,
+        "body_bounds_mm": np.ptp(vertices, axis=0).round(4).tolist(),
+        "outer_radius_mm": OUTER_RADIUS,
+        "spherical_cavity_diameter_mm": 2 * CAVITY_RADIUS,
+        "face_center_wall_mm": WALL_THICKNESS,
+        "hole_count": OPENING_COUNT,
+        "faces": {name: {"type": kind, "openings": [
+            {"center_uv_mm": [o.u, o.v], "width_mm": o.diameter + o.straight, "height_mm": o.diameter}
+            for o in openings]} for name, kind, _, openings in FACES},
+        "minimum_nominal_web_between_circular_mouths_mm": 2.5,
+        "outer_blend_field_radius_mm": OUTER_BLEND,
+        "cavity_blend_field_radius_mm": INNER_BLEND,
+        "connected_solids": 1,
+        "euler_characteristic": euler,
+        "boundary_edges": 0,
+        "non_manifold_edges": 0,
+        "volume_mm3": solid.volume(),
+        "print_orientation": PRINT_ORIENTATION,
+        "print_transform_3x4": matrix.tolist(),
+        "print_bounds_mm": np.ptp(pv, axis=0).round(4).tolist(),
+        "limits": "Physical print, aperture finish and membrane behavior require a test.",
+    }
 
 
 @preserve_models("pneumatic_cube")
