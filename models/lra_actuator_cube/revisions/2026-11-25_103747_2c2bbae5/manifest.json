@@ -1,0 +1,22 @@
+{
+  "family": "lra_actuator_cube",
+  "revision": "2026-11-25_103747_2c2bbae5",
+  "archived_at_utc": "2026-11-25T10:37:47.487889+00:00",
+  "generator": "generate_lra_actuator_cube_stl.py",
+  "git_head_for_reference_only": "6367a8f69287c1847be2288600b61b800b80f442",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "52078cec4557e44451697b4ab026aaf7a056d56cfcd876985f305b49c04d2b4f",
+  "sha256": {
+    "stl/lra_actuator_cube_bottom.stl": "d54d24310f92a7fffc9b127d5d10f6d04a4f32e81da4cdd5bbbd9673d767ac3d",
+    "stl/lra_actuator_cube_lid.stl": "9aa82049dae65134477bf2ec5e8724f061dbc049b68c380833af2969af886309",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_lra_actuator_cube_stl.py": "d9b5fce35d121712f586935e79fdd08deeeb285095f8b1d4e9b7dc01af6b173c",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_pneumatic_cube_stl.py": "e0cf99e1419ae92866ca3209da95822e86467e5b6b97f0c1d7af4f9f0bccb8ed",
+    "source/generate_rounded_cube_box_stl.py": "b1a9f8d461f8c2454451f9129257c5e79ab9d691a94b6b2510e2bbfaee9ad034",
+    "source/model_archive.py": "3a6273bc5c3dc4adaf2c35a72b99a512eae0cc800169849f3a215aec48c61d11",
+    "source/requirements.txt": "50eeb5f7f16b3dc9db48cf3ba5605b416e7782734c6e1ffd34d19d4a046faf50"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "model_version": "lra-cube-v02-opening-down-fit-trial",
+  "assembly_bounds_mm": [
+    85.0,
+    85.0,
+    85.0
+  ],
+  "outer_radius_mm": 15.0,
+  "nominal_wall_mm": 3.2,
+  "cable_notch_mm": [
+    12.0,
+    6.0
+  ],
+  "seated_overlap_mm3": 0.0,
+  "nominal_actuator_overlap_mm3": {
+    "lid_center": 0.0,
+    "lid_right": 0.0,
+    "lid_left": 0.0,
+    "bottom_center": 0.0,
+    "bottom_front": 0.0,
+    "bottom_back": 0.0
+  },
+  "shell_snap_count": 8,
+  "shell_snap_interference_mm": 0.7,
+  "shell_snap_seated_clearance_mm": 0.45,
+  "actuator_clip_radial_overlap_mm": 0.15,
+  "scope": "Nominal geometry only. Clip retention, opening force and fatigue require a test print."
+}

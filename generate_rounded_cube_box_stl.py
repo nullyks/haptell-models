@@ -33,7 +33,6 @@ LIP_CLEARANCE = 0.25
 LIP_THICKNESS = 2.2
 LIP_HEIGHT = 6.8
 LIP_OUTER = INNER_HALF - LIP_CLEARANCE
-LIP_INNER = LIP_OUTER - LIP_THICKNESS
 SNAP_POSITIONS = (-16.0, 16.0)
 SNAP_WIDTH = 10.0
 SNAP_ROOT_Z = -14.0
@@ -128,47 +127,51 @@ def prism_yz(profile, x0: float, x1: float) -> m3d.Manifold:
     return m3d.Manifold.hull_points([(x, y, z) for y, z in profile for x in (x0, x1)])
 
 
-def snap_beam(y: float) -> m3d.Manifold:
+def snap_beam(y: float, inner_half: float = INNER_HALF) -> m3d.Manifold:
+    lip_outer = inner_half - LIP_CLEARANCE
+    lip_inner = lip_outer - LIP_THICKNESS
     stem = box((LIP_THICKNESS, SNAP_WIDTH, LIP_HEIGHT - SNAP_ROOT_Z),
-               ((LIP_OUTER - LIP_THICKNESS / 2), y,
+               ((lip_outer - LIP_THICKNESS / 2), y,
                 (LIP_HEIGHT + SNAP_ROOT_Z) / 2))
     # Steep extraction ramp below, long insertion ramp above.
-    profile = [(LIP_OUTER - 0.1, SNAP_HOOK_BOTTOM),
-               (LIP_OUTER, SNAP_HOOK_BOTTOM),
-               (LIP_OUTER + SNAP_PROTRUSION, SNAP_HOOK_PEAK_Z),
-               (LIP_OUTER, SNAP_HOOK_TOP), (LIP_OUTER - 0.1, SNAP_HOOK_TOP)]
+    profile = [(lip_outer - 0.1, SNAP_HOOK_BOTTOM),
+               (lip_outer, SNAP_HOOK_BOTTOM),
+               (lip_outer + SNAP_PROTRUSION, SNAP_HOOK_PEAK_Z),
+               (lip_outer, SNAP_HOOK_TOP), (lip_outer - 0.1, SNAP_HOOK_TOP)]
     hook = m3d.Manifold.hull_points([
         (x, y + dy, z) for x, z in profile
         for dy in (-SNAP_WIDTH / 2, SNAP_WIDTH / 2)])
     # Broad, tapered root grows from the wall in the opening-down direction.
     # Nothing braces the flexible span above SNAP_FLEX_START_Z.
-    root_brace = prism_xz([(LIP_INNER - 0.8, SNAP_ROOT_Z - 1.0),
-                          (INNER_HALF + 0.5, SNAP_ROOT_Z - 1.0),
-                          (INNER_HALF + 0.5, SNAP_FLEX_START_Z)],
+    root_brace = prism_xz([(lip_inner - 0.8, SNAP_ROOT_Z - 1.0),
+                          (inner_half + 0.5, SNAP_ROOT_Z - 1.0),
+                          (inner_half + 0.5, SNAP_FLEX_START_Z)],
                          y - (SNAP_WIDTH + 2.4) / 2,
                          y + (SNAP_WIDTH + 2.4) / 2)
     return union([stem, hook, root_brace])
 
 
-def registration() -> m3d.Manifold:
+def registration(inner_half: float = INNER_HALF, rail_width: float = 60) -> m3d.Manifold:
+    lip_outer = inner_half - LIP_CLEARANCE
+    lip_inner = lip_outer - LIP_THICKNESS
     pieces = []
     cuts = [box((8, SNAP_WIDTH + 2 * SNAP_SIDE_CLEARANCE, 32),
-                (INNER_HALF - 1, y, 0)) for y in SNAP_POSITIONS]
-    rail = box((LIP_THICKNESS, 60, LIP_HEIGHT + 1.8),
-               (LIP_OUTER - LIP_THICKNESS / 2, 0, (LIP_HEIGHT - 1.8) / 2))
-    foot = box((3.8, 60, 1.8), (INNER_HALF - 0.5, 0, -0.9))
-    brace = prism_xz([(LIP_INNER - 0.2, -1.7), (INNER_HALF + 0.4, -1.7),
-                      (INNER_HALF + 0.4, -5.0)], -30, 30)
+                (inner_half - 1, y, 0)) for y in SNAP_POSITIONS]
+    rail = box((LIP_THICKNESS, rail_width, LIP_HEIGHT + 1.8),
+               (lip_outer - LIP_THICKNESS / 2, 0, (LIP_HEIGHT - 1.8) / 2))
+    foot = box((3.8, rail_width, 1.8), (inner_half - 0.5, 0, -0.9))
+    brace = prism_xz([(lip_inner - 0.2, -1.7), (inner_half + 0.4, -1.7),
+                      (inner_half + 0.4, -5.0)], -rail_width / 2, rail_width / 2)
     wall = subtract(union([rail, foot, brace]), cuts)
-    wall = union([wall, *(snap_beam(y) for y in SNAP_POSITIONS)])
+    wall = union([wall, *(snap_beam(y, inner_half) for y in SNAP_POSITIONS)])
     pieces.extend(wall.rotate((0, 0, angle)) for angle in (0, 90, 180, 270))
     return union(pieces)
 
 
-def snap_sockets() -> list[m3d.Manifold]:
+def snap_sockets(inner_half: float = INNER_HALF) -> list[m3d.Manifold]:
     return [box((SNAP_SOCKET_DEPTH + 0.02, SNAP_WIDTH + 0.8,
                  SNAP_HOOK_TOP - SNAP_HOOK_BOTTOM + 2 * SNAP_AXIAL_CLEARANCE),
-                (INNER_HALF + SNAP_SOCKET_DEPTH / 2 - 0.01, y,
+                (inner_half + SNAP_SOCKET_DEPTH / 2 - 0.01, y,
                  (SNAP_HOOK_BOTTOM + SNAP_HOOK_TOP) / 2)).rotate((0, 0, angle))
             for angle in (0, 90, 180, 270) for y in SNAP_POSITIONS]
 

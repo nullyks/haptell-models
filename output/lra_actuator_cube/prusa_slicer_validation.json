@@ -1,0 +1,58 @@
+{
+  "model_version": "lra-cube-v02-opening-down-fit-trial",
+  "source_revision": "2026-11-25_103747_32a218da",
+  "printer": "Prusa XL IS, 0.4 mm nozzle, Generic PLA",
+  "slicer": "PrusaSlicer 2.9.7",
+  "layer_height_mm": 0.2,
+  "print_orientation": "Both halves open side down",
+  "supports": "Manual Snug enforcers at the roof stripes, actuator holders, and the underside of the base mating rim.",
+  "parts": {
+    "lid": {
+      "support_g": 10.9,
+      "total_g": "78.75",
+      "print_time": "3h 40m 51s",
+      "support_near_or_beyond_exterior_above_seam_samples": 0,
+      "max_sampled_bridge_span_mm": 11.2,
+      "worst_bridge": [
+        [
+          24.18,
+          -29.92,
+          39.6
+        ],
+        [
+          24.18,
+          29.92,
+          39.6
+        ]
+      ],
+      "max_sampled_roof_bridge_span_mm": 11.2,
+      "project_mesh_vertex_error_mm": 4.771698336142756e-07,
+      "project_sha256": "3011100628a5712bbb98743247a64cbc30f6a32be84865257f55edb0d408ab31",
+      "source_stl_sha256": "6c3d4cd9fddd3f3706361d49e1b128eef8a0cf7803ada335137c27bbcd60008a"
+    },
+    "bottom": {
+      "support_g": 14.83,
+      "total_g": "91.04",
+      "print_time": "4h 37m 4s",
+      "support_near_or_beyond_exterior_above_seam_samples": 0,
+      "max_sampled_bridge_span_mm": 11.2,
+      "worst_bridge": [
+        [
+          24.18,
+          -29.92,
+          46.4
+        ],
+        [
+          24.18,
+          29.92,
+          46.4
+        ]
+      ],
+      "max_sampled_roof_bridge_span_mm": 11.2,
+      "project_mesh_vertex_error_mm": 9.543944735445438e-07,
+      "project_sha256": "c08c272ff831b74c1e6aad4e078937c4172c4a1db7458d1d70683a1f45955664",
+      "source_stl_sha256": "dacc3bad7d766b8d45729aa238942f8698f56472f84c8a3494dc99b89b411aa1"
+    }
+  },
+  "scope": "Slicer estimates and sampled toolpaths. Physical fit, support removal, finish, and snap fatigue require a test print."
+}
