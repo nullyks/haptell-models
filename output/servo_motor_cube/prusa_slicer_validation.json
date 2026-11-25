@@ -1,0 +1,63 @@
+{
+  "printer": "Prusa XL IS, 0.4 mm, Generic PLA",
+  "layer_height_mm": 0.2,
+  "scope": "Offline slicing and sampled toolpaths. Physical fit and finish require a print.",
+  "parts": {
+    "lid": {
+      "estimated_support_g": 9.2,
+      "exterior_support_samples_above_seam": 0,
+      "max_sampled_free_bridge_mm": 10.77,
+      "longest_bridge_path_mm": [
+        [
+          27.05,
+          29.92,
+          37.8
+        ],
+        [
+          27.05,
+          -29.92,
+          37.8
+        ]
+      ],
+      "statistics": {
+        "filament used [mm]": "33401.81",
+        "filament used [cm3]": "80.34",
+        "filament used [g]": "99.62",
+        "estimated printing time (normal mode)": "4h 11m 53s",
+        "estimated printing time (silent mode)": "4h 22m 42s"
+      },
+      "manual_enforcers": 4,
+      "mesh_vertex_error_mm": 4.764318249414208e-07,
+      "stl_sha256": "4177e9fe2b101003f8f18202be53cc6b3d65e72e0d0885134980e962e5aacd94",
+      "project_sha256": "917e5821da37abf2b1aa504781b7027f6e39ea933538c4038ee5fb287a43e51c"
+    },
+    "bottom": {
+      "estimated_support_g": 14.57,
+      "exterior_support_samples_above_seam": 0,
+      "max_sampled_free_bridge_mm": 10.77,
+      "longest_bridge_path_mm": [
+        [
+          27.05,
+          29.92,
+          44.6
+        ],
+        [
+          27.05,
+          -29.92,
+          44.6
+        ]
+      ],
+      "statistics": {
+        "filament used [mm]": "40198.59",
+        "filament used [cm3]": "96.69",
+        "filament used [g]": "119.89",
+        "estimated printing time (normal mode)": "5h 37m 32s",
+        "estimated printing time (silent mode)": "5h 55m 4s"
+      },
+      "manual_enforcers": 7,
+      "mesh_vertex_error_mm": 9.547631001598405e-07,
+      "stl_sha256": "92658642de40d8c68208059353eb5d89b38379636cd259e1dbb09755db6789e7",
+      "project_sha256": "395d3c404d00a13040c99a01f27c09563b4851ab7072196d2a562c56fc9e8ada"
+    }
+  }
+}

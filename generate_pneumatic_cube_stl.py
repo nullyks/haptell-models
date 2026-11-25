@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
+from itertools import combinations
 import json
 import math
 from pathlib import Path
@@ -11,10 +12,11 @@ import struct
 import manifold3d as m3d
 import numpy as np
 from skimage.measure import marching_cubes
+from scipy.spatial import cKDTree
 
 from model_archive import preserve_models
 
-MODEL_VERSION = "pneumatic-v02-85mm-r15-spherical-cavity"
+MODEL_VERSION = "pneumatic-v03-wider-separated-mouths"
 OUTER_SIZE = 85.0
 OUTER_RADIUS = 15.0
 WALL_THICKNESS = 3.0
@@ -24,7 +26,7 @@ INNER_BLEND = 1.25
 INNER_CHANNEL_SCALE = 0.65
 GRID_STEP = 0.22
 MESH_TOLERANCE = 0.018
-PRINT_ORIENTATION = "edge"
+PRINT_ORIENTATION = "right-edge"
 OUTPUT = Path("output/pneumatic_cube")
 
 
@@ -36,10 +38,10 @@ class Opening:
     straight: float = 0.0
 
 
-A = (Opening(-17.5, 17.5, 31.5), Opening(17.5, 17.5, 31.5), Opening(0, -17.5, 31.5))
-B1 = (Opening(-19, 0, 34.5), Opening(19, 0, 34.5))
+A = (Opening(-18.9, 16, 34), Opening(18.9, 16, 34), Opening(0, -18.5, 34))
+B1 = (Opening(-20.9, 0, 38), Opening(20.9, 0, 38))
 B2 = (Opening(0, -20, 28, 36), Opening(0, 20, 28, 36))
-C = (Opening(0, 0, 10),)
+C = (Opening(0, 0, 12),)
 
 # The drawing shows B2 and B1 on adjacent sides and A above. Put C underneath.
 # Signed axis indices give local horizontal, up and outward coordinates.
@@ -91,10 +93,18 @@ def local_coords(coords, axes):
     return tuple(coords[axis - 1] if axis > 0 else -coords[-axis - 1] for axis in axes)
 
 
-def opening_distance(u, v, depth, opening):
-    # Keep the full profile at the mouth. The smooth taper toward the center
-    # lets the far side of each opening meet the sphere without a blind ledge.
-    progress = np.clip((depth - 18.0) / (38.5 - 18.0), 0, 1)
+def mouth_depth(u, v):
+    flat = OUTER_SIZE / 2 - OUTER_RADIUS
+    corner_sq = np.maximum(abs(u) - flat, 0)**2 + np.maximum(abs(v) - flat, 0)**2
+    return flat + np.sqrt(np.maximum(OUTER_RADIUS**2 - corner_sq, 0))
+
+
+def opening_distance(u, v, depth, opening, exterior_depth=None):
+    # Measure taper from the local exterior, including where the mouths cross
+    # an edge fillet. Adjacent passages contract behind the exposed rim.
+    if exterior_depth is None:
+        exterior_depth = mouth_depth(u, v)
+    progress = np.clip((depth - exterior_depth + 13.0) / 12.0, 0, 1)
     scale = INNER_CHANNEL_SCALE + (1 - INNER_CHANNEL_SCALE) * progress**2 * (3 - 2 * progress)
     du = np.maximum(np.abs(u - scale * opening.u) - scale * opening.straight / 2, 0)
     dv = v - scale * opening.v
@@ -109,8 +119,9 @@ def material_distance(x, y, z):
     channels = np.full_like(sphere, np.inf)
     for _, _, axes, openings in FACES:
         u, v, depth = local_coords((x, y, z), axes)
+        exterior_depth = mouth_depth(u, v)
         for opening in openings:
-            np.minimum(channels, opening_distance(u, v, depth, opening), out=channels)
+            np.minimum(channels, opening_distance(u, v, depth, opening, exterior_depth), out=channels)
     void = -rounded_intersection(-sphere, -channels, INNER_BLEND)
     return rounded_intersection(outer, -void, OUTER_BLEND)
 
@@ -153,6 +164,8 @@ def print_rotation(orientation):
         return np.eye(3)
     if orientation == "edge":
         return np.array([[1, 0, 0], [0, 1, -1], [0, 1, 1]]) / np.sqrt([[1], [2], [2]])
+    if orientation == "right-edge":
+        return np.array([[0, 1, 0], [-1, 0, -1], [-1, 0, 1]]) / np.sqrt([[1], [2], [2]])
     if orientation == "corner":
         return np.array([[1, -1, 0], [1, 1, -2], [1, 1, 1]]) / np.sqrt([[2], [6], [3]])
     raise ValueError(orientation)
@@ -196,6 +209,22 @@ def model_point(axes, local_point):
     return point
 
 
+def minimum_exterior_web():
+    """Conservative sampled chord spacing between the start of the rim blends."""
+    angle = np.linspace(0, 2 * np.pi, 1440, endpoint=False)
+    contours = {}
+    for name, _, axes, openings in FACES:
+        for index, opening in enumerate(openings, 1):
+            radius = opening.diameter / 2 + OUTER_BLEND
+            u = opening.u + radius * np.cos(angle) + np.sign(np.cos(angle)) * opening.straight / 2
+            v = opening.v + radius * np.sin(angle)
+            u = np.r_[u, opening.u + np.linspace(-opening.straight / 2, opening.straight / 2, 720).repeat(2)]
+            v = np.r_[v, opening.v + np.tile((-radius, radius), 720)]
+            contours[f"{name}_{index}"] = np.asarray([model_point(axes, p) for p in zip(u, v, mouth_depth(u, v))])
+    trees = {name: cKDTree(points) for name, points in contours.items()}
+    return min((float(trees[a].query(contours[b])[0].min()), a, b) for a, b in combinations(contours, 2))
+
+
 def validate(solid):
     assert solid.volume() > 0
     assert len(solid.decompose()) == 1
@@ -216,11 +245,14 @@ def validate(solid):
             assert (solid ^ box((0.3, 0.3, 0.3), end)).volume() < 1e-7, (name, opening)
 
     # Midpoints of the closest pairs are solid at nominal mouth depth.
-    for axes, local_point in ((FACES[4][2], (0, 17.5, 41)),
+    for axes, local_point in ((FACES[4][2], (0, 16, 41)),
                               (FACES[1][2], (0, 0, 41)),
                               (FACES[0][2], (0, 0, 41))):
         probe = box((2.49, 2.49, 0.25), model_point(axes, local_point))
         assert math.isclose((solid ^ probe).volume(), probe.volume(), abs_tol=1e-5)
+    minimum_web, *limiting_mouths = minimum_exterior_web()
+    # Reserve 0.1 mm for sampling/mesh approximation over the client minimum.
+    assert minimum_web >= 2.6, (minimum_web, limiting_mouths)
 
     oriented, matrix = print_transform(solid)
     pv, _ = mesh_arrays(oriented)
@@ -234,7 +266,8 @@ def validate(solid):
         "faces": {name: {"type": kind, "openings": [
             {"center_uv_mm": [o.u, o.v], "width_mm": o.diameter + o.straight, "height_mm": o.diameter}
             for o in openings]} for name, kind, _, openings in FACES},
-        "minimum_nominal_web_between_circular_mouths_mm": 2.5,
+        "minimum_sampled_exterior_web_mm": round(minimum_web, 3),
+        "limiting_mouths": limiting_mouths,
         "outer_blend_field_radius_mm": OUTER_BLEND,
         "cavity_blend_field_radius_mm": INNER_BLEND,
         "connected_solids": 1,

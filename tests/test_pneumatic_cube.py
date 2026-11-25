@@ -18,20 +18,20 @@ def test_spherical_cavity_and_fourteen_openings(solid):
     assert report["connected_solids"] == 1
     assert report["euler_characteristic"] == -24
     assert report["spherical_cavity_diameter_mm"] == 79
-    assert report["minimum_nominal_web_between_circular_mouths_mm"] == 2.5
+    assert report["minimum_sampled_exterior_web_mm"] >= 2.6
     assert report["faces"]["front"]["openings"][0]["width_mm"] == 64
     assert report["faces"]["front"]["openings"][0]["height_mm"] == 28
-    assert report["faces"]["right"]["openings"][0]["width_mm"] == 34.5
-    assert report["faces"]["top"]["openings"][0]["width_mm"] == 31.5
-    assert report["faces"]["bottom"]["openings"][0]["width_mm"] == 10
+    assert report["faces"]["right"]["openings"][0]["width_mm"] == 38
+    assert report["faces"]["top"]["openings"][0]["width_mm"] == 34
+    assert report["faces"]["bottom"]["openings"][0]["width_mm"] == 12
 
 
 def test_bottom_opening_has_rounded_outer_rim_and_nominal_throat(solid):
-    # The outer lip flares beyond the 5 mm radius. Farther in, the
+    # The outer lip flares beyond the 6 mm radius. Farther in, the
     # same radial position must be in material.
-    for point, filled in (((5.12, 0, -42.42), False),
-                          ((5.34, 0, -42.42), True),
-                          ((5.12, 0, -41.5), True)):
+    for point, filled in (((6.12, 0, -42.42), False),
+                          ((6.34, 0, -42.42), True),
+                          ((6.12, 0, -41.5), True)):
         probe = cube.box((.01, .01, .01), point)
         volume = (solid ^ probe).volume()
         assert volume > .0000009 if filled else volume < 1e-8
@@ -57,8 +57,8 @@ def test_toolpath_reader_handles_leading_decimal_extrusion_and_arcs(tmp_path):
 
 
 def test_analytic_toolpath_model_matches_material_probes(solid):
-    points = np.array([[0, 0, 0], [0, 0, -41], [5.12, 0, -42.42],
-                       [5.12, 0, -41.5], [0, 0, 41], [0, 42, 0]])
+    points = np.array([[0, 0, 0], [0, 0, -41], [6.12, 0, -42.42],
+                       [6.12, 0, -41.5], [0, 0, 41], [0, 42, 0]])
     expected = [False, False, False, True, True, True]
     assert analytic_material(points).tolist() == expected
     for point, filled in zip(points, expected):

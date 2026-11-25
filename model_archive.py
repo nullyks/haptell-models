@@ -20,6 +20,9 @@ FAMILIES = {
     "perforated_sphere": ("generate_perforated_sphere_stl.py", "output/perforated_sphere"),
     "pneumatic_cube": ("generate_pneumatic_cube_stl.py", "output/pneumatic_cube"),
     "lra_actuator_cube": ("generate_lra_actuator_cube_stl.py", "output/lra_actuator_cube"),
+    "servo_motor_cube": ("generate_hardware_cubes_stl.py", "output/servo_motor_cube"),
+    "voice_coil_cube": ("generate_hardware_cubes_stl.py", "output/voice_coil_cube"),
+    "thermal_cube": ("generate_hardware_cubes_stl.py", "output/thermal_cube"),
 }
 
 

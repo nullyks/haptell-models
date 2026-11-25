@@ -1,0 +1,37 @@
+{
+  "wall_mm": 5.0,
+  "nominal_internal_width_mm": 75.0,
+  "servo_body_mm": [
+    40,
+    20,
+    40.5
+  ],
+  "servo_flange_span_mm": 54.5,
+  "pilot_pattern_mm": [
+    10.0,
+    49.5
+  ],
+  "pilot_diameter_mm": 2.7,
+  "nominal_full_circle_envelope_mm": [
+    71.0,
+    24
+  ],
+  "weight_envelope_z_from_seam_mm": [
+    7.5,
+    31.5
+  ],
+  "weight_notes": "Empty reserved envelope. Check actual horn height, hardware, and moving weight.",
+  "model_version": "v02-loading-clearance-fit-trial",
+  "assembly_bounds_mm": [
+    85.0,
+    85.0,
+    85.0
+  ],
+  "outer_radius_mm": 15.0,
+  "cable_notch_mm": [
+    12,
+    6
+  ],
+  "shell_snaps": 8,
+  "seated_halves_overlap_mm3": 0
+}

@@ -64,6 +64,8 @@ mudeliperest; see ei kopeeri automaatselt kõiki varasemaid Git-i commit'e.
 
 Kopeeri soovitud katsetuse `source/` eraldi töökausta, paigalda selle
 `requirements.txt` sõltuvused ning käivita manifestis nimetatud generaator.
+Kui generaator on `generate_hardware_cubes_stl.py`, lisa pere järgi argument
+`servo` (`servo_motor_cube`), `voice` (`voice_coil_cube`) või `thermal` (`thermal_cube`).
 Ära käivita generaatorit arhiivikaustas ega kirjuta selle STL-ide peale.
 Sõltuvuste versioonipiirid säilivad, kuid paigaldatud teekide versioonid pole
 lukustatud; kordusgenereerimine ei pruugi anda baithaaval identseid STL-e.

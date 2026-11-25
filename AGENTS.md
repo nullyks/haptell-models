@@ -1,8 +1,9 @@
 # Codex Handoff Notes
 
-This repository contains five parametric STL model families: four two-piece
-enclosures (egg box, balance-shift egg, rounded cube, perforated sphere) and
-a one-piece hollow pneumatic cube.
+This repository contains parametric STL models for haptic enclosures and a
+one-piece hollow pneumatic cube. The November 2026 customer round uses five
+85 mm cubes with R15 corners. Earlier shapes have their own output folders and
+permanent trial archives.
 
 ## Current Product State
 
@@ -42,7 +43,29 @@ a one-piece hollow pneumatic cube.
 - Balance-shift STL files are generated separately under `output/balance_shift/` and must not overwrite the current `output/egg_box_*.stl` files.
 - Target printer/material assumption: FDM printing with a 0.4 mm nozzle.
 
-## Current rounded-cube model
+## November 2026 hardware cubes
+
+- Four two-piece fit prototypes use eight internal snap tongues and a
+  12 × 6 mm seam exit for bare wires. Shell halves print open side down.
+- LRA: `generate_lra_actuator_cube_stl.py`, six Ø10 × 4 mm VG1040003D
+  actuators with direct clips. Files in `output/lra_actuator_cube/`.
+- Servo: `generate_hardware_cubes_stl.py servo`. Miuzei DS3218, 5 mm shell,
+  Ø2.7 mm provisional screw pilots on a 10 × 49.5 mm pattern, and a nominal
+  Ø71 × 24 mm full-circle volume for the moving weight. No weight model is
+  specified. Files in `output/servo_motor_cube/`.
+- Voice coil: `generate_hardware_cubes_stl.py voice`. Ø22 × 30 mm actuator
+  perpendicular to its mounting wall, with a screw-down removable clamp.
+  Files in `output/voice_coil_cube/`.
+- Thermal: `generate_hardware_cubes_stl.py thermal`. Passive, vented housing
+  with two slide-rail mounts modeled for nominal 20 × 20 × 4 mm TEC1-04902
+  modules and 1.2 mm plastic contact faces. Confirm the received parts and
+  passive heat rejection before powered tests. Files in `output/thermal_cube/`.
+- Open the Prusa XL 0.4 mm PLA 3MFs as projects with settings. The shell
+  enforcers keep support inside and around the underside of the mating rim.
+  The clamp prints without support. Reports record the STL/3MF agreement and
+  sampled bridges. Verify fit, closure force, removal, and finish physically.
+
+## Legacy 80 mm rounded-cube model
 
 - Generator: `generate_rounded_cube_box_stl.py`, version
   `v07-80mm-r8-fan-only-eight-snaps`. Current handoff:
@@ -88,24 +111,25 @@ a one-piece hollow pneumatic cube.
 
 ## Current pneumatic cube — separate one-piece family
 
-- Generator: generate_pneumatic_cube_stl.py, pneumatic-v02-85mm-r15-spherical-cavity.
+- Generator: generate_pneumatic_cube_stl.py, pneumatic-v03-wider-separated-mouths.
   Outputs: output/pneumatic_cube/. Archive family: pneumatic_cube.
-- v02 design approved 2026-11-20. Keep 85 × 85 × 85 mm, R15 exterior rounding,
-  Ø79 mm spherical hollow, and 3 mm nominal wall at closed face centers.
-  The two 64 × 28 mm slots wrap onto the outer rounding. Round mouth sizes are
-  Ø31.5 mm (three per top/back/left), Ø34.5 mm (two on right) and Ø10 mm
-  (one centered underneath). Retain 14 separate openings and the 2.5 mm
-  nominal web between neighboring circular mouths. The larger passages taper
-  toward the sphere and have smooth transitions.
-- Selected print orientation: 45° edge-down. The print STL and 3MFs are already
+- Keep 85 × 85 × 85 mm, R15 exterior rounding, Ø79 mm spherical hollow and
+  3 mm nominal wall at closed face centers. Two front 64 × 28 mm slots.
+  Round mouths are Ø34 mm (three per top/back/left), Ø38 mm (two on right)
+  and Ø12 mm (one centered underneath). There are 14 separate openings.
+  The client prioritized a 2.5 mm minimum web and allowed center shifts.
+  The sampled minimum web between eased exterior rims is 2.8 mm.
+- Selected print orientation: 45° right-bottom edge-down. The print STL and 3MFs are already
   oriented. Generic PLA, XL IS 0.4 mm, layers 0.15/0.20 mm, five perimeters,
   18% Gyroid, 6/6 solid layers, 8 mm brim, enforcer-controlled bed-only Snug.
   Open the 3MF as a project with its settings and modifiers.
-- Use the versioned v02 5T files in output/prusa_xl_5t_pla_04/ for XL 5T on
-  tool 1. The unversioned pneumatic 5T G-code is an earlier v01 job.
-- The selected XL 5T estimate is 139.74 g / 10h 50m 31s. External support is
-  1.55 g, ending at Z=5.8 mm. Sampled toolpaths show no supports in the sphere or
-  channels. The maximum sampled free bridge span is 4.74 mm.
+- Use the versioned v03 project for the current model. The reviewed single-tool
+  job estimates 144.80 g and 11h 14m 48s. External support is 1.79 g, ending
+  at Z=5.8 mm. No sampled support paths entered the sphere or channels.
+  The longest sampled free bridge span is 5.91 mm.
+- The versioned v03 XL 5T project and G-code in `output/prusa_xl_5t_pla_04/`
+  use tool 1 and estimate 144.86 g and 11h 14m 45s.
+- v03 archive: 2026-11-25_110139_1ef103dc.
 - v02 archive: 2026-11-20_134313_71c0bcd8. v01: 2026-11-10_194955_a4bccfb6.
   See models/pneumatic_cube/README.md and PRUSA_XL_PLA_JUHEND.md.
 - For geometry changes, verify one solid, no serialized open/non-manifold edges

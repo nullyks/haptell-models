@@ -1,7 +1,7 @@
 # Haptell Enclosure Models
 
-Parametric STL models for five device-enclosure families: four two-piece designs
-and a one-piece hollow pneumatic cube.
+Parametric STL models for haptic enclosures and a one-piece hollow pneumatic
+cube. The November 2026 customer round uses five 85 mm cubes with R15 corners.
 
 Related device project: `https://github.com/nullyks/haptell-devices`
 
@@ -17,6 +17,21 @@ permanent trial archive. Use this branch when cloning or continuing the project.
 | Rounded cube | `generate_rounded_cube_box_stl.py` | `output/rounded_cube_box/` | `models/rounded_cube_box/revisions/` |
 | Perforated sphere | `generate_perforated_sphere_stl.py` | `output/perforated_sphere/` | `models/perforated_sphere/revisions/` |
 | Pneumatic cube (one piece) | `generate_pneumatic_cube_stl.py` | `output/pneumatic_cube/` | `models/pneumatic_cube/revisions/` |
+| Six-actuator LRA cube | `generate_lra_actuator_cube_stl.py` | `output/lra_actuator_cube/` | `models/lra_actuator_cube/revisions/` |
+| DS3218 servo cube | `generate_hardware_cubes_stl.py servo` | `output/servo_motor_cube/` | `models/servo_motor_cube/revisions/` |
+| Voice-coil cube | `generate_hardware_cubes_stl.py voice` | `output/voice_coil_cube/` | `models/voice_coil_cube/revisions/` |
+| Thermal cube | `generate_hardware_cubes_stl.py thermal` | `output/thermal_cube/` | `models/thermal_cube/revisions/` |
+
+Open the four two-piece cube families' `*_xl_pla.3mf` files as PrusaSlicer
+projects with settings. The shell openings face down, and the 3MFs carry
+interior support enforcers. The separate voice-coil clamp prints flat with
+supports disabled. See each output directory's validation JSON for nominal
+hardware fit and its print report for the reviewed toolpaths.
+
+Generate fresh servo, voice-coil and thermal print projects with
+`python tools/prepare_hardware_cube_prints.py --output-dir .local/hardware-review/new`.
+See the [pneumatic cube guide](models/pneumatic_cube/README.md) for its
+versioned print project and distinct one-piece print orientation.
 
 Develop changes on temporary `codex/<change-name>` branches from `master`, then
 merge validated generators, outputs, and archive revisions back into `master`.

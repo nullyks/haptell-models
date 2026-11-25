@@ -1,0 +1,23 @@
+{
+  "family": "servo_motor_cube",
+  "revision": "2026-11-25_105720_c2d92548",
+  "archived_at_utc": "2026-11-25T10:57:20.721621+00:00",
+  "generator": "generate_hardware_cubes_stl.py",
+  "git_head_for_reference_only": "054ab8f78b658d4125183c33c8fa8e3af57fe806",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "2788a410746b2a8079a320f9e21a1c7b4a48843edd7199c148d31c4311379212",
+  "sha256": {
+    "stl/servo_motor_cube_bottom.stl": "98211d8e6548a25fc98a232340f3c7459df1ea2991cf257d93d7896ab4a2802b",
+    "stl/servo_motor_cube_lid.stl": "d67fa99178190a19cfa47b3db5e174d70ce4cd84f69f2bdd70f25ef467db131f",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_hardware_cubes_stl.py": "65512af9850f2bbe96b2000f18c9b63fa71950d25173e01b6c1f1e584cdd7b7b",
+    "source/generate_lra_actuator_cube_stl.py": "d9b5fce35d121712f586935e79fdd08deeeb285095f8b1d4e9b7dc01af6b173c",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_pneumatic_cube_stl.py": "ee5c4f30c624fc30934ae4b45a2112017b40a9a0e3c815f73a0a7a3db769056d",
+    "source/generate_rounded_cube_box_stl.py": "b1a9f8d461f8c2454451f9129257c5e79ab9d691a94b6b2510e2bbfaee9ad034",
+    "source/model_archive.py": "5e4417abc1009f6075515f5d725b22a537354bd2868d13c68f081558c57d0e5a",
+    "source/requirements.txt": "50eeb5f7f16b3dc9db48cf3ba5605b416e7782734c6e1ffd34d19d4a046faf50"
+  }
+}

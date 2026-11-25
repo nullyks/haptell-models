@@ -1,4 +1,26 @@
-# Pneumaatiline kuup v02
+# Pneumaatiline kuup v03
+
+Ühes tükis **85 × 85 × 85 mm**, välisservad **R15**, sfääriline õõnsus
+**Ø79 mm**, suletud tahu keskosas 3 mm sein.
+
+| Tahud | Välisavad ühe tahu kohta |
+| --- | --- |
+| Ülemine, tagumine ja vasak | 3 × Ø34 mm. Kahe ülemise ava keskvahe 37,8 mm. |
+| Parem | 2 × Ø38 mm, keskvahe 41,8 mm. |
+| Ees | 2 × 64 × 28 mm kapslikujulist ava. |
+| Alumine | 1 × Ø12 mm, keskel. |
+
+14 eraldi läbivat ava. Kõige väiksem proovivõtuga kontrollitud vahe
+ümardatud välissuudmete vahel on 2,8 mm. Kanalid ahenevad serva taga ja
+suubuvad sfäärilisse õõnsusse.
+
+- [Praegune STL](../../output/pneumatic_cube/pneumatic_cube.stl) ja [prindiasendis STL](../../output/pneumatic_cube/pneumatic_cube_print.stl).
+- [Prusa XL v03 3MF](../../output/pneumatic_cube/pneumatic_cube_v03_xl_pla.3mf). Ava projektina koos seadetega.
+- [Prusa XL 5T v03 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v03_XL5T_0p4_PLA_Tool1.3mf) ja [v03 G-code](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v03_XL5T_0p4_PLA_Tool1.gcode) 0,4 mm düüsi ja tööriista 1 jaoks.
+- [Geomeetria kontroll](../../output/pneumatic_cube/validation.json) ja [v03 prindiradade kontroll](../../output/pneumatic_cube/pneumatic_cube_v03_toolpath_checks.json).
+- [Valitud v03 arhiivirevisjon](revisions/2026-11-25_110139_1ef103dc/).
+
+## Ajalooline v02 võrdlus
 
 Ühes tükis prinditav **85 × 85 × 85 mm** kuup, **R15** välisservad ja
 **Ø79 mm** sfääriline õõnsus ühe täispuhutava membraani jaoks. Suletud
@@ -24,8 +46,8 @@ ja [kahte lõiget](../../output/pneumatic_cube/pneumatic_cube_section.png).
 
 ## Prindifailid
 
-- [Vaatamiseks mõeldud STL](../../output/pneumatic_cube/pneumatic_cube.stl).
-- [Prindiasendis STL](../../output/pneumatic_cube/pneumatic_cube_print.stl), 45° serval.
+- [v02 vaatamiseks mõeldud STL](revisions/2026-11-20_134313_71c0bcd8/stl/pneumatic_cube.stl).
+- [v02 prindiasendis STL](revisions/2026-11-20_134313_71c0bcd8/stl/pneumatic_cube_print.stl), 45° serval.
 - [Prusa XL ühe tööriistaga 3MF](../../output/pneumatic_cube/pneumatic_cube_xl_pla.3mf).
 - [Prusa XL 5T 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v02_XL5T_0p4_PLA_Tool1.3mf) ja [v02 G-code](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v02_XL5T_0p4_PLA_Tool1.gcode) 0,4 mm düüsile, PLA-le ja tööriistale 1.
 - [Prusa XL / PLA juhend](PRUSA_XL_PLA_JUHEND.md).
@@ -52,8 +74,8 @@ toel. Vaata [tugiradade lõiget](../../output/pneumatic_cube/pneumatic_cube_supp
 Mõlemad STL-id on pärast serialiseerimist kontrollitud. Mõlemad on ühe
 ühendatud kehaga, avatud servade ja nullpindalaga kolmnurkadeta. Euleri
 karakteristik −24 vastab ühe õõnsusega 14 eraldi läbivale avale.
-Mudeli mõõdud, avade paigutus ja kontrollitulemused on
-[validation.json](../../output/pneumatic_cube/validation.json) failis.
+V02 prindiradade kontrollitulemused on
+[toolpath_checks.json](../../output/pneumatic_cube/toolpath_checks.json) failis.
 
 - [Valitud v02 arhiivirevisjon](revisions/2026-11-20_134313_71c0bcd8/).
 - [Varasem v01 arhiivirevisjon](revisions/2026-11-10_194955_a4bccfb6/).

@@ -1,0 +1,41 @@
+{
+  "model_version": "pneumatic-v03-wider-separated-mouths",
+  "orientation": "right-edge",
+  "support_mode": "external",
+  "transform_3x4": [
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      -0.7071067811865475,
+      0.0,
+      -0.7071067811865475,
+      0.0
+    ],
+    [
+      -0.7071067811865475,
+      0.0,
+      0.7071067811865475,
+      53.88606889504647
+    ]
+  ],
+  "source_stl_sha256": "dcc89ee121e5390eff07e2340f5375891f44380cd955e1b7254313b691fcc2ef",
+  "oriented_stl_sha256": "474594d5cbfa9a3647d8e0455f00c82ed12627dccea8b64586e50f79a42ddd0e",
+  "profile_sha256": "ab2f5bafbd5358b6760c5a46d64837b1f83fc2a5b62db310e2b0856ced2d72c9",
+  "project_sha256": "35083361d18f090a796b6b26b77726cb29eda7410e7caed48ee58e83e1c5ce42",
+  "gcode_sha256": "fd758269be8f7a090d5b00c9e5b803139f5d47fc464fa9267323b1d0c0bbc708",
+  "modifiers": [
+    "SupportEnforcer",
+    "SupportBlocker"
+  ],
+  "statistics": {
+    "filament used [mm]": "48549.94",
+    "filament used [cm3]": "116.78",
+    "filament used [g]": "144.80",
+    "estimated printing time (normal mode)": "11h 14m 48s",
+    "estimated printing time (silent mode)": "12h 8m 40s"
+  }
+}

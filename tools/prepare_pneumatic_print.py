@@ -46,7 +46,7 @@ def append_modifier(model, config, solid, name, kind):
         ET.SubElement(volume, "metadata", {"type": "volume", "key": key, "value": value})
 
 
-def prepare(destination, orientation="edge", support="external", slicer=None, profile_source=None):
+def prepare(destination, orientation=cube.PRINT_ORIENTATION, support="external", slicer=None, profile_source=None):
     destination = Path(destination).resolve()
     if (ROOT / "models").resolve() in destination.parents or (ROOT / "output").resolve() in destination.parents:
         raise ValueError("Generate in a fresh review directory outside output/ and models/")
@@ -132,7 +132,7 @@ def prepare(destination, orientation="edge", support="external", slicer=None, pr
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--orientation", choices=("face", "edge", "corner"), default="edge")
+    parser.add_argument("--orientation", choices=("face", "edge", "right-edge", "corner"), default=cube.PRINT_ORIENTATION)
     parser.add_argument("--support", choices=("auto", "external", "none"), default="external")
     parser.add_argument("--profile", type=Path, help="Base Prusa XL printer and filament profile")
     args = parser.parse_args()

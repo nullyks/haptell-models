@@ -1,5 +1,5 @@
 {
-  "model_version": "pneumatic-v02-85mm-r15-spherical-cavity",
+  "model_version": "pneumatic-v03-wider-separated-mouths",
   "body_bounds_mm": [
     85.0,
     85.0,
@@ -36,19 +36,19 @@
       "openings": [
         {
           "center_uv_mm": [
-            -19,
+            -20.9,
             0
           ],
-          "width_mm": 34.5,
-          "height_mm": 34.5
+          "width_mm": 38.0,
+          "height_mm": 38
         },
         {
           "center_uv_mm": [
-            19,
+            20.9,
             0
           ],
-          "width_mm": 34.5,
-          "height_mm": 34.5
+          "width_mm": 38.0,
+          "height_mm": 38
         }
       ]
     },
@@ -57,27 +57,27 @@
       "openings": [
         {
           "center_uv_mm": [
-            -17.5,
-            17.5
+            -18.9,
+            16
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         },
         {
           "center_uv_mm": [
-            17.5,
-            17.5
+            18.9,
+            16
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         },
         {
           "center_uv_mm": [
             0,
-            -17.5
+            -18.5
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         }
       ]
     },
@@ -86,27 +86,27 @@
       "openings": [
         {
           "center_uv_mm": [
-            -17.5,
-            17.5
+            -18.9,
+            16
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         },
         {
           "center_uv_mm": [
-            17.5,
-            17.5
+            18.9,
+            16
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         },
         {
           "center_uv_mm": [
             0,
-            -17.5
+            -18.5
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         }
       ]
     },
@@ -115,27 +115,27 @@
       "openings": [
         {
           "center_uv_mm": [
-            -17.5,
-            17.5
+            -18.9,
+            16
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         },
         {
           "center_uv_mm": [
-            17.5,
-            17.5
+            18.9,
+            16
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         },
         {
           "center_uv_mm": [
             0,
-            -17.5
+            -18.5
           ],
-          "width_mm": 31.5,
-          "height_mm": 31.5
+          "width_mm": 34.0,
+          "height_mm": 34
         }
       ]
     },
@@ -147,45 +147,49 @@
             0,
             0
           ],
-          "width_mm": 10.0,
-          "height_mm": 10
+          "width_mm": 12.0,
+          "height_mm": 12
         }
       ]
     }
   },
-  "minimum_nominal_web_between_circular_mouths_mm": 2.5,
+  "minimum_sampled_exterior_web_mm": 2.8,
+  "limiting_mouths": [
+    "back_1",
+    "back_2"
+  ],
   "outer_blend_field_radius_mm": 0.5,
   "cavity_blend_field_radius_mm": 1.25,
   "connected_solids": 1,
   "euler_characteristic": -24,
   "boundary_edges": 0,
   "non_manifold_edges": 0,
-  "volume_mm3": 196329.65571127707,
-  "print_orientation": "edge",
+  "volume_mm3": 217933.23267683183,
+  "print_orientation": "right-edge",
   "print_transform_3x4": [
     [
-      1.0,
       0.0,
+      1.0,
       0.0,
       0.0
     ],
     [
+      -0.7071067811865475,
       0.0,
-      0.7071067811865475,
       -0.7071067811865475,
       0.0
     ],
     [
+      -0.7071067811865475,
       0.0,
       0.7071067811865475,
-      0.7071067811865475,
-      53.881982336614854
+      53.88606889504646
     ]
   ],
   "print_bounds_mm": [
     85.0,
-    107.7713,
-    107.7635
+    107.7692,
+    107.7713
   ],
   "limits": "Physical print, aperture finish and membrane behavior require a test."
 }

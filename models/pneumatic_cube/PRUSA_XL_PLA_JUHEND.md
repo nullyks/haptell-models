@@ -1,4 +1,16 @@
-# Pneumaatiline kuup v02 — printimine ja viimistlus
+# Pneumaatilise kuubi printimine ja viimistlus
+
+## Praegune v03
+
+Ava [v03 Prusa XL 3MF](../../output/pneumatic_cube/pneumatic_cube_v03_xl_pla.3mf)
+või [v03 Prusa XL 5T 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v03_XL5T_0p4_PLA_Tool1.3mf)
+projektina koos seadetega. 5T versioon kasutab tööriista 1. Mudel on pööratud
+45° paremale alumisele servale.
+Valitud 0,4 mm düüsi ja PLA töö hinnang on 144,80 g ja 11 h 14 min 48 s,
+millest 1,79 g kulub tugedele. Ülevaadatud töörajal lõppesid toed
+5,8 mm kõrgusel ja jäid kanalitest ning õõnsusest välja.
+
+## Varasema v02 failid ja seaded
 
 **Prindi serv all, 45° pöördega.** STL ja 3MF on juba õiges asendis. Vali printerile
 vastav 3MF ja ava see PrusaSliceris **projektina koos seadetega**. Projekt sisaldab toe lubajat alumise serva juures ja
