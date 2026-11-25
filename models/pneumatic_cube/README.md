@@ -1,4 +1,20 @@
-# Pneumaatiline kuup v03
+# Pneumaatiline kuup v04
+
+Ühes tükis **85 × 85 × 85 mm** kuup, välisservad **R15**. Õõnsus järgib
+väliskuju. Seina nimipaksus on **0,90 mm** ning õõnsuse mõõdud on
+**83,2 × 83,2 × 83,2 mm**, siseraadius **R14,1**.
+
+V03 avade mõõdud ja paigutus kehtivad ka v04 mudelile. Kokku on 14 eraldi
+läbivat ava. Proovivõtuga kontrollitud väikseim vahe ümardatud välissuudmete
+vahel on 2,8 mm.
+
+- [Praegune STL](../../output/pneumatic_cube/pneumatic_cube.stl) ja [prindiasendis STL](../../output/pneumatic_cube/pneumatic_cube_print.stl).
+- [Prusa XL v04 3MF](../../output/pneumatic_cube/pneumatic_cube_v04_xl_pla.3mf). Ava projektina koos seadetega.
+- [Prusa XL 5T v04 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v04_XL5T_0p4_PLA_Tool1.3mf) ja [v04 G-code](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v04_XL5T_0p4_PLA_Tool1.gcode) 0,4 mm düüsi ja tööriista 1 jaoks.
+- [Geomeetria kontroll](../../output/pneumatic_cube/validation.json) ja [v04 prindiradade kontroll](../../output/pneumatic_cube/pneumatic_cube_v04_toolpath_checks.json).
+- [Valitud v04 arhiivirevisjon](revisions/2026-11-25_152034_f2d94108/).
+
+## Ajalooline v03
 
 Ühes tükis **85 × 85 × 85 mm**, välisservad **R15**, sfääriline õõnsus
 **Ø79 mm**, suletud tahu keskosas 3 mm sein.
@@ -14,10 +30,10 @@
 ümardatud välissuudmete vahel on 2,8 mm. Kanalid ahenevad serva taga ja
 suubuvad sfäärilisse õõnsusse.
 
-- [Praegune STL](../../output/pneumatic_cube/pneumatic_cube.stl) ja [prindiasendis STL](../../output/pneumatic_cube/pneumatic_cube_print.stl).
+- [v03 STL](revisions/2026-11-25_110139_1ef103dc/stl/pneumatic_cube.stl) ja [v03 prindiasendis STL](revisions/2026-11-25_110139_1ef103dc/stl/pneumatic_cube_print.stl).
 - [Prusa XL v03 3MF](../../output/pneumatic_cube/pneumatic_cube_v03_xl_pla.3mf). Ava projektina koos seadetega.
 - [Prusa XL 5T v03 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v03_XL5T_0p4_PLA_Tool1.3mf) ja [v03 G-code](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v03_XL5T_0p4_PLA_Tool1.gcode) 0,4 mm düüsi ja tööriista 1 jaoks.
-- [Geomeetria kontroll](../../output/pneumatic_cube/validation.json) ja [v03 prindiradade kontroll](../../output/pneumatic_cube/pneumatic_cube_v03_toolpath_checks.json).
+- [v03 prindiradade kontroll](../../output/pneumatic_cube/pneumatic_cube_v03_toolpath_checks.json).
 - [Valitud v03 arhiivirevisjon](revisions/2026-11-25_110139_1ef103dc/).
 
 ## Ajalooline v02 võrdlus

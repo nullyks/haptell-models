@@ -1,0 +1,88 @@
+{
+  "slicing": {
+    "model_version": "pneumatic-v04-thin-shell-0p90-trial",
+    "orientation": "right-edge",
+    "support_mode": "external",
+    "transform_3x4": [
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        -0.7071067811865475,
+        0.0,
+        -0.7071067811865475,
+        0.0
+      ],
+      [
+        -0.7071067811865475,
+        0.0,
+        0.7071067811865475,
+        53.8819526652335
+      ]
+    ],
+    "source_stl_sha256": "e893a453ba072d2afa0bc34e1cc38b453aba5baf7b29194cc18a1fac4ba9580b",
+    "oriented_stl_sha256": "6cdd59ebdf84a5a5dc2e4060ea1041042bf18f08275719b3f705290d1c036b0c",
+    "profile_sha256": "9e7b39da716c7a053121addc347fa287ca3580f9a0ea468b3a4ec4b1deab3ed4",
+    "project_sha256": "96a92db9cf4377b30de9072d70b2a84f817baaf6c83b767c8d74cb5c3ec6154d",
+    "gcode_sha256": "5d6db9aa3a92e6f185e79d8ab3ba97647616b868d56d40ba486a57746d0b3ba7",
+    "modifiers": [
+      "SupportEnforcer",
+      "SupportBlocker"
+    ],
+    "statistics": {
+      "filament used [mm]": "8634.25, 0.00, 0.00, 0.00, 0.00",
+      "filament used [cm3]": "20.77, 0.00, 0.00, 0.00, 0.00",
+      "filament used [g]": "25.75, 0.00, 0.00, 0.00, 0.00",
+      "estimated printing time (normal mode)": "3h 23m 8s",
+      "estimated printing time (silent mode)": "3h 43m 6s"
+    }
+  },
+  "toolpath_checks": {
+    "orientation": "right-edge",
+    "support_mode": "external",
+    "feature_mass_g": {
+      "Custom": 0.116,
+      "Skirt/Brim": 0.279,
+      "Support material": 1.106,
+      "Perimeter": 2.88,
+      "External perimeter": 20.167,
+      "Overhang perimeter": 0.129,
+      "Solid infill": 0.276,
+      "Support material interface": 0.68,
+      "Top solid infill": 0.066,
+      "Bridge infill": 0.058
+    },
+    "support_mass_g": 1.786,
+    "support_samples_inside_cavity": 0,
+    "support_samples_inside_shell_envelope": 0,
+    "support_z_max_mm": 5.8,
+    "bridge_paths": 289,
+    "max_sampled_free_bridge_mm": 3.544,
+    "worst_bridge": {
+      "z": 107.0,
+      "start": [
+        9.205,
+        2.679,
+        107.0
+      ],
+      "end": [
+        9.205,
+        -1.652,
+        107.0
+      ]
+    },
+    "one_printable_model": true,
+    "project_mesh_max_vertex_error_mm": 3.864978919285075e-06,
+    "statistics": {
+      "filament used [mm]": "8634.25, 0.00, 0.00, 0.00, 0.00",
+      "filament used [cm3]": "20.77, 0.00, 0.00, 0.00, 0.00",
+      "filament used [g]": "25.75, 0.00, 0.00, 0.00, 0.00",
+      "estimated printing time (normal mode)": "3h 23m 8s",
+      "estimated printing time (silent mode)": "3h 43m 6s"
+    },
+    "scope": "Analytic geometry and sampled actual G-code. Not a physical bridge, surface, membrane, pressure or support-removal test."
+  }
+}

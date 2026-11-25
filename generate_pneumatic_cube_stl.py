@@ -1,4 +1,4 @@
-"""Generate an 85 mm pneumatic cube with a spherical bladder cavity."""
+"""Generate a thin-walled 85 mm pneumatic cube with a rounded-cube cavity."""
 from __future__ import annotations
 
 from collections import Counter
@@ -16,13 +16,13 @@ from scipy.spatial import cKDTree
 
 from model_archive import preserve_models
 
-MODEL_VERSION = "pneumatic-v03-wider-separated-mouths"
+MODEL_VERSION = "pneumatic-v04-thin-shell-0p90-trial"
 OUTER_SIZE = 85.0
 OUTER_RADIUS = 15.0
-WALL_THICKNESS = 3.0
-CAVITY_RADIUS = OUTER_SIZE / 2 - WALL_THICKNESS
+WALL_THICKNESS = 0.90
+FLAT_HALF = OUTER_SIZE / 2 - OUTER_RADIUS
 OUTER_BLEND = 0.5
-INNER_BLEND = 1.25
+INNER_BLEND = 0.35
 INNER_CHANNEL_SCALE = 0.65
 GRID_STEP = 0.22
 MESH_TOLERANCE = 0.018
@@ -60,17 +60,18 @@ def box(size, center=(0, 0, 0)):
     return m3d.Manifold.cube(size, center=True).translate(center)
 
 
-def cavity_body():
-    return m3d.Manifold.sphere(CAVITY_RADIUS, 96)
+def cavity_body(inset=0.0):
+    corner_radius = OUTER_RADIUS - WALL_THICKNESS - inset
+    return box((2 * FLAT_HALF,) * 3).minkowski_sum(m3d.Manifold.sphere(corner_radius, 96))
 
 
 def cavity_distance(x, y, z):
-    return np.sqrt(x * x + y * y + z * z) - CAVITY_RADIUS
+    # A true inward offset of the exterior retains a constant normal wall.
+    return outer_distance(x, y, z) + WALL_THICKNESS
 
 
 def outer_distance(x, y, z):
-    flat_half = OUTER_SIZE / 2 - OUTER_RADIUS
-    dx, dy, dz = (np.abs(a) - flat_half for a in (x, y, z))
+    dx, dy, dz = (np.abs(a) - FLAT_HALF for a in (x, y, z))
     return (
         np.sqrt(np.maximum(dx, 0)**2 + np.maximum(dy, 0)**2 + np.maximum(dz, 0)**2)
         + np.minimum(np.maximum(np.maximum(dx, dy), dz), 0)
@@ -94,9 +95,8 @@ def local_coords(coords, axes):
 
 
 def mouth_depth(u, v):
-    flat = OUTER_SIZE / 2 - OUTER_RADIUS
-    corner_sq = np.maximum(abs(u) - flat, 0)**2 + np.maximum(abs(v) - flat, 0)**2
-    return flat + np.sqrt(np.maximum(OUTER_RADIUS**2 - corner_sq, 0))
+    corner_sq = np.maximum(abs(u) - FLAT_HALF, 0)**2 + np.maximum(abs(v) - FLAT_HALF, 0)**2
+    return FLAT_HALF + np.sqrt(np.maximum(OUTER_RADIUS**2 - corner_sq, 0))
 
 
 def opening_distance(u, v, depth, opening, exterior_depth=None):
@@ -115,15 +115,16 @@ def opening_distance(u, v, depth, opening, exterior_depth=None):
 def material_distance(x, y, z):
     """Negative inside material, positive in the cavity, channels and exterior."""
     outer = outer_distance(x, y, z)
-    sphere = cavity_distance(x, y, z)
-    channels = np.full_like(sphere, np.inf)
+    channels = np.full_like(outer, np.inf)
     for _, _, axes, openings in FACES:
         u, v, depth = local_coords((x, y, z), axes)
         exterior_depth = mouth_depth(u, v)
         for opening in openings:
             np.minimum(channels, opening_distance(u, v, depth, opening, exterior_depth), out=channels)
-    void = -rounded_intersection(-sphere, -channels, INNER_BLEND)
-    return rounded_intersection(outer, -void, OUTER_BLEND)
+    # Form the external rims exactly as in v03. Ease the cavity-side edge of
+    # each aperture independently so the interior cut leaves the mouths intact.
+    outer_wall = rounded_intersection(outer, -channels, OUTER_BLEND)
+    return rounded_intersection(outer_wall, -(outer + WALL_THICKNESS), INNER_BLEND)
 
 
 def build_model():
@@ -234,7 +235,7 @@ def validate(solid):
     euler = len(vertices) - len(edges) + len(faces)
     assert euler == 2 - 2 * (OPENING_COUNT - 1), ("Separate openings", euler)
     assert np.allclose(np.ptp(vertices, axis=0), OUTER_SIZE, atol=0.001)
-    cavity_overlap = (solid ^ m3d.Manifold.sphere(CAVITY_RADIUS - 0.06, 96)).volume()
+    cavity_overlap = (solid ^ cavity_body(inset=0.06)).volume()
     assert cavity_overlap < 1e-5, cavity_overlap
 
     for name, _, axes, openings in FACES:
@@ -245,11 +246,23 @@ def validate(solid):
             assert (solid ^ box((0.3, 0.3, 0.3), end)).volume() < 1e-7, (name, opening)
 
     # Midpoints of the closest pairs are solid at nominal mouth depth.
-    for axes, local_point in ((FACES[4][2], (0, 16, 41)),
-                              (FACES[1][2], (0, 0, 41)),
-                              (FACES[0][2], (0, 0, 41))):
-        probe = box((2.49, 2.49, 0.25), model_point(axes, local_point))
-        assert math.isclose((solid ^ probe).volume(), probe.volume(), abs_tol=1e-5)
+    middle_depth = OUTER_SIZE / 2 - WALL_THICKNESS / 2
+    for axes, u, v in ((FACES[4][2], 0, 16), (FACES[1][2], 0, 0), (FACES[0][2], 0, 0)):
+        size = [2.49] * 3
+        size[abs(axes[2]) - 1] = 0.10
+        probe = box(size, model_point(axes, (u, v, middle_depth)))
+        assert math.isclose((solid ^ probe).volume(), probe.volume(), abs_tol=1e-5), (axes, u, v)
+    # Away from the holes, sample all six walls in the actual printable mesh.
+    wall_samples = {}
+    for name, kind, axes, _ in FACES:
+        u = 14 if name == "bottom" else 0
+        v = 24 if kind == "A" else 0
+        normal_column = [0.2] * 3
+        normal_column[abs(axes[2]) - 1] = WALL_THICKNESS + 0.6
+        probe = box(normal_column, model_point(axes, (u, v, middle_depth)))
+        actual = (solid ^ probe).volume() / (0.2 ** 2)
+        assert math.isclose(actual, WALL_THICKNESS, abs_tol=0.015), (name, actual)
+        wall_samples[name] = round(actual, 3)
     minimum_web, *limiting_mouths = minimum_exterior_web()
     # Reserve 0.1 mm for sampling/mesh approximation over the client minimum.
     assert minimum_web >= 2.6, (minimum_web, limiting_mouths)
@@ -260,8 +273,11 @@ def validate(solid):
         "model_version": MODEL_VERSION,
         "body_bounds_mm": np.ptp(vertices, axis=0).round(4).tolist(),
         "outer_radius_mm": OUTER_RADIUS,
-        "spherical_cavity_diameter_mm": 2 * CAVITY_RADIUS,
-        "face_center_wall_mm": WALL_THICKNESS,
+        "cavity_shape": "inward-offset rounded cube",
+        "cavity_bounds_mm": [OUTER_SIZE - 2 * WALL_THICKNESS] * 3,
+        "cavity_corner_radius_mm": OUTER_RADIUS - WALL_THICKNESS,
+        "nominal_wall_mm": WALL_THICKNESS,
+        "measured_flat_wall_samples_mm": wall_samples,
         "hole_count": OPENING_COUNT,
         "faces": {name: {"type": kind, "openings": [
             {"center_uv_mm": [o.u, o.v], "width_mm": o.diameter + o.straight, "height_mm": o.diameter}

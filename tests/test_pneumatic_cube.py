@@ -12,12 +12,15 @@ def solid():
     return cube.build_model()
 
 
-def test_spherical_cavity_and_fourteen_openings(solid):
+def test_rounded_cube_cavity_and_fourteen_openings(solid):
     report = cube.validate(solid)
     assert report["body_bounds_mm"] == [85, 85, 85]
     assert report["connected_solids"] == 1
     assert report["euler_characteristic"] == -24
-    assert report["spherical_cavity_diameter_mm"] == 79
+    assert report["cavity_shape"] == "inward-offset rounded cube"
+    assert np.allclose(report["cavity_bounds_mm"], [85 - 2 * cube.WALL_THICKNESS] * 3)
+    assert np.isclose(report["cavity_corner_radius_mm"], 15 - cube.WALL_THICKNESS)
+    assert np.allclose(list(report["measured_flat_wall_samples_mm"].values()), cube.WALL_THICKNESS, atol=.015)
     assert report["minimum_sampled_exterior_web_mm"] >= 2.6
     assert report["faces"]["front"]["openings"][0]["width_mm"] == 64
     assert report["faces"]["front"]["openings"][0]["height_mm"] == 28
@@ -31,7 +34,7 @@ def test_bottom_opening_has_rounded_outer_rim_and_nominal_throat(solid):
     # same radial position must be in material.
     for point, filled in (((6.12, 0, -42.42), False),
                           ((6.34, 0, -42.42), True),
-                          ((6.12, 0, -41.5), True)):
+                          ((6.12, 0, -42), True)):
         probe = cube.box((.01, .01, .01), point)
         volume = (solid ^ probe).volume()
         assert volume > .0000009 if filled else volume < 1e-8
@@ -58,8 +61,8 @@ def test_toolpath_reader_handles_leading_decimal_extrusion_and_arcs(tmp_path):
 
 def test_analytic_toolpath_model_matches_material_probes(solid):
     points = np.array([[0, 0, 0], [0, 0, -41], [6.12, 0, -42.42],
-                       [6.12, 0, -41.5], [0, 0, 41], [0, 42, 0]])
-    expected = [False, False, False, True, True, True]
+                       [6.12, 0, -42], [0, 0, 42], [0, 42, 0], [39, 24, 24]])
+    expected = [False, False, False, True, True, True, False]
     assert analytic_material(points).tolist() == expected
     for point, filled in zip(points, expected):
         volume = (solid ^ cube.box((.01, .01, .01), point)).volume()

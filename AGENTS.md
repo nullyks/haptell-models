@@ -111,10 +111,11 @@ permanent trial archives.
 
 ## Current pneumatic cube — separate one-piece family
 
-- Generator: generate_pneumatic_cube_stl.py, pneumatic-v03-wider-separated-mouths.
+- Generator: generate_pneumatic_cube_stl.py, pneumatic-v04-thin-shell-0p90-trial.
   Outputs: output/pneumatic_cube/. Archive family: pneumatic_cube.
-- Keep 85 × 85 × 85 mm, R15 exterior rounding, Ø79 mm spherical hollow and
-  3 mm nominal wall at closed face centers. Two front 64 × 28 mm slots.
+- Keep 85 × 85 × 85 mm and R15 exterior rounding. The cavity follows the
+  exterior at a 0.90 mm nominal wall thickness, giving an 83.2 mm rounded
+  cube interior with R14.1 corners. Two front 64 × 28 mm slots.
   Round mouths are Ø34 mm (three per top/back/left), Ø38 mm (two on right)
   and Ø12 mm (one centered underneath). There are 14 separate openings.
   The client prioritized a 2.5 mm minimum web and allowed center shifts.
@@ -122,19 +123,22 @@ permanent trial archives.
 - Selected print orientation: 45° right-bottom edge-down. The print STL and 3MFs are already
   oriented. Generic PLA, XL IS 0.4 mm, layers 0.15/0.20 mm, five perimeters,
   18% Gyroid, 6/6 solid layers, 8 mm brim, enforcer-controlled bed-only Snug.
-  Open the 3MF as a project with its settings and modifiers.
-- Use the versioned v03 project for the current model. The reviewed single-tool
-  job estimates 144.80 g and 11h 14m 48s. External support is 1.79 g, ending
-  at Z=5.8 mm. No sampled support paths entered the sphere or channels.
-  The longest sampled free bridge span is 5.91 mm.
-- The versioned v03 XL 5T project and G-code in `output/prusa_xl_5t_pla_04/`
-  use tool 1 and estimate 144.86 g and 11h 14m 45s.
-- v03 archive: 2026-11-25_110139_1ef103dc.
+  Open the 3MF as a project with its settings and modifiers. Keep the 90°
+  bridge angle for the short span across the upper ridge.
+- Use the versioned v04 project for the current model. The reviewed single-tool
+  job estimates 25.70 g and 3h 23m 12s. External support is 1.79 g, ending
+  at Z=5.8 mm. No sampled support paths entered the cavity or openings.
+  The longest sampled free bridge span is 3.54 mm. A flat wall section
+  had two perimeter tracks on all 27 sampled layers.
+- The versioned v04 XL 5T project and G-code in `output/prusa_xl_5t_pla_04/`
+  use tool 1 and estimate 25.75 g and 3h 23m 8s.
+- v04 archive: 2026-11-25_152034_f2d94108. Spherical v03: 2026-11-25_110139_1ef103dc.
 - v02 archive: 2026-11-20_134313_71c0bcd8. v01: 2026-11-10_194955_a4bccfb6.
   See models/pneumatic_cube/README.md and PRUSA_XL_PLA_JUHEND.md.
 - For geometry changes, verify one solid, no serialized open/non-manifold edges
-  or degenerate triangles, Euler −24, 14 separate through openings, Ø79 mm
-  cavity, mouth widths, 3MF/STL agreement, and no internal supports.
+  or degenerate triangles, Euler −24, 14 separate through openings, rounded
+  cavity and wall thickness, mouth widths, 3MF/STL agreement, and no internal
+  supports.
   Prepare a fresh print with tools/prepare_pneumatic_print.py --output-dir NEW,
   then inspect with tools/check_pneumatic_print.py NEW.
 - Printed bridge quality, seam finish, membrane expansion and durability need

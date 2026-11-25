@@ -77,7 +77,7 @@ def prepare(destination, orientation=cube.PRINT_ORIENTATION, support="external",
     values = profile_values(profile_source)
     values.update({"layer_height": "0.15", "first_layer_height": "0.2", "perimeters": "5",
         "fill_density": "18%", "fill_pattern": "gyroid", "top_solid_layers": "6", "bottom_solid_layers": "6",
-        "brim_width": "8", "bridge_speed": "20", "bridge_fan_speed": "100", "bridge_angle": "0",
+        "brim_width": "8", "bridge_speed": "20", "bridge_fan_speed": "100", "bridge_angle": "90",
         "support_material": "0" if support == "none" else "1", "support_material_auto": "1" if support == "auto" else "0",
         "support_material_style": "organic" if support == "auto" else "snug", "support_material_buildplate_only": "1",
         "support_material_threshold": "40", "support_material_contact_distance": "0.25", "support_material_bottom_contact_distance": "0.25",
@@ -99,7 +99,7 @@ def prepare(destination, orientation=cube.PRINT_ORIENTATION, support="external",
         # upper shell is deliberately unsupported; check its actual bridges.
         append_modifier(model, config, cube.box((150, 150, 8), (0, 0, 3)), "External startup support only (Z below 7 mm)", "SupportEnforcer")
         cavity = cube.cavity_body().transform(transform.tolist())
-        append_modifier(model, config, cavity, "Hollow interior: no support contacts", "SupportBlocker")
+        append_modifier(model, config, cavity, "Rounded-cube interior: no support contacts", "SupportBlocker")
         modifiers = ["SupportEnforcer", "SupportBlocker"]
     model.set("xmlns:slic3rpe", "http://schemas.slic3r.org/3mf/2017/06")
     files["3D/3dmodel.model"] = ET.tostring(model, encoding="utf-8", xml_declaration=True)
@@ -117,7 +117,8 @@ def prepare(destination, orientation=cube.PRINT_ORIENTATION, support="external",
         if line.startswith("; ") and " = " in line:
             k, v = line[2:].split(" = ", 1)
             footer[k] = v
-    for key in ("layer_height", "support_material", "support_material_auto", "support_material_style", "support_material_buildplate_only", "printer_model"):
+    for key in ("layer_height", "bridge_angle", "support_material", "support_material_auto",
+                "support_material_style", "support_material_buildplate_only", "printer_model"):
         assert footer.get(key) == values[key], (key, footer.get(key), values[key])
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     result = {"model_version": cube.MODEL_VERSION, "orientation": orientation, "support_mode": support,

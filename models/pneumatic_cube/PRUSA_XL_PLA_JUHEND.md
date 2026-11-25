@@ -1,6 +1,20 @@
 # Pneumaatilise kuubi printimine ja viimistlus
 
-## Praegune v03
+## Praegune v04
+
+Ava [v04 Prusa XL 3MF](../../output/pneumatic_cube/pneumatic_cube_v04_xl_pla.3mf)
+või [v04 Prusa XL 5T 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v04_XL5T_0p4_PLA_Tool1.3mf)
+projektina koos seadetega. 5T versioon kasutab tööriista 1. Mudel on pööratud
+45° paremale alumisele servale. 90° sillanurk suunab sillad üle ülemise
+harja lühikese ava.
+
+Ühe tööriistaga printimise hinnang on **25,70 g ja 3 h 23 min 12 s**.
+Väliste tugede hinnang on 1,79 g. Toed lõpevad 5,8 mm kõrgusel ning
+proovivõtus ei ulatunud tugirajad avadesse ega õõnsusse. Pikim mõõdetud
+toestamata sillalõik oli 3,54 mm. Tugevus ja membraani sobivus vajavad
+prooviprinti.
+
+## Varasema v03 failid ja seaded
 
 Ava [v03 Prusa XL 3MF](../../output/pneumatic_cube/pneumatic_cube_v03_xl_pla.3mf)
 või [v03 Prusa XL 5T 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v03_XL5T_0p4_PLA_Tool1.3mf)

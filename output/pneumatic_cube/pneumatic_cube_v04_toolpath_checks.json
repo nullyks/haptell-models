@@ -1,0 +1,50 @@
+{
+  "orientation": "right-edge",
+  "support_mode": "external",
+  "feature_mass_g": {
+    "Custom": 0.057,
+    "Skirt/Brim": 0.279,
+    "Support material": 1.106,
+    "Perimeter": 2.88,
+    "External perimeter": 20.167,
+    "Overhang perimeter": 0.129,
+    "Solid infill": 0.276,
+    "Support material interface": 0.68,
+    "Top solid infill": 0.066,
+    "Bridge infill": 0.058
+  },
+  "support_mass_g": 1.786,
+  "support_samples_inside_cavity": 0,
+  "support_samples_inside_shell_envelope": 0,
+  "support_z_max_mm": 5.8,
+  "bridge_paths": 289,
+  "max_sampled_free_bridge_mm": 3.544,
+  "worst_bridge": {
+    "z": 107.0,
+    "start": [
+      9.205,
+      2.679,
+      107.0
+    ],
+    "end": [
+      9.205,
+      -1.652,
+      107.0
+    ]
+  },
+  "one_printable_model": true,
+  "project_mesh_max_vertex_error_mm": 3.864978919285075e-06,
+  "statistics": {
+    "filament used [mm]": "8616.25",
+    "filament used [cm3]": "20.72",
+    "filament used [g]": "25.70",
+    "estimated printing time (normal mode)": "3h 23m 12s",
+    "estimated printing time (silent mode)": "3h 43m 8s"
+  },
+  "scope": "Analytic geometry and sampled actual G-code. Not a physical bridge, surface, membrane, pressure or support-removal test.",
+  "exterior_classification_samples": 23015,
+  "matching_outer_rim_field_samples": 1777,
+  "exterior_mesh_max_v03_field_distance_mm": 0.020066126069617995,
+  "wall_sampled_print_layers": 27,
+  "perimeter_tracks_on_sampled_flat_wall": 2
+}
