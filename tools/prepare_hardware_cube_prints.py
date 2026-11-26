@@ -20,6 +20,7 @@ import trimesh
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from generate_hardware_cubes_stl import thermal_lra_frames
 from generate_rounded_cube_box_stl import LIP_HEIGHT, box
 from tools.check_pneumatic_print import extrusion_paths
 from tools.prepare_cube_prints import NS, add_enforcer, profile_values
@@ -40,6 +41,14 @@ def regions(family, part):
         for y in (-17, -5, 5):
             y = -y if part == "bottom" else y
             yield "Peltier runway and rails", box((29, 2.2, 7), (0, y, shift + 39))
+        if part == "bottom":
+            for wall, frame in thermal_lra_frames().items():
+                # The base print transform flips Y and Z. Support the leading
+                # arcs near the seam while leaving access through the open base.
+                inward = frame[:, 2]
+                dims = (7, 16, 5) if inward[0] else (16, 7, 5)
+                center = (-36 * inward[0], 36 * inward[1], shift - frame[2, 3] - 5.5)
+                yield f"{wall} LRA holder arcs", box(dims, center)
     if part == "bottom":
         rim = box((87, 87, 2), (0, 0, shift)) - box((74, 74, 3), (0, 0, shift))
         yield "Mating rim underside", rim

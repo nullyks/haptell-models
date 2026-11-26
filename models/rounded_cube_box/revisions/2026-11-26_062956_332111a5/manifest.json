@@ -1,0 +1,24 @@
+{
+  "family": "rounded_cube_box",
+  "revision": "2026-11-26_062956_332111a5",
+  "archived_at_utc": "2026-11-26T06:29:56.775945+00:00",
+  "generator": "generate_rounded_cube_box_stl.py",
+  "git_head_for_reference_only": "57546db7d8bffc8f7d58a86e627b02c478a8a710",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "e8cf94bb80c376b5e3fcf0b699bb34c65e32a943d45c89ad4c79dabd425cbb27",
+  "sha256": {
+    "stl/rounded_cube_assembly_preview.stl": "cef430150ec2246ccfb84e9b24793a01c8b4cdbe57a05a76cc2909c88637652e",
+    "stl/rounded_cube_bottom.stl": "c8339aa69bfccd68244e5b35326b4a600cf3e4d314a08ad198c03fb4e4dbf821",
+    "stl/rounded_cube_lid.stl": "af225d8c931583af100792c2ea3405387a3d50d21f0ad4ef96595fe0df49d45e",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_hardware_cubes_stl.py": "da9ff748e0b8e6420afd877b91ac7b4d0cfc0d55f03698dd3a19492d65309a61",
+    "source/generate_lra_actuator_cube_stl.py": "b794960f98f431daa1b49e0f7bfe7c83ef57df8b57e38bc449906d80edcb6fe0",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_pneumatic_cube_stl.py": "7525687097b77f3b0b2359ecc9defe9bf35a50e6cd5f9c9305cb17d034a1c32c",
+    "source/generate_rounded_cube_box_stl.py": "b1a9f8d461f8c2454451f9129257c5e79ab9d691a94b6b2510e2bbfaee9ad034",
+    "source/model_archive.py": "5e4417abc1009f6075515f5d725b22a537354bd2868d13c68f081558c57d0e5a",
+    "source/requirements.txt": "50eeb5f7f16b3dc9db48cf3ba5605b416e7782734c6e1ffd34d19d4a046faf50"
+  }
+}

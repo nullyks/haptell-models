@@ -20,7 +20,7 @@ permanent trial archive. Use this branch when cloning or continuing the project.
 | Six-actuator LRA cube | `generate_lra_actuator_cube_stl.py` | `output/lra_actuator_cube/` | `models/lra_actuator_cube/revisions/` |
 | DS3218 servo cube | `generate_hardware_cubes_stl.py servo` | `output/servo_motor_cube/` | `models/servo_motor_cube/revisions/` |
 | Voice-coil cube | `generate_hardware_cubes_stl.py voice` | `output/voice_coil_cube/` | `models/voice_coil_cube/revisions/` |
-| Thermal cube | `generate_hardware_cubes_stl.py thermal` | `output/thermal_cube/` | `models/thermal_cube/revisions/` |
+| Thermal cube with three side LRA holders | `generate_hardware_cubes_stl.py thermal` | `output/thermal_cube/` | `models/thermal_cube/revisions/` |
 
 Open the four two-piece cube families' `*_xl_pla.3mf` files as PrusaSlicer
 projects with settings. The shell openings face down, and the 3MFs carry

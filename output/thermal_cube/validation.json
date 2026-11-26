@@ -8,8 +8,38 @@
   "peltier_contact_wall_mm": 1.2,
   "vent_count_per_half": 32,
   "fan": false,
-  "scope": "Passive housing fit only. Verify the received modules and heat rejection.",
-  "model_version": "v01-fit-trial",
+  "lra_actuator_nominal_mm": [
+    10.0,
+    4.0
+  ],
+  "lra_holders": {
+    "left": {
+      "half": "bottom",
+      "seat_center_mm": [
+        -38.3,
+        0.0,
+        -13.0
+      ]
+    },
+    "right": {
+      "half": "bottom",
+      "seat_center_mm": [
+        38.3,
+        0.0,
+        -13.0
+      ]
+    },
+    "back": {
+      "half": "bottom",
+      "seat_center_mm": [
+        0.0,
+        38.3,
+        -13.0
+      ]
+    }
+  },
+  "scope": "Nominal hardware fit only. Check clip retention, vibration transfer and passive heat rejection on the print.",
+  "model_version": "v02-three-side-lra-fit-trial",
   "assembly_bounds_mm": [
     85.0,
     85.0,

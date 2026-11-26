@@ -16,6 +16,7 @@ from model_archive import preserve_models
 
 VERSION = "v01-fit-trial"
 SERVO_VERSION = "v02-loading-clearance-fit-trial"
+THERMAL_VERSION = "v02-three-side-lra-fit-trial"
 BOX = rounded.box
 HALF = lra.HALF
 SIZE = lra.SIZE
@@ -38,6 +39,7 @@ PELTIER_DEPTH = 4.0
 PELTIER_PAD = 1.2
 PELTIER_FACE = HALF - PELTIER_PAD
 PELTIER_TRAVEL = 11.5
+THERMAL_LRA_Z = -13.0
 
 
 def cylinder(height, radius, center):
@@ -149,6 +151,15 @@ def voice_parts():
     }
 
 
+def thermal_lra_frames():
+    # Keep all LRA leads in the base and leave the front cable exit clear.
+    return {
+        "left": lra.frame((-1, 0, 0), (0, 0, 1), THERMAL_LRA_Z),
+        "right": lra.frame((1, 0, 0), (0, 0, 1), THERMAL_LRA_Z),
+        "back": lra.frame((0, 1, 0), (0, 0, 1), THERMAL_LRA_Z),
+    }
+
+
 def thermal_parts():
     # The flat runway lets a plate begin clear of the two rails and slide
     # flush along the inner face to the fixed rear stop.
@@ -165,13 +176,27 @@ def thermal_parts():
         slot = rounded.capsule(8, 2, 9).rotate((90, 0, 0))
         vents.append(slot.translate((x, HALF - 1.4, sign * level)).rotate((0, 0, 90 * wall)))
     flip = (0, 180, 0)
-    lid, base = shells(STANDARD_WALL, [rail], [rail.rotate(flip)],
+    frames = thermal_lra_frames()
+    holder = lra.lra_holder()
+    holders = [holder.transform(frame) for frame in frames.values()]
+    for wall, mount in zip(frames, holders):
+        for vent in vents:
+            check_clear(mount, vent, f"{wall} LRA holder and vent")
+    lid, base = shells(STANDARD_WALL, [rail], [rail.rotate(flip), *holders],
                        [runway, runway.rotate(flip), *vents])
+    assembly = lid + base
+    motor = m3d.Manifold.cylinder(lra.ACTUATOR_DEPTH, lra.ACTUATOR_RADIUS, circular_segments=64)
+    leads = BOX((3, 1.5, 1.2), (5.5, 0, 1.5))
+    for wall, frame in frames.items():
+        check_clear(motor.transform(frame), assembly, f"{wall} LRA body")
+        check_clear(leads.transform(frame), assembly, f"{wall} LRA lead exit")
+    check_clear(BOX((5, 11, 2), (0, -lra.INNER_HALF, -2.5)), assembly, "Three-lead cable exit")
+    populated_base = rounded.union([base, *(motor.transform(frame) for frame in frames.values())])
     plate = BOX((PELTIER_WIDTH, PELTIER_WIDTH, PELTIER_DEPTH), (0, 0, PELTIER_FACE - PELTIER_DEPTH / 2))
     for offset in np.linspace(-PELTIER_TRAVEL, 0, 12):
         loading = plate.translate((0, float(offset), 0))
         check_clear(loading, lid, "Upper plate slide")
-        check_clear(loading.rotate(flip), base, "Lower plate slide")
+        check_clear(loading.rotate(flip), populated_base, "Lower plate slide with LRAs fitted")
     for part in (lid, base):
         sign = 1 if part is lid else -1
         probe = BOX((0.2, 0.2, 4), (0, 0, sign * (HALF - 1)))
@@ -181,7 +206,10 @@ def thermal_parts():
     return {"lid": lid, "bottom": base}, {
         "wall_mm": STANDARD_WALL, "peltier_mount_nominal_mm": [PELTIER_WIDTH, PELTIER_WIDTH, PELTIER_DEPTH],
         "peltier_contact_wall_mm": PELTIER_PAD, "vent_count_per_half": len(vents) // 2,
-        "fan": False, "scope": "Passive housing fit only. Verify the received modules and heat rejection.",
+        "fan": False, "lra_actuator_nominal_mm": [2 * lra.ACTUATOR_RADIUS, lra.ACTUATOR_DEPTH],
+        "lra_holders": {wall: {"half": "bottom", "seat_center_mm": frame[:, 3].tolist()}
+                        for wall, frame in frames.items()},
+        "scope": "Nominal hardware fit only. Check clip retention, vibration transfer and passive heat rejection on the print.",
     }
 
 
@@ -225,7 +253,7 @@ def voice():
 
 @preserve_models("thermal_cube")
 def thermal():
-    generate("thermal_cube", thermal_parts)
+    generate("thermal_cube", thermal_parts, THERMAL_VERSION)
 
 
 if __name__ == "__main__":

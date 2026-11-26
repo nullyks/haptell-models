@@ -58,8 +58,10 @@ permanent trial archives.
   Files in `output/voice_coil_cube/`.
 - Thermal: `generate_hardware_cubes_stl.py thermal`. Passive, vented housing
   with two slide-rail mounts modeled for nominal 20 × 20 × 4 mm TEC1-04902
-  modules and 1.2 mm plastic contact faces. Confirm the received parts and
-  passive heat rejection before powered tests. Files in `output/thermal_cube/`.
+  modules and 1.2 mm plastic contact faces. V02 adds three Ø10 × 4 mm
+  VG1040003D direct-clip holders, one on the left, right and back walls of
+  the base. The leads exit at the front seam. Confirm the received parts
+  and passive heat rejection before powered tests. Files in `output/thermal_cube/`.
 - Open the Prusa XL 0.4 mm PLA 3MFs as projects with settings. The shell
   enforcers keep support inside and around the underside of the mating rim.
   The clamp prints without support. Reports record the STL/3MF agreement and

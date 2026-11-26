@@ -23,16 +23,16 @@
         "filament used [mm]": "25074.32",
         "filament used [cm3]": "60.31",
         "filament used [g]": "74.79",
-        "estimated printing time (normal mode)": "3h 38m 32s",
-        "estimated printing time (silent mode)": "3h 45m 22s"
+        "estimated printing time (normal mode)": "3h 38m 31s",
+        "estimated printing time (silent mode)": "3h 45m 20s"
       },
       "manual_enforcers": 7,
       "mesh_vertex_error_mm": 4.771698336142756e-07,
-      "stl_sha256": "4e411ec34aa6ad53dd2547546609c35e06fddd71e51da16ac267e286472aa9c4",
-      "project_sha256": "03d52336ec91c8f0286a6fe858d6142e6e0cfba788ac00c641d0231792efbd6b"
+      "stl_sha256": "baaa399df70c894104ab74126e28d551e82ac0c499e42c7a743708380ae95cbb",
+      "project_sha256": "360a22a3652c3eebe00b991cf54cf4ba32c5e064c0cca69432c2c1445a3f1347"
     },
     "bottom": {
-      "estimated_support_g": 14.68,
+      "estimated_support_g": 15.13,
       "exterior_support_samples_above_seam": 0,
       "max_sampled_free_bridge_mm": 11.2,
       "longest_bridge_path_mm": [
@@ -48,16 +48,16 @@
         ]
       ],
       "statistics": {
-        "filament used [mm]": "29120.95",
-        "filament used [cm3]": "70.04",
-        "filament used [g]": "86.85",
-        "estimated printing time (normal mode)": "4h 32m 17s",
-        "estimated printing time (silent mode)": "4h 41m 58s"
+        "filament used [mm]": "29585.49",
+        "filament used [cm3]": "71.16",
+        "filament used [g]": "88.24",
+        "estimated printing time (normal mode)": "4h 43m 56s",
+        "estimated printing time (silent mode)": "4h 55m 51s"
       },
-      "manual_enforcers": 8,
+      "manual_enforcers": 11,
       "mesh_vertex_error_mm": 9.543944735445438e-07,
-      "stl_sha256": "1a46b97a83254e8949e33889b66cc948ad1ed1fb988dce3d3c2dae814fb08e17",
-      "project_sha256": "5f0a0b54b399cfe0f172a54ba6e0c4ba6820183b927e4b97006cd69629f4fb6f"
+      "stl_sha256": "b74105bc41f60bf2ad0bf859c174ffd32f765387a4f67db2a02684946ec00f8b",
+      "project_sha256": "aefb1f7797caefa3cb913ffcb96b1f0c060f0ca04f9f6ba0ca781fd540ac7166"
     }
   }
 }

@@ -1,0 +1,23 @@
+{
+  "family": "balance_shift",
+  "revision": "2026-11-26_062956_6e671fb8",
+  "archived_at_utc": "2026-11-26T06:29:56.536571+00:00",
+  "generator": "generate_balance_shift_stl.py",
+  "git_head_for_reference_only": "57546db7d8bffc8f7d58a86e627b02c478a8a710",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "1e07f019d81aae9966f622a85fd2a5d5c3e4d354d9a79557c5eee5d74bb48c47",
+  "sha256": {
+    "stl/balance_shift_bottom.stl": "ae956ccaf1a653268764492faa4abe62fb90b6fb1c8e260e03fd3517bac1d0b2",
+    "stl/balance_shift_lid.stl": "2ad80c5c43c6cb28cf5a4bca358803adda6ecbed3580901787d9041c3a2823a2",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_hardware_cubes_stl.py": "da9ff748e0b8e6420afd877b91ac7b4d0cfc0d55f03698dd3a19492d65309a61",
+    "source/generate_lra_actuator_cube_stl.py": "b794960f98f431daa1b49e0f7bfe7c83ef57df8b57e38bc449906d80edcb6fe0",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_pneumatic_cube_stl.py": "7525687097b77f3b0b2359ecc9defe9bf35a50e6cd5f9c9305cb17d034a1c32c",
+    "source/generate_rounded_cube_box_stl.py": "b1a9f8d461f8c2454451f9129257c5e79ab9d691a94b6b2510e2bbfaee9ad034",
+    "source/model_archive.py": "5e4417abc1009f6075515f5d725b22a537354bd2868d13c68f081558c57d0e5a",
+    "source/requirements.txt": "50eeb5f7f16b3dc9db48cf3ba5605b416e7782734c6e1ffd34d19d4a046faf50"
+  }
+}
