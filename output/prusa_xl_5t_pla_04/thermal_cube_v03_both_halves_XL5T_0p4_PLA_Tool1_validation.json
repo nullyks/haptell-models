@@ -1,0 +1,70 @@
+{
+  "support_g": 24.14,
+  "min_xy_clearance_between_extrusion_centers_mm": 38.01,
+  "print_time": "8h 7m 56s",
+  "filament_g": 153.92,
+  "parts": {
+    "thermal_cube_lid.stl": {
+      "support_g": 9.99,
+      "layers": 212,
+      "layer_height_mm": 0.2,
+      "longest_free_bridge_mm": 11.19,
+      "longest_support_interface_span_mm": 1.76,
+      "longest_bridge_endpoints_mm": [
+        [
+          135.42,
+          153.08,
+          41.6
+        ],
+        [
+          135.42,
+          204.62,
+          41.6
+        ]
+      ],
+      "deposition_bounds_mm": [
+        [
+          68.26,
+          133.26,
+          0.2
+        ],
+        [
+          161.74,
+          226.74,
+          42.4
+        ]
+      ]
+    },
+    "thermal_cube_bottom.stl": {
+      "support_g": 14.15,
+      "layers": 246,
+      "layer_height_mm": 0.2,
+      "longest_free_bridge_mm": 11.2,
+      "longest_support_interface_span_mm": 5.12,
+      "longest_bridge_endpoints_mm": [
+        [
+          274.18,
+          211.6,
+          46.2
+        ],
+        [
+          274.18,
+          148.4,
+          46.2
+        ]
+      ],
+      "deposition_bounds_mm": [
+        [
+          199.75,
+          134.75,
+          0.2
+        ],
+        [
+          290.25,
+          225.25,
+          49.2
+        ]
+      ]
+    }
+  }
+}

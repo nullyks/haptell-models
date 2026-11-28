@@ -1,10 +1,16 @@
 {
   "wall_mm": 3.2,
   "peltier_mount_nominal_mm": [
-    20.0,
-    20.0,
-    4.0
+    40.0,
+    40.0,
+    3.4
   ],
+  "peltier_contact_face_mm": [
+    45.0,
+    45.0
+  ],
+  "peltier_contact_corner_radius_mm": 4.0,
+  "peltier_guide_depth_mm": 4.1,
   "peltier_contact_wall_mm": 1.2,
   "vent_count_per_half": 32,
   "fan": false,
@@ -39,7 +45,7 @@
     }
   },
   "scope": "Nominal hardware fit only. Check clip retention, vibration transfer and passive heat rejection on the print.",
-  "model_version": "v02-three-side-lra-fit-trial",
+  "model_version": "v03-45mm-contact-pads-three-side-lra",
   "assembly_bounds_mm": [
     85.0,
     85.0,

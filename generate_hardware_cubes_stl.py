@@ -16,7 +16,7 @@ from model_archive import preserve_models
 
 VERSION = "v01-fit-trial"
 SERVO_VERSION = "v02-loading-clearance-fit-trial"
-THERMAL_VERSION = "v02-three-side-lra-fit-trial"
+THERMAL_VERSION = "v03-45mm-contact-pads-three-side-lra"
 BOX = rounded.box
 HALF = lra.HALF
 SIZE = lra.SIZE
@@ -34,11 +34,14 @@ VOICE_INNER_X = 5.8
 VOICE_OUTER_X = 35.8
 VOICE_CLAMP_Y = 13.8
 VOICE_CLAMP_X = 9.0
-PELTIER_WIDTH = 20.0
-PELTIER_DEPTH = 4.0
-PELTIER_PAD = 1.2
+PELTIER_WIDTH = rounded.PELTIER_SIZE
+PELTIER_DEPTH = rounded.PELTIER_THICKNESS
+PELTIER_PAD_SIZE = rounded.THERMAL_PAD_SIZE
+PELTIER_PAD_RADIUS = rounded.THERMAL_PAD_CORNER_RADIUS
+PELTIER_PAD = rounded.END_WALL
 PELTIER_FACE = HALF - PELTIER_PAD
-PELTIER_TRAVEL = 11.5
+PELTIER_TRAVEL = 4.0
+PELTIER_CHANNEL_DEPTH = 4.1
 THERMAL_LRA_Z = -13.0
 
 
@@ -161,15 +164,19 @@ def thermal_lra_frames():
 
 
 def thermal_parts():
-    # The flat runway lets a plate begin clear of the two rails and slide
-    # flush along the inner face to the fixed rear stop.
-    runway = BOX((21.1, 34.2, 3.5), (0, -6.05, PELTIER_FACE - 1.75))
+    depth = STANDARD_WALL - PELTIER_PAD + .2
+    pad = rounded.rounded_extrusion(PELTIER_PAD_SIZE, PELTIER_PAD_SIZE, depth, PELTIER_PAD_RADIUS)
+    pad = pad.translate((0, 0, PELTIER_FACE - depth / 2))
+    # A short lead-in lets the plate drop into the recess before sliding
+    # under the two rear guides. The extra length clears its square corners.
+    lead_in = BOX((PELTIER_WIDTH + .8, 7, depth), (0, -21, PELTIER_FACE - depth / 2))
     rail = rounded.union([
-        BOX((3.5, 12, 4.95), (side * 12.1, 5.8, PELTIER_FACE - 2.55))
-        + BOX((2.0, 12, 1.6), (side * 10.45, 5.8, PELTIER_FACE - 5.15))
-        for side in (-1, 1)
+        feature for side in (-1, 1) for feature in (
+            BOX((3.4, 7.8, 5.2), (side * 24.0, 20.15, PELTIER_FACE - 2.6)),
+            BOX((5, 7.8, 1.6), (side * 21.75, 20.15, PELTIER_FACE - PELTIER_CHANNEL_DEPTH - .8)),
+            BOX((7, 2.4, 3.8), (side * 21.7, 21.5, PELTIER_FACE - 3.8)),
+        )
     ])
-    rail += BOX((20.65, 2.5, 4.8), (0, 12.4, PELTIER_FACE - 2.4))
     vents = []
     for sign, level, x, wall in itertools.product((-1, 1), (23.5, 28.5),
                                                   (-19.5, -6.5, 6.5, 19.5), range(4)):
@@ -183,7 +190,7 @@ def thermal_parts():
         for vent in vents:
             check_clear(mount, vent, f"{wall} LRA holder and vent")
     lid, base = shells(STANDARD_WALL, [rail], [rail.rotate(flip), *holders],
-                       [runway, runway.rotate(flip), *vents])
+                       [pad + lead_in, (pad + lead_in).rotate(flip), *vents])
     assembly = lid + base
     motor = m3d.Manifold.cylinder(lra.ACTUATOR_DEPTH, lra.ACTUATOR_RADIUS, circular_segments=64)
     leads = BOX((3, 1.5, 1.2), (5.5, 0, 1.5))
@@ -192,19 +199,27 @@ def thermal_parts():
         check_clear(leads.transform(frame), assembly, f"{wall} LRA lead exit")
     check_clear(BOX((5, 11, 2), (0, -lra.INNER_HALF, -2.5)), assembly, "Three-lead cable exit")
     populated_base = rounded.union([base, *(motor.transform(frame) for frame in frames.values())])
-    plate = BOX((PELTIER_WIDTH, PELTIER_WIDTH, PELTIER_DEPTH), (0, 0, PELTIER_FACE - PELTIER_DEPTH / 2))
-    for offset in np.linspace(-PELTIER_TRAVEL, 0, 12):
-        loading = plate.translate((0, float(offset), 0))
+    fit_depth = PELTIER_CHANNEL_DEPTH - .2
+    plate = BOX((PELTIER_WIDTH + .2, PELTIER_WIDTH + .2, fit_depth), (0, 0, PELTIER_FACE - fit_depth / 2))
+    loading_path = [plate.translate((0, -PELTIER_TRAVEL, -float(z))) for z in np.linspace(60, 0, 31)]
+    loading_path += [plate.translate((0, float(y), 0)) for y in np.linspace(-PELTIER_TRAVEL, 0, 12)]
+    for loading in loading_path:
         check_clear(loading, lid, "Upper plate slide")
         check_clear(loading.rotate(flip), populated_base, "Lower plate slide with LRAs fitted")
     for part in (lid, base):
         sign = 1 if part is lid else -1
-        probe = BOX((0.2, 0.2, 4), (0, 0, sign * (HALF - 1)))
-        thickness = (part ^ probe).volume() / .04
-        if not np.isclose(thickness, PELTIER_PAD, atol=1e-5):
-            raise ValueError(f"Thermal contact face thickness is {thickness:.3f} mm")
+        sample_positions = list(itertools.product((-20, 0, 20), repeat=2))
+        sample_positions += [(22.2, 0), (-22.2, 0), (0, 22.2), (0, -22.2)]
+        for x, y in sample_positions:
+            probe = BOX((.2, .2, 4), (x, y, sign * (HALF - 1)))
+            thickness = (part ^ probe).volume() / .04
+            if not np.isclose(thickness, PELTIER_PAD, atol=1e-5):
+                raise ValueError(f"Thermal contact face thickness at {(x, y, sign)} is {thickness:.3f} mm")
     return {"lid": lid, "bottom": base}, {
         "wall_mm": STANDARD_WALL, "peltier_mount_nominal_mm": [PELTIER_WIDTH, PELTIER_WIDTH, PELTIER_DEPTH],
+        "peltier_contact_face_mm": [PELTIER_PAD_SIZE, PELTIER_PAD_SIZE],
+        "peltier_contact_corner_radius_mm": PELTIER_PAD_RADIUS,
+        "peltier_guide_depth_mm": PELTIER_CHANNEL_DEPTH,
         "peltier_contact_wall_mm": PELTIER_PAD, "vent_count_per_half": len(vents) // 2,
         "fan": False, "lra_actuator_nominal_mm": [2 * lra.ACTUATOR_RADIUS, lra.ACTUATOR_DEPTH],
         "lra_holders": {wall: {"half": "bottom", "seat_center_mm": frame[:, 3].tolist()}

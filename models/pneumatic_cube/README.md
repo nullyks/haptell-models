@@ -1,4 +1,15 @@
-# Pneumaatiline kuup v04
+# Pneumaatiline kuup v05
+
+Seina nimipaksus on **1,80 mm**. Õõnsus järgib kuubi väliskuju, sisemõõt on
+**81,4 mm** ja siseraadius **R13,2**. Korpus on 85 mm, välisservad R15.
+Kõik 14 ava säilitavad v04 välismõõdud ja paigutuse.
+
+- [Praegune STL](../../output/pneumatic_cube/pneumatic_cube.stl) ja [prindiasendis STL](../../output/pneumatic_cube/pneumatic_cube_print.stl).
+- [Prusa XL v05 3MF](../../output/pneumatic_cube/pneumatic_cube_v05_xl_pla.3mf).
+- [Prusa XL 5T v05 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v05_XL5T_0p4_PLA_Tool1.3mf) ja [v05 G-code](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v05_XL5T_0p4_PLA_Tool1.gcode).
+- [Geomeetria kontroll](../../output/pneumatic_cube/validation.json), [prindiradade kontroll](../../output/pneumatic_cube/pneumatic_cube_v05_toolpath_checks.json) ja [v05 arhiivirevisjon](revisions/2026-11-28_084423_c989b10e/).
+
+## Ajalooline v04
 
 Ühes tükis **85 × 85 × 85 mm** kuup, välisservad **R15**. Õõnsus järgib
 väliskuju. Seina nimipaksus on **0,90 mm** ning õõnsuse mõõdud on
@@ -8,10 +19,10 @@ V03 avade mõõdud ja paigutus kehtivad ka v04 mudelile. Kokku on 14 eraldi
 läbivat ava. Proovivõtuga kontrollitud väikseim vahe ümardatud välissuudmete
 vahel on 2,8 mm.
 
-- [Praegune STL](../../output/pneumatic_cube/pneumatic_cube.stl) ja [prindiasendis STL](../../output/pneumatic_cube/pneumatic_cube_print.stl).
+- [v04 STL](revisions/2026-11-25_152034_f2d94108/stl/pneumatic_cube.stl) ja [prindiasendis STL](revisions/2026-11-25_152034_f2d94108/stl/pneumatic_cube_print.stl).
 - [Prusa XL v04 3MF](../../output/pneumatic_cube/pneumatic_cube_v04_xl_pla.3mf). Ava projektina koos seadetega.
 - [Prusa XL 5T v04 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v04_XL5T_0p4_PLA_Tool1.3mf) ja [v04 G-code](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v04_XL5T_0p4_PLA_Tool1.gcode) 0,4 mm düüsi ja tööriista 1 jaoks.
-- [Geomeetria kontroll](../../output/pneumatic_cube/validation.json) ja [v04 prindiradade kontroll](../../output/pneumatic_cube/pneumatic_cube_v04_toolpath_checks.json).
+- [v04 prindiradade kontroll](../../output/pneumatic_cube/pneumatic_cube_v04_toolpath_checks.json) ja [prinditagasiside](revisions/2026-11-25_152034_f2d94108/print_notes.md).
 - [Valitud v04 arhiivirevisjon](revisions/2026-11-25_152034_f2d94108/).
 
 ## Ajalooline v03

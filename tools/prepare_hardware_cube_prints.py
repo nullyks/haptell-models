@@ -38,9 +38,9 @@ def regions(family, part):
     for y in (-20, -7, 7, 20):
         yield "Interior roof strip", box((68, 2, 4), (0, y, shift + underside - .3))
     if family == "thermal_cube":
-        for y in (-17, -5, 5):
+        for y in (-20, -7, 7, 20):
             y = -y if part == "bottom" else y
-            yield "Peltier runway and rails", box((29, 2.2, 7), (0, y, shift + 39))
+            yield "Peltier pad and rear guides", box((52, 2.2, 9), (0, y, shift + 39))
         if part == "bottom":
             for wall, frame in thermal_lra_frames().items():
                 # The base print transform flips Y and Z. Support the leading

@@ -1,6 +1,15 @@
 # Pneumaatilise kuubi printimine ja viimistlus
 
-## Praegune v04
+## Praegune v05
+
+Ava [Prusa XL 3MF](../../output/pneumatic_cube/pneumatic_cube_v05_xl_pla.3mf)
+või [XL 5T 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v05_XL5T_0p4_PLA_Tool1.3mf)
+projektina koos seadetega. 5T versioon kasutab tööriista 1, 0,4 mm düüsi
+ja PLA-d. Mudel on pööratud nurgale. Sillakiirus on 18 mm/s ja järske
+üleulatusi prinditakse aeglasemalt. Väliste tugede hinnang on umbes
+0,72 g ning proovivõtus ei sattunud tugiradu õõnsusse ega avadesse.
+
+## Varasema v04 failid ja seaded
 
 Ava [v04 Prusa XL 3MF](../../output/pneumatic_cube/pneumatic_cube_v04_xl_pla.3mf)
 või [v04 Prusa XL 5T 3MF](../../output/prusa_xl_5t_pla_04/pneumatic_cube_v04_XL5T_0p4_PLA_Tool1.3mf)

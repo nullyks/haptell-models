@@ -56,12 +56,15 @@ permanent trial archives.
 - Voice coil: `generate_hardware_cubes_stl.py voice`. Ø22 × 30 mm actuator
   perpendicular to its mounting wall, with a screw-down removable clamp.
   Files in `output/voice_coil_cube/`.
-- Thermal: `generate_hardware_cubes_stl.py thermal`. Passive, vented housing
-  with two slide-rail mounts modeled for nominal 20 × 20 × 4 mm TEC1-04902
-  modules and 1.2 mm plastic contact faces. V02 adds three Ø10 × 4 mm
+- Thermal: `generate_hardware_cubes_stl.py thermal`. Passive, vented housing.
+  V03 restores the legacy 45 × 45 mm R4, 1.2 mm thick contact pads in
+  both halves. Short rear guides accommodate nominal 40 × 40 × 3.4 mm
+  Peltier elements via a 4 mm slide. The base carries three Ø10 × 4 mm
   VG1040003D direct-clip holders, one on the left, right and back walls of
   the base. The leads exit at the front seam. Confirm the received parts
   and passive heat rejection before powered tests. Files in `output/thermal_cube/`.
+  The versioned v03 XL 5T project in `output/prusa_xl_5t_pla_04/` prints
+  both halves with tool 1, 0.4 mm and PLA.
 - Open the Prusa XL 0.4 mm PLA 3MFs as projects with settings. The shell
   enforcers keep support inside and around the underside of the mating rim.
   The clamp prints without support. Reports record the STL/3MF agreement and
@@ -113,27 +116,25 @@ permanent trial archives.
 
 ## Current pneumatic cube — separate one-piece family
 
-- Generator: generate_pneumatic_cube_stl.py, pneumatic-v04-thin-shell-0p90-trial.
+- Generator: generate_pneumatic_cube_stl.py, pneumatic-v05-1p80-wall-reprint.
   Outputs: output/pneumatic_cube/. Archive family: pneumatic_cube.
 - Keep 85 × 85 × 85 mm and R15 exterior rounding. The cavity follows the
-  exterior at a 0.90 mm nominal wall thickness, giving an 83.2 mm rounded
-  cube interior with R14.1 corners. Two front 64 × 28 mm slots.
+  exterior at a 1.80 mm nominal wall thickness, giving an 81.4 mm rounded
+  cube interior with R13.2 corners. Two front 64 × 28 mm slots.
   Round mouths are Ø34 mm (three per top/back/left), Ø38 mm (two on right)
   and Ø12 mm (one centered underneath). There are 14 separate openings.
   The client prioritized a 2.5 mm minimum web and allowed center shifts.
   The sampled minimum web between eased exterior rims is 2.8 mm.
-- Selected print orientation: 45° right-bottom edge-down. The print STL and 3MFs are already
+- Selected print orientation: corner-down. The print STL and 3MFs are already
   oriented. Generic PLA, XL IS 0.4 mm, layers 0.15/0.20 mm, five perimeters,
   18% Gyroid, 6/6 solid layers, 8 mm brim, enforcer-controlled bed-only Snug.
   Open the 3MF as a project with its settings and modifiers. Keep the 90°
-  bridge angle for the short span across the upper ridge.
-- Use the versioned v04 project for the current model. The reviewed single-tool
-  job estimates 25.70 g and 3h 23m 12s. External support is 1.79 g, ending
-  at Z=5.8 mm. No sampled support paths entered the cavity or openings.
-  The longest sampled free bridge span is 3.54 mm. A flat wall section
-  had two perimeter tracks on all 27 sampled layers.
-- The versioned v04 XL 5T project and G-code in `output/prusa_xl_5t_pla_04/`
-  use tool 1 and estimate 25.75 g and 3h 23m 8s.
+  bridge angle, 18 mm/s bridge speed and reduced dynamic overhang speeds.
+- Use the versioned v05 project. The XL 5T job uses tool 1 and estimates
+  about 48 g and 6 h 6 min, including about 0.72 g of external support.
+  No sampled support paths entered the cavity or openings.
+- v05 archive: 2026-11-28_084423_c989b10e. V04 print feedback documented
+  loose paths and torn material by opening rims.
 - v04 archive: 2026-11-25_152034_f2d94108. Spherical v03: 2026-11-25_110139_1ef103dc.
 - v02 archive: 2026-11-20_134313_71c0bcd8. v01: 2026-11-10_194955_a4bccfb6.
   See models/pneumatic_cube/README.md and PRUSA_XL_PLA_JUHEND.md.

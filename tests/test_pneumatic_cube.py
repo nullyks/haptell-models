@@ -40,13 +40,14 @@ def test_bottom_opening_has_rounded_outer_rim_and_nominal_throat(solid):
         assert volume > .0000009 if filled else volume < 1e-8
 
 
-def test_selected_edge_orientation_preserves_geometry(solid):
+def test_selected_corner_orientation_preserves_geometry(solid):
     oriented, matrix = cube.print_transform(solid)
     vertices, _ = cube.mesh_arrays(oriented)
     assert abs(vertices[:, 2].min()) < 1e-8
     assert np.allclose(matrix[:, :3] @ matrix[:, :3].T, np.eye(3))
     assert np.isclose(oriented.volume(), solid.volume())
-    assert np.isclose(np.ptp(vertices[:, 0]), 85)
+    assert np.isclose(np.ptp(vertices[:, 0]), 2 * (cube.FLAT_HALF * math.sqrt(2) + cube.OUTER_RADIUS),
+                      atol=.01)
 
 
 def test_toolpath_reader_handles_leading_decimal_extrusion_and_arcs(tmp_path):

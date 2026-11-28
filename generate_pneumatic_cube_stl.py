@@ -16,17 +16,17 @@ from scipy.spatial import cKDTree
 
 from model_archive import preserve_models
 
-MODEL_VERSION = "pneumatic-v04-thin-shell-0p90-trial"
+MODEL_VERSION = "pneumatic-v05-1p80-wall-reprint"
 OUTER_SIZE = 85.0
 OUTER_RADIUS = 15.0
-WALL_THICKNESS = 0.90
+WALL_THICKNESS = 1.80
 FLAT_HALF = OUTER_SIZE / 2 - OUTER_RADIUS
 OUTER_BLEND = 0.5
 INNER_BLEND = 0.35
 INNER_CHANNEL_SCALE = 0.65
 GRID_STEP = 0.22
 MESH_TOLERANCE = 0.018
-PRINT_ORIENTATION = "right-edge"
+PRINT_ORIENTATION = "corner"
 OUTPUT = Path("output/pneumatic_cube")
 
 

@@ -77,14 +77,16 @@ def prepare(destination, orientation=cube.PRINT_ORIENTATION, support="external",
     values = profile_values(profile_source)
     values.update({"layer_height": "0.15", "first_layer_height": "0.2", "perimeters": "5",
         "fill_density": "18%", "fill_pattern": "gyroid", "top_solid_layers": "6", "bottom_solid_layers": "6",
-        "brim_width": "8", "bridge_speed": "20", "bridge_fan_speed": "100", "bridge_angle": "90",
+        "brim_width": "8", "bridge_speed": "18", "bridge_fan_speed": "100", "bridge_angle": "90",
         "support_material": "0" if support == "none" else "1", "support_material_auto": "1" if support == "auto" else "0",
         "support_material_style": "organic" if support == "auto" else "snug", "support_material_buildplate_only": "1",
         "support_material_threshold": "40", "support_material_contact_distance": "0.25", "support_material_bottom_contact_distance": "0.25",
         "support_material_xy_spacing": "0.4", "support_material_interface_layers": "2", "support_material_bottom_interface_layers": "2",
         "support_material_interface_spacing": "0.3", "support_material_spacing": "4", "support_material_closing_radius": "0.5",
         "support_tree_branch_distance": "2", "support_tree_top_rate": "20%", "dont_support_bridges": "1",
-        "raft_layers": "0", "external_perimeter_speed": "25", "overhangs": "1"})
+        "raft_layers": "0", "external_perimeter_speed": "23", "overhangs": "1",
+        "enable_dynamic_overhang_speeds": "1", "overhang_speed_0": "12", "overhang_speed_1": "17",
+        "overhang_speed_2": "22", "overhang_speed_3": "70%", "avoid_crossing_perimeters": "1"})
     profile = destination / "prusa_xl_04_pla.ini"
     profile.write_text("\n".join(f"{k} = {v}" for k, v in sorted(values.items())) + "\n", encoding="utf-8")
     project, gcode = destination / "pneumatic_cube_xl_pla.3mf", destination / "pneumatic_cube_xl_pla.gcode"

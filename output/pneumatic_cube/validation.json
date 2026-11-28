@@ -1,5 +1,5 @@
 {
-  "model_version": "pneumatic-v04-thin-shell-0p90-trial",
+  "model_version": "pneumatic-v05-1p80-wall-reprint",
   "body_bounds_mm": [
     85.0,
     85.0,
@@ -8,19 +8,19 @@
   "outer_radius_mm": 15.0,
   "cavity_shape": "inward-offset rounded cube",
   "cavity_bounds_mm": [
-    83.2,
-    83.2,
-    83.2
+    81.4,
+    81.4,
+    81.4
   ],
-  "cavity_corner_radius_mm": 14.1,
-  "nominal_wall_mm": 0.9,
+  "cavity_corner_radius_mm": 13.2,
+  "nominal_wall_mm": 1.8,
   "measured_flat_wall_samples_mm": {
-    "front": 0.891,
-    "right": 0.889,
-    "back": 0.898,
-    "left": 0.893,
-    "top": 0.89,
-    "bottom": 0.902
+    "front": 1.794,
+    "right": 1.799,
+    "back": 1.799,
+    "left": 1.8,
+    "top": 1.793,
+    "bottom": 1.799
   },
   "hole_count": 14,
   "faces": {
@@ -178,32 +178,32 @@
   "euler_characteristic": -24,
   "boundary_edges": 0,
   "non_manifold_edges": 0,
-  "volume_mm3": 19501.60777923174,
-  "print_orientation": "right-edge",
+  "volume_mm3": 38162.242601588565,
+  "print_orientation": "corner",
   "print_transform_3x4": [
     [
-      0.0,
-      1.0,
-      0.0,
-      0.0
-    ],
-    [
-      -0.7071067811865475,
-      0.0,
-      -0.7071067811865475,
-      0.0
-    ],
-    [
-      -0.7071067811865475,
-      0.0,
       0.7071067811865475,
-      53.8819526652335
+      -0.7071067811865475,
+      0.0,
+      0.0
+    ],
+    [
+      0.4082482904638631,
+      0.4082482904638631,
+      -0.8164965809277261,
+      0.0
+    ],
+    [
+      0.5773502691896258,
+      0.5773502691896258,
+      0.5773502691896258,
+      62.63124985879422
     ]
   ],
   "print_bounds_mm": [
-    85.0,
-    107.7592,
-    107.7639
+    107.7767,
+    119.8098,
+    125.2615
   ],
   "limits": "Physical print, aperture finish and membrane behavior require a test."
 }

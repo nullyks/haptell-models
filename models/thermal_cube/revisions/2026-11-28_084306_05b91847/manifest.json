@@ -1,0 +1,23 @@
+{
+  "family": "thermal_cube",
+  "revision": "2026-11-28_084306_05b91847",
+  "archived_at_utc": "2026-11-28T08:43:06.975912+00:00",
+  "generator": "generate_hardware_cubes_stl.py",
+  "git_head_for_reference_only": "c11547e4a3c7c9b0ebfb44cb179eb012abab6ce2",
+  "generated_with_captured_source": false,
+  "provenance_note": "Existing STL files preserved unchanged; captured source may be newer than these files.",
+  "identity": "cf57331a9f933844482f27d4303d7ec20f39023a0521b741783cfc4a9c850f85",
+  "sha256": {
+    "stl/thermal_cube_bottom.stl": "b74105bc41f60bf2ad0bf859c174ffd32f765387a4f67db2a02684946ec00f8b",
+    "stl/thermal_cube_lid.stl": "baaa399df70c894104ab74126e28d551e82ac0c499e42c7a743708380ae95cbb",
+    "source/generate_balance_shift_stl.py": "10424900a4ef030b4151e4bedc0d73448f4940e7db5d4cca152d4fd918e40b00",
+    "source/generate_egg_box_stl.py": "e31172155f5dd45b9effbd8c1f6401ccb1864dec84750b26d66ef308102e4338",
+    "source/generate_hardware_cubes_stl.py": "0449fe90a8e3b78bd55e526ffa25cbc79604630304ac932c1549fa3c795d493d",
+    "source/generate_lra_actuator_cube_stl.py": "b794960f98f431daa1b49e0f7bfe7c83ef57df8b57e38bc449906d80edcb6fe0",
+    "source/generate_perforated_sphere_stl.py": "262153404e2423beb2c62c914cf2eb6560db41d6f00737ebc83aaebaf7528471",
+    "source/generate_pneumatic_cube_stl.py": "a8dfd165571ca2ec2f6b75a3e3c1f222590c68328fdc50b156ebca0316e0024e",
+    "source/generate_rounded_cube_box_stl.py": "b1a9f8d461f8c2454451f9129257c5e79ab9d691a94b6b2510e2bbfaee9ad034",
+    "source/model_archive.py": "5e4417abc1009f6075515f5d725b22a537354bd2868d13c68f081558c57d0e5a",
+    "source/requirements.txt": "50eeb5f7f16b3dc9db48cf3ba5605b416e7782734c6e1ffd34d19d4a046faf50"
+  }
+}
